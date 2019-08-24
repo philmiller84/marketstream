@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MarketStream", "MarketStream\MarketStream.pyproj", "{58B0A697-80BC-4FB0-B9A9-4F6F350E7439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Differentiator", "Differentiator\Differentiator.csproj", "{1DCD1AFC-B3EC-401E-B9CA-4F996CB48B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{3945176D-9013-4660-8305-003FFC6D5FE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distributor", "Distributor\Distributor.csproj", "{3AFD2496-E109-4AB3-8A4B-75067F085C3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58B0A697-80BC-4FB0-B9A9-4F6F350E7439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B0A697-80BC-4FB0-B9A9-4F6F350E7439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DCD1AFC-B3EC-401E-B9CA-4F996CB48B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DCD1AFC-B3EC-401E-B9CA-4F996CB48B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DCD1AFC-B3EC-401E-B9CA-4F996CB48B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DCD1AFC-B3EC-401E-B9CA-4F996CB48B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3945176D-9013-4660-8305-003FFC6D5FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3945176D-9013-4660-8305-003FFC6D5FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3945176D-9013-4660-8305-003FFC6D5FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3945176D-9013-4660-8305-003FFC6D5FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76B58A8C-7362-4330-BB1D-ED40AFF587E4}
+	EndGlobalSection
+EndGlobal
