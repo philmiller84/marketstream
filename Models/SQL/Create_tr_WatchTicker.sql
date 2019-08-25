@@ -1,5 +1,4 @@
-CREATE PROCEDURE [dbo].[sp_DoSomething] AS
-BEGIN TRANSACTION
--- Your stored procedure here
-COMMIT TRANSACTION
-GO
+CREATE TRIGGER [dbo].[tr_WatchTicker]  ON dbo.Tickers AFTER INSERT
+AS  
+RETURN 
+GO  

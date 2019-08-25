@@ -35,6 +35,6 @@ namespace Models
     }
     public class MarketData : DbContext
     {
-        public DbSet<Ticker> tickers { get; set; }
+        public DbSet<Ticker> Tickers { get; set; }
     }
 }

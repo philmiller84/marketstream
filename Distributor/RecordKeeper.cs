@@ -13,13 +13,13 @@ namespace Distributor
         {
             using (var db = new Models.MarketData())
             {
-                var dbQuery = (from q in db.tickers
+                var dbQuery = (from q in db.Tickers
                                   where q.Sequence == t.Sequence
                                   select q).FirstOrDefault();
 
                 if (dbQuery == null)
                 {
-                    db.tickers.Add(t);
+                    db.Tickers.Add(t);
                     db.SaveChanges();
                 }
             }

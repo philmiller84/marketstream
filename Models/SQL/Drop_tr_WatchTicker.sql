@@ -1,1 +1,1 @@
-DROP PROCEDURE [dbo].[sp_DoSomething]
+DROP TRIGGER [dbo].[tr_WatchTicker]
