@@ -10,12 +10,12 @@ namespace Models
     public class Trend
     {
         public int TrendId { get; set; }
-        public long MinSequence { get; set; }
-        public long MaxSequence { get; set; }
-        public decimal MinBidPrice { get; set; }
-        public decimal MaxBidPrice { get; set; }
-        public decimal MinAskPrice { get; set; }
-        public decimal MaxAskPrice { get; set; }
+        public long StartSequence { get; set; }
+        public long EndSequence { get; set; }
+        public decimal StartBidPrice { get; set; }
+        public decimal EndBidPrice { get; set; }
+        public decimal StartAskPrice { get; set; }
+        public decimal EndAskPrice { get; set; }
         public int Type { get; set; }
     }
 

@@ -19,6 +19,7 @@ namespace Distributor
                 if (dbQuery == null || !(dbQuery.BidPrice == t.BidPrice && dbQuery.AskPrice == t.AskPrice))
                 {
                     db.Tickers.Add(t);
+                    Console.WriteLine("Sending to DB: {0}", t.ToString());
                     db.SaveChanges();
                 }
             }

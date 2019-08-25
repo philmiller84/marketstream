@@ -3,12 +3,12 @@ AS
 INSERT INTO [dbo].[Trends]
 
 
-SELECT Sequence			--[MinSequence]
-      ,NULL				--[MaxSequence]
-      ,bidPrice			--[MinBidPrice]		
-      ,NULL				--[MaxBidPrice]
-      ,askPrice			--[MinAskPrice]
-      ,NULL				--[MaxAskPrice]
+SELECT Sequence			--[StartSequence]
+      ,NULL				--[EndSequence]
+      ,bidPrice			--[StartBidPrice]		
+      ,NULL				--[EndBidPrice]
+      ,askPrice			--[StartAskPrice]
+      ,NULL				--[EndAskPrice]
 	  ,NULL				--[Type]
 FROM inserted
 

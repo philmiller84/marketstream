@@ -25,12 +25,12 @@ coin = 'BTC-USD'
 marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
 
 #requests per second
-rps = 2
+rps = 4
 
 while True:
     #get current L1 for stock
     l1data = public_client.get_product_order_book(coin, level=marketLevel)
-    #print(l1data)
+    print(l1data)
 
     #send data to distributor
     data = conn.recv(1024)

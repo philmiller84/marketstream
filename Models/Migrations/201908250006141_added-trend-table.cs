@@ -12,12 +12,12 @@ namespace Models.Migrations
                     c => new
                     {
                         TrendId = c.Int(nullable: false, identity: true),
-                        MinSequence = c.Long(nullable: false),
-                        MaxSequence = c.Long(nullable: true),
-                        MinBidPrice = c.Single(nullable: true),
-                        MaxBidPrice = c.Single(nullable: true),
-                        MinAskPrice = c.Single(nullable: true),
-                        MaxAskPrice = c.Single(nullable: true),
+                        StartSequence = c.Long(nullable: false),
+                        EndSequence = c.Long(nullable: true),
+                        StartBidPrice = c.Single(nullable: true),
+                        EndBidPrice = c.Single(nullable: true),
+                        StartAskPrice = c.Single(nullable: true),
+                        EndAskPrice = c.Single(nullable: true),
                         Type = c.Single(nullable: true)
                     })
                     .PrimaryKey(t => t.TrendId);
