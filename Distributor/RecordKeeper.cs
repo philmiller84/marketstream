@@ -13,11 +13,10 @@ namespace Distributor
         {
             using (var db = new Models.MarketData())
             {
-                var dbQuery = (from q in db.Tickers
-                                  where q.Sequence == t.Sequence
-                                  select q).FirstOrDefault();
+                //var dbQuery = (from q in db.Tickers where q.Sequence == t.Sequence select q).FirstOrDefault();
+                var dbQuery = db.Tickers.OrderByDescending(x => x.Sequence).FirstOrDefault();
 
-                if (dbQuery == null)
+                if (dbQuery == null || !(dbQuery.BidPrice == t.BidPrice && dbQuery.AskPrice == t.AskPrice))
                 {
                     db.Tickers.Add(t);
                     db.SaveChanges();

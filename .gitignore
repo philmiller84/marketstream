@@ -7,8 +7,6 @@ Differentiator/bin/Debug/EntityFramework.dll
 Differentiator/bin/Debug/EntityFramework.SqlServer.dll
 Differentiator/bin/Debug/EntityFramework.SqlServer.xml
 Differentiator/bin/Debug/EntityFramework.xml
-.vs/MarketStream/v16/.suo
-.vs/MarketStream/v16/.suo
 Differentiator/bin/Debug/Differentiator.exe
 Differentiator/bin/Debug/Differentiator.exe.config
 Differentiator/bin/Debug/Differentiator.pdb
@@ -61,7 +59,6 @@ Models/obj/Debug/Models.Migrations.makesequencekey.resources
 Models/obj/Debug/Models.Migrations.ulongtolong.resources
 Models/obj/Debug/Models.pdb
 Models/obj/Debug/Models.Properties.Resources.resources
-.vs/MarketStream/v16/.suo
 Differentiator/bin/Debug/Differentiator.exe
 Differentiator/bin/Debug/Differentiator.exe.config
 Differentiator/bin/Debug/Differentiator.pdb
@@ -121,4 +118,6 @@ Distributor/obj/Debug/Distributor.csproj.FileListAbsolute.txt
 Differentiator/obj/Debug/Differentiator.csproj.FileListAbsolute.txt
 Distributor/obj/Debug/Distributor.csproj.FileListAbsolute.txt
 Models/obj/Debug/Models.csproj.FileListAbsolute.txt
+.vs/MarketStream/v16/.suo
+*.tmp
 .vs/MarketStream/v16/.suo
