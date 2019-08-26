@@ -17,6 +17,7 @@ namespace Models
         public decimal StartAskPrice { get; set; }
         public decimal EndAskPrice { get; set; }
         public int Type { get; set; }
+        public int Status { get; set; }
     }
 
     public class TrendAnalysis : DbContext

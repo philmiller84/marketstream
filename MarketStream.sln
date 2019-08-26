@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distributor", "Distributor\Distributor.csproj", "{3AFD2496-E109-4AB3-8A4B-75067F085C3D}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "OTConnect", "OTConnect\OTConnect.pyproj", "{7D776D32-199D-4B38-99BD-92049D3D54C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,8 @@ Global
 		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AFD2496-E109-4AB3-8A4B-75067F085C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D776D32-199D-4B38-99BD-92049D3D54C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D776D32-199D-4B38-99BD-92049D3D54C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

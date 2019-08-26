@@ -18,7 +18,8 @@ namespace Models.Migrations
                         EndBidPrice = c.Single(nullable: true),
                         StartAskPrice = c.Single(nullable: true),
                         EndAskPrice = c.Single(nullable: true),
-                        Type = c.Single(nullable: true)
+                        Type = c.Single(nullable: true),
+                        Status = c.Int(nullable: true)
                     })
                     .PrimaryKey(t => t.TrendId);
         } 
