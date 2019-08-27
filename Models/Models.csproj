@@ -76,12 +76,25 @@
     <Compile Include="Migrations\201908250006141_added-trend-table.Designer.cs">
       <DependentUpon>201908250006141_added-trend-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908270057460_add-strategy-table.cs" />
+    <Compile Include="Migrations\201908270057460_add-strategy-table.Designer.cs">
+      <DependentUpon>201908270057460_add-strategy-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908270129310_refactor_add_trend.cs" />
+    <Compile Include="Migrations\201908270129310_refactor_add_trend.Designer.cs">
+      <DependentUpon>201908270129310_refactor_add_trend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908270147539_add-strategy-on-ticker-update.cs" />
+    <Compile Include="Migrations\201908270147539_add-strategy-on-ticker-update.Designer.cs">
+      <DependentUpon>201908270147539_add-strategy-on-ticker-update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Strategy.cs" />
     <Compile Include="Ticker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trend.cs" />
@@ -112,6 +125,15 @@
     <EmbeddedResource Include="Migrations\201908250006141_added-trend-table.resx">
       <DependentUpon>201908250006141_added-trend-table.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908270057460_add-strategy-table.resx">
+      <DependentUpon>201908270057460_add-strategy-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908270129310_refactor_add_trend.resx">
+      <DependentUpon>201908270129310_refactor_add_trend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908270147539_add-strategy-on-ticker-update.resx">
+      <DependentUpon>201908270147539_add-strategy-on-ticker-update.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -122,6 +144,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SQL\Drop_tr_WatchTicker.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Drop_tr_WatchTrend.sql" />
+    <None Include="SQL\Create_tr_WatchTrend.sql" />
+    <None Include="SQL\Drop_sp_add_strategy.sql" />
+    <None Include="SQL\Create_sp_add_strategy.sql" />
+    <Content Include="SQL\Create_sp_add_trend.sql" />
+    <Content Include="SQL\Drop_sp_add_trend.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
