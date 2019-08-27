@@ -88,7 +88,16 @@
     <Compile Include="Migrations\201908270147539_add-strategy-on-ticker-update.Designer.cs">
       <DependentUpon>201908270147539_add-strategy-on-ticker-update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908270427256_create-order-table.cs" />
+    <Compile Include="Migrations\201908270427256_create-order-table.Designer.cs">
+      <DependentUpon>201908270427256_create-order-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908270437125_create-trigger-for-strategies.cs" />
+    <Compile Include="Migrations\201908270437125_create-trigger-for-strategies.Designer.cs">
+      <DependentUpon>201908270437125_create-trigger-for-strategies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,6 +143,12 @@
     <EmbeddedResource Include="Migrations\201908270147539_add-strategy-on-ticker-update.resx">
       <DependentUpon>201908270147539_add-strategy-on-ticker-update.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908270427256_create-order-table.resx">
+      <DependentUpon>201908270427256_create-order-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908270437125_create-trigger-for-strategies.resx">
+      <DependentUpon>201908270437125_create-trigger-for-strategies.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -146,6 +161,8 @@
     <None Include="SQL\Drop_tr_WatchTicker.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SQL\Drop_tr_WatchStrategy.sql" />
+    <None Include="SQL\Create_tr_WatchStrategy.sql" />
     <None Include="SQL\Drop_tr_WatchTrend.sql" />
     <None Include="SQL\Create_tr_WatchTrend.sql" />
     <None Include="SQL\Drop_sp_add_strategy.sql" />

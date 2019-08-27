@@ -135,6 +135,27 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchStrategy]  ON dbo.Strategies AFTER INSERT
+        ///AS  
+        ///DECLARE @StrategyID 		AS int 
+        ///DECLARE @Type 			AS int
+        ///DECLARE @Status 		AS int 
+        ///
+        ///SELECT @StrategyId 	= StrategyId,		
+        ///       @Type 		= Type,
+        ///       @Status 		= Status 	
+        ///FROM INSERTED	   
+        ///
+        ///
+        ///GO.
+        /// </summary>
+        internal static string Create_tr_WatchStrategy {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchTicker]  ON dbo.Tickers AFTER INSERT
         ///AS  
         ///
@@ -162,25 +183,22 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchTicker]  ON dbo.Tickers AFTER INSERT
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchTrend]  ON dbo.Trends AFTER INSERT, UPDATE
         ///AS  
+        ///DECLARE @TrendId 		AS int 
+        ///DECLARE @StartSequence 	AS bigint 
+        ///DECLARE @EndSequence 	AS bigint 
+        ///DECLARE @StartBidPrice 	AS real 
+        ///DECLARE @EndBidPrice 	AS real 
+        ///DECLARE @StartAskPrice 	AS real 
+        ///DECLARE @EndAskPrice 	AS real 
+        ///DECLARE @Type 			AS int
+        ///DECLARE @Status 		AS int 
         ///
-        ///DECLARE	@bidPrice AS decimal(18, 2)
-        ///DECLARE	@bidSize  AS decimal(18, 2)
-        ///DECLARE	@askPrice AS decimal(18, 2)
-        ///DECLARE	@askSize  AS decimal(18, 2)
-        ///DECLARE	@Sequence AS bigint 
-        ///
-        ///SELECT @bidPrice = bidPrice,
-        ///	   @bidSize  = bidSize ,
-        ///	   @askPrice = askPrice,
-        ///	   @askSize  = askSize ,
-        ///	   @Sequence = Sequence
-        ///	   FROM inserted
-        ///
-        ///EXEC [dbo].[sp_add_trend] @bidPrice, @bidSize,	@askPrice,	@askSize, @Sequence 
-        ///
-        ///GO.
+        ///SELECT @TrendId 		= TrendId,		
+        ///       @StartSequence 	= StartSequence 	,
+        ///       @EndSequence 	= EndSequence 	,
+        ///       @StartBidPrice 	= StartBidP [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchTrend {
             get {
@@ -207,6 +225,15 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchStrategy].
+        /// </summary>
+        internal static string Drop_tr_WatchStrategy {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchTicker].
         /// </summary>
         internal static string Drop_tr_WatchTicker {
@@ -216,7 +243,7 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchTicker].
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchTrend].
         /// </summary>
         internal static string Drop_tr_WatchTrend {
             get {

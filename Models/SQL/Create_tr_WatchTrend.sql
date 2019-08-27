@@ -7,7 +7,7 @@ DECLARE @StartBidPrice 	AS real
 DECLARE @EndBidPrice 	AS real 
 DECLARE @StartAskPrice 	AS real 
 DECLARE @EndAskPrice 	AS real 
-DECLARE @Type 			AS real 
+DECLARE @Type 			AS int
 DECLARE @Status 		AS int 
 
 SELECT @TrendId 		= TrendId,		
