@@ -7,13 +7,13 @@ namespace Models.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addedtrendtable : IMigrationMetadata
+    public sealed partial class createstrategyorderjointable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedtrendtable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(createstrategyorderjointable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908250006141_added-trend-table"; }
+            get { return "201908272214098_create-strategy-order-join-table"; }
         }
         
         string IMigrationMetadata.Source

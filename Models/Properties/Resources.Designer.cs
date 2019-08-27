@@ -135,19 +135,67 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchDownUpStrategy]  ON dbo.DownUpStrategies AFTER INSERT
+        ///AS  
+        ///DECLARE @DownUpStrategyID AS int 
+        ///DECLARE @BuyPrice AS decimal(18,2)
+        ///DECLARE @MinimumThreshold AS decimal(18,10)
+        ///
+        ///SELECT @DownUpStrategyId 	= DownUpStrategyId,		
+        ///       @BuyPrice 		= BuyPrice,
+        ///       @MinimumThreshold 		= MinimumThreshold 	
+        ///FROM INSERTED	   
+        ///
+        ///--Logic to calculate the size of the order will need to be computed more accurately
+        ///DECLARE @Size AS decimal(18,10)
+        ///DECLARE @Funds AS decimal(18,2)=10 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Create_tr_WatchDownUpStrategy {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchDownUpStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchOrder] ON dbo.Orders AFTER INSERT
+        ///AS  
+        ///DECLARE @OrderID AS int 
+        ///DECLARE @Type 		AS int
+        ///DECLARE @Status 	AS int 
+        ///
+        ///SELECT @OrderID 	= OrderId,
+        ///       @Type 		= Type,
+        ///       @Status 		= Status 	
+        ///FROM INSERTED	   
+        ///
+        ///
+        ///
+        ///
+        ///GO.
+        /// </summary>
+        internal static string Create_tr_WatchOrder {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchStrategy]  ON dbo.Strategies AFTER INSERT
         ///AS  
-        ///DECLARE @StrategyID 		AS int 
-        ///DECLARE @Type 			AS int
-        ///DECLARE @Status 		AS int 
+        ///DECLARE @StrategyID AS int 
+        ///DECLARE @Type 		AS int
+        ///DECLARE @Status 	AS int 
         ///
         ///SELECT @StrategyId 	= StrategyId,		
         ///       @Type 		= Type,
         ///       @Status 		= Status 	
         ///FROM INSERTED	   
         ///
-        ///
-        ///GO.
+        ///--Logic to calculate the size of the order will need to be computed more accurately
+        ///--DECLARE @Price AS decimal(18,10)
+        ///--DECLARE @Size AS decimal(18,10)
+        ///--DECLARE @Funds AS decimal(18,10)=100
+        ///--DECLARE @MaxOpenOrders AS decimal(18,10)=5        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchStrategy {
             get {
@@ -221,6 +269,24 @@ namespace Models.Properties {
         internal static string Drop_sp_add_trend {
             get {
                 return ResourceManager.GetString("Drop_sp_add_trend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchDownUpStrategy].
+        /// </summary>
+        internal static string Drop_tr_WatchDownUpStrategy {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchDownUpStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchOrder].
+        /// </summary>
+        internal static string Drop_tr_WatchOrder {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchOrder", resourceCulture);
             }
         }
         

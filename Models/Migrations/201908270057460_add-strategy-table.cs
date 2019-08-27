@@ -16,10 +16,9 @@ namespace Models.Migrations
                 }).PrimaryKey(t => t.StrategyId);
         }
         
-        
-        
         public override void Down()
         {
+            DropTable("dbo.Strategies");
         }
     }
 }

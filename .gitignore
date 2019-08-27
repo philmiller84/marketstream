@@ -1012,3 +1012,10 @@ MarketStream/env/Lib/site-packages/numpy/tests/test_scripts.py
 MarketStream/env/Lib/site-packages/numpy/tests/test_warnings.py
 MarketStream/env/Lib/site-packages/numpy/version.py
 testsql.sql
+Models/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Models/obj/Release/Models.Migrations.createdownupstrategytable.resources
+Models/obj/Release/Models.Migrations.createfundstable.resources
+Models/obj/Release/Models.Migrations.createglobalstable.resources
+Models/obj/Release/Models.Migrations.createstrategyorderjointable.resources
+Models/obj/Release/Models.Migrations.createtriggerondownupstrategy.resources
+Models/obj/Release/Models.Migrations.createtriggeronorder.resources

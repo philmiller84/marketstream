@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DownUpStrategy.cs" />
+    <Compile Include="Fund.cs" />
     <Compile Include="Migrations\201908242046461_InitialCreate.cs" />
     <Compile Include="Migrations\201908242046461_InitialCreate.Designer.cs">
       <DependentUpon>201908242046461_InitialCreate.cs</DependentUpon>
@@ -72,9 +74,9 @@
     <Compile Include="Migrations\201908242301121_create-trigger-on-ticker.Designer.cs">
       <DependentUpon>201908242301121_create-trigger-on-ticker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908250006141_added-trend-table.cs" />
-    <Compile Include="Migrations\201908250006141_added-trend-table.Designer.cs">
-      <DependentUpon>201908250006141_added-trend-table.cs</DependentUpon>
+    <Compile Include="Migrations\201908242301120_added-trend-table.cs" />
+    <Compile Include="Migrations\201908242301120_added-trend-table.Designer.cs">
+      <DependentUpon>201908242301120_added-trend-table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201908270057460_add-strategy-table.cs" />
     <Compile Include="Migrations\201908270057460_add-strategy-table.Designer.cs">
@@ -96,6 +98,30 @@
     <Compile Include="Migrations\201908270437125_create-trigger-for-strategies.Designer.cs">
       <DependentUpon>201908270437125_create-trigger-for-strategies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908272006128_create-globals-table.cs" />
+    <Compile Include="Migrations\201908272006128_create-globals-table.Designer.cs">
+      <DependentUpon>201908272006128_create-globals-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908272015000_create-funds-table.cs" />
+    <Compile Include="Migrations\201908272015000_create-funds-table.Designer.cs">
+      <DependentUpon>201908272015000_create-funds-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908272049124_create-trigger-on-order.cs" />
+    <Compile Include="Migrations\201908272049124_create-trigger-on-order.Designer.cs">
+      <DependentUpon>201908272049124_create-trigger-on-order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908272113260_create-down-up-strategy-table.cs" />
+    <Compile Include="Migrations\201908272113260_create-down-up-strategy-table.Designer.cs">
+      <DependentUpon>201908272113260_create-down-up-strategy-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908272154344_create-trigger-on-down-up-strategy.cs" />
+    <Compile Include="Migrations\201908272154344_create-trigger-on-down-up-strategy.Designer.cs">
+      <DependentUpon>201908272154344_create-trigger-on-down-up-strategy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908272214098_create-strategy-order-join-table.cs" />
+    <Compile Include="Migrations\201908272214098_create-strategy-order-join-table.Designer.cs">
+      <DependentUpon>201908272214098_create-strategy-order-join-table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -103,6 +129,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Global.cs" />
     <Compile Include="Strategy.cs" />
     <Compile Include="Ticker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,8 +158,8 @@
     <EmbeddedResource Include="Migrations\201908242301121_create-trigger-on-ticker.resx">
       <DependentUpon>201908242301121_create-trigger-on-ticker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908250006141_added-trend-table.resx">
-      <DependentUpon>201908250006141_added-trend-table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908242301120_added-trend-table.resx">
+      <DependentUpon>201908242301120_added-trend-table.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908270057460_add-strategy-table.resx">
       <DependentUpon>201908270057460_add-strategy-table.cs</DependentUpon>
@@ -149,6 +176,24 @@
     <EmbeddedResource Include="Migrations\201908270437125_create-trigger-for-strategies.resx">
       <DependentUpon>201908270437125_create-trigger-for-strategies.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908272006128_create-globals-table.resx">
+      <DependentUpon>201908272006128_create-globals-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908272015000_create-funds-table.resx">
+      <DependentUpon>201908272015000_create-funds-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908272049124_create-trigger-on-order.resx">
+      <DependentUpon>201908272049124_create-trigger-on-order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908272113260_create-down-up-strategy-table.resx">
+      <DependentUpon>201908272113260_create-down-up-strategy-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908272154344_create-trigger-on-down-up-strategy.resx">
+      <DependentUpon>201908272154344_create-trigger-on-down-up-strategy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908272214098_create-strategy-order-join-table.resx">
+      <DependentUpon>201908272214098_create-strategy-order-join-table.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -161,6 +206,8 @@
     <None Include="SQL\Drop_tr_WatchTicker.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SQL\Drop_tr_WatchDownUpStrategy.sql" />
+    <None Include="SQL\Drop_tr_WatchOrder.sql" />
     <None Include="SQL\Drop_tr_WatchStrategy.sql" />
     <None Include="SQL\Create_tr_WatchStrategy.sql" />
     <None Include="SQL\Drop_tr_WatchTrend.sql" />
@@ -168,6 +215,8 @@
     <None Include="SQL\Drop_sp_add_strategy.sql" />
     <None Include="SQL\Create_sp_add_strategy.sql" />
     <Content Include="SQL\Create_sp_add_trend.sql" />
+    <None Include="SQL\Create_tr_WatchOrder.sql" />
+    <None Include="SQL\Create_tr_WatchDownUpStrategy.sql" />
     <Content Include="SQL\Drop_sp_add_trend.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

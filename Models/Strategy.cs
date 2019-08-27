@@ -16,8 +16,18 @@ namespace Models
         public int Status { get; set; }
     }
 
+    public class StrategyOrderJoin
+    {
+        [Key, ForeignKey("Strategy")]
+        public Strategy Strategy { get; set; }
+        [Key, ForeignKey("Order")]
+        public Order Order { get; set; }
+    }
+
     public class StategyData : DbContext
     {
         public DbSet<Strategy> Strategies { get; set; }
+        public DbSet<DownUpStrategy> DownUpStrategies { get; set; }
+        public DbSet<StrategyOrderJoin> StrategyOrderJoins { get; set; }
     }
 }
