@@ -26,6 +26,8 @@ namespace Models
         public DbSet<OrderAudit> OrderAudits { get; set; }
         //public DbSet<Position> Positions { get; set; }
 
+        public DbSet<VOrders> VOrders { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ticker>().Property(p => p.BidSize).HasPrecision(18, 10);

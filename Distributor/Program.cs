@@ -15,7 +15,7 @@ namespace Distributor
             SynchronousSocketClient s = new SynchronousSocketClient();
             var rec = new RecordKeeper();
 
-            using (TradesData t = new TradesData())
+            using (MarketData t = new Models.MarketData())
             {
 
             }

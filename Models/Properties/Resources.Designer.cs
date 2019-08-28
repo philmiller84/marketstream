@@ -100,19 +100,19 @@ namespace Models.Properties {
         /// <summary>
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchDownUpStrategy]  ON dbo.DownUpStrategies AFTER INSERT
         ///AS  
-        ///DECLARE @DownUpStrategyID AS int 
         ///DECLARE @StrategyID AS int
         ///DECLARE @BuyPrice AS decimal(18,2)
         ///DECLARE @MinimumThreshold AS decimal(18,10)
         ///
-        ///SELECT @DownUpStrategyId 	= DownUpStrategyId,		
-        ///	   @StrategyID			= StrategyID,
+        ///SELECT @StrategyID			= StrategyID,
         ///       @BuyPrice 		= BuyPrice,
         ///       @MinimumThreshold 		= MinimumThreshold 	
         ///FROM INSERTED	   
         ///
         ///--TODO: Logic to calculate the size of the order will need to be computed more accurately
-        /// [rest of string was truncated]&quot;;.
+        ///DECLARE @Size AS decimal(18,10)
+        ///DECLARE @Funds AS decimal(18,2)=100
+        ///DECLARE @Ma [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchDownUpStrategy {
             get {
@@ -136,8 +136,7 @@ namespace Models.Properties {
         ///
         ///--TODO: Will have to change for partial fills!!!!  **********
         ///UPDATE dbo.Orders SET Status = 2
-        ///
-        ///
+        ///WHERE @orderId = OrderId
         ///
         ///GO.
         /// </summary>
@@ -148,7 +147,7 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchOrder] ON dbo.Orders AFTER INSERT
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchOrder] ON dbo.Orders AFTER INSERT, UPDATE
         ///AS  
         ///DECLARE @OrderID AS int 
         ///DECLARE @Type 		AS int
@@ -158,11 +157,16 @@ namespace Models.Properties {
         ///       @Type 		= Type,
         ///       @Status 		= Status 	
         ///FROM INSERTED	   
-        ///
-        ///
-        ///
-        ///
-        ///GO.
+        ///	
+        ///IF @Status = 2
+        ///BEGIN
+        ///	;
+        ///	WITH StrategyStatus(OrderId, OrderStatus, StrategyId) AS
+        ///	(
+        ///		SELECT o2.OrderId, o2.Status, s.StrategyId
+        ///		FROM dbo.StrategyOrderJoins so
+        ///		JOIN dbo.StrategyOrderJoins so2 ON so.StrategyId = so2.StrategyId
+        ///		JOIN dbo.O [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchOrder {
             get {
@@ -249,6 +253,21 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N&apos;[dbo].[V_Orders&apos;))
+        ///EXEC dbo.sp_executesql @statement = N&apos;CREATE VIEW [dbo].[V_Orders]
+        ///AS
+        ///SELECT       o.OrderId 
+        ///FROM            dbo.Orders
+        ///&apos;.
+        /// </summary>
+        internal static string Create_V_Orders {
+            get {
+                return ResourceManager.GetString("Create_V_Orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DROP TRIGGER [dbo].[sp_add_trend].
         /// </summary>
         internal static string Drop_sp_add_trend {
@@ -308,6 +327,15 @@ namespace Models.Properties {
         internal static string Drop_tr_WatchTrend {
             get {
                 return ResourceManager.GetString("Drop_tr_WatchTrend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP VIEW V_Orders.
+        /// </summary>
+        internal static string Drop_V_Orders {
+            get {
+                return ResourceManager.GetString("Drop_V_Orders", resourceCulture);
             }
         }
     }

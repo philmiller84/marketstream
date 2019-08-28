@@ -14,6 +14,14 @@ namespace Differentiator
             var db = new Models.MarketData();
             var tickerQuery = from t in db.Tickers select t;
             var tList = tickerQuery.ToList();
+            var viewQuery = from o in db.VOrders select o.OrderId;
+
+            foreach(var o in viewQuery.ToList())
+            {
+
+                Console.WriteLine("Order {0}",
+                    o.ToString());
+            }
 
             foreach(var t in tList)
             {
@@ -22,6 +30,7 @@ namespace Differentiator
                     t.BidPrice.ToString(),
                     t.AskPrice.ToString());
             }
+
         }
 
         static void Main(string[] args)

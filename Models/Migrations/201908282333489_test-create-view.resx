@@ -117,53 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Create_sp_add_trend" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_sp_add_trend.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="Target" xml:space="preserve">
+    <value>H4sIAAAAAAAEAO1dW08suRF+j5T/0OqnJGIZ4ETRBs3sih0OR2SXAzoDKG/IdJvBOt3u2b6wTKL8sjzkJ+1fWPfd1273vWEjXsB2lS/1uVxldxW//vd/y+9fXcd4gX6APLwyjw+PTANiy7MR3q7MKHz65lvz++/++IflR9t9Ne7zdh/idoQSByvzOQx3p4tFYD1DFwSHLrJ8L/CewkPLcxfA9hYnR0d/XxwfLyBhYRJehrH8EuEQuTD5g/y59rAFd2EEnCvPhk6QlZOaTcLV+AxcGOyABVdm2sI0zhwESO8b6DyZBsDYC0FIxnZ6F8BN6Ht4u9mRAuDc7neQtHsCTgCzMZ+WzXWHf3QSD39REuasrCgIPbchw+MP2XosePJWq2oW60VW7CNZ2XAfzzpZtZV57v2C73ZkTUAIt3vT4Ls8XTt+3Dxf2kOW4MBIiw8K6ROQxD8HxjpywsiHKwwj0tg5MG6iRwdZP8L9rfcV4hWOHIceGxkdqWMKSNGN7+2gH+6/wKdsxHnXl7ZpLFj6Bc+gIJfQprO6xOGHE9P4TAYDHh1YQGFRyeeHaH/jIwvmXM6hhVzgmMaNT37Ldsu3prGxQMyzeQdXCCM3cm+ffRg8e47dX0efwQvaJqJVrI1pfIFO0iB4Rrt0D3FSfyjbXvie+8VzBCQ9lL94kZ+slFfd7hb4Wxiy410uSsBWwrgBgN89dKm5b0LPh58ghjGtfQPCEPoEMZc2TBawDoVxP902yoYMJAqa8NAW+QUiQqgXd9xsAlHH3bYRc043loivfRv6XdXhsLpwg/6ly/z4qIMCTJZCqv1ioTxk1aXCK0sFHUdVdVJrWZ+1IE/aTYDyAj1NYa4Ju/5w/vE1bg+ovUUUKjFjTeMKvP4E8TZ8JqsJXomA0Su085JsHHcYEauXEIV+9L52w5vS+BG2dTQ+aTaFxifdttL4Gd1YO+EeONFw8FxHvk9cxH03EJ05jmcls+16NJWcZg3tT473CHTMmbThBPDOS9pAnKadBOaD6fpZgyo5ZM8iG4W6JkTSeAJwJf22QVZB+Kbs5fUzwFsYDI5OIkf0FBuQfffTwoYu8SVa0nydYE8LDXq5LEhY/cNDuMGtQUEzq+uDfo3zvm7J2u2VFtgShCNCTNFEQJqqnQxwrW/TxE5kF2rqVhqj7uda7RZZX7Uc0LThFHsC/hwRe1OEUT3KC8oCnn/7a6uz47OH62+MkT2sX0g6GNY1PAu+DjsD0kGfM9AHOXFYdPzKpN0EEE/6baPHC8KxjCNiy/qh7r6qua/Bdj+MkjENvvvIcAfvI5nJ4LuQzGTwPiRe02RO0n1yZgYa+z9rOYEGaLP5y33/KUL2fG23bFVFi42pECwetraJkXMWBJ6FkmFI38BLW4ydG9kYhuZLZ+ptie+mxPUiCEE7ggkysJV5dHh4LKxhfT/5bKl+VD2I7AmqoB+rc+CsiSAIHcKhCEGELbQDjt5IOPLmzsui6JCvOYc7coiR8eqtffeRFB1y+61u3ZYLCljVeKOek1Sil70tldJOnz5ZSf+lAkiS5yiKW7bzeODwK3ONz6EDQ2icWemnLGsQWMCWWN6k4x4wJw5aR7gKp7cRxsTF79jzCJgSrldUWFDftXCIyC4O9VGmvKSZP9ZUQx8LcSqhzB93qqsXFUhq72HEM426ptMHY909zvwxWTODsaBZI7C3iNBaA0/n5m0wnLYz8+aH1gmNxHr5vQk7kXWNVAhS+EklaAoPVx+Vcu9q/jpTOu6xNKVUEHPTj6lPTGhCQgH9/KEQ+F9heA5CILkHuQtgdhUSZM+BPGxilhsYytxpFD9zlo64wi0WgMhyrOSlzSU262UMUm+qhjjfQwJ1thPq+o6wLe07+aSphjj95kNGnn82ojP4xLxUziCz9vUEUSrWKoFQ52EN2/T1SMYrf4CqYxDfdEvp07v9GvJ7pXSLGo4DtbsUwKc/kqda13xPzysA/UunYk6yDSgoFv1LJoqvmiOjbkhbjcWiv6kV10d1RVJ3SUKNNtvuFVOXXItQ9ArJN5+p+OWDON9q913PgefHnm/4ihVQuuxDrIPylV5cDi2vspFfKcKYUWIVa1TnSY6zVFXKRNfDaerj9Llmo+kV7j1BXK0Kq1rDrqaGrTgbNAzpLpDJnzUKE66oWy7SeMisYLlQBE4ur8Buh/CWCqTMSoxNGkW5/mbTPNTQTXksrEAScViMtugp9HywhVwt6ZqM9AL5QWKMPoL4jWltu0IzymBVHO15RwqbVBRZfvLnhPHvxWd0YuSjxLLPKC/IxNzYLUhe01XnsoSBEUe0Agf4Fd9jrT0ncnG9g6rmVsYu0rzKUn1OYpAizVGsFTkvF9yaCQ6QIBfBb2TlrYWGbjjogICpZZ8+vNN80hJ9DvlLPDuWtGw28k1NvxaiTVzB5mKVk6mWMA/xo5dQHi5YxaW4NKDZKG8S1HwkuqCxIkg/22IgkZTMBhDZKdsCEVIrQQMSCrqhpUmHudGs6PK5YuP3rrSSK6I2Siu+Q2qhtKRkSqWVRakxSksa8VbFJQvKoZlkRfo8yggzmk1Zqs+JjTKjubE1bTiKoOXr3hl880vKFgDObjGbQ1hFqNZnZRwaq9RUsW1V3PoA8+9Et9H3UW0P4fSGuuVJrCBW7uM8rIzZwPIgtSo+fR3rRcAYo/LywgYeWx4QxjhqeeFs4CK5bergp5XvEO0dtgoe43huTZE0keTyl5wW4sqeeprLSEWoFEwRV8CIRRFIVMWp/OSfuUopShtxEg3lorCBAVJ8us9orqK0ESdxREXhfACXvvy1wVvyNNgCbnI65QmfB+Ewh7w8pKeKDxdbwx33dFUDb5EOsmHcRbqi4Rjlm4KrajRGOUemouEY5duEq2o0RjlHpuL/ViG3d+/bX8soSDW2r5JStZT83n3D57bwdsQ3KXov3pC4t6Jl9m5Tn4lTeMhJm8RBZN4LsuNHnM0+CKF7GDc43PzsrB1E5ls2uAKY2KVBmMZOmSdHxydcYs/5JNlcBIHNOKK1mTZZqU2QPhBhWVqQS2zD15X574Ts1Lj850NJeWAkwD01joz/dE6ZaY+VMrNjR81TUM5DsrWhvB1iNpMOOuW5qefQLA9kizXvJ0PjIGtdnA/NdmpG1mmbDrtH6fj+Gub9xffLPp8eNbvhIBgRExriF+Bbz8D/kwte/0zza5y0cNZyf0uqSXhiGTOV4CCwY9Kq9Y4TPntgG2nKcgd24zNbfMneP6bI5jc80jrpttnKT/U0MW7SvPdmwnDZ9TpBh8ug14BXh2x0vToQ/Vo2k7uRo+GqaY60NkLrLXfZI9q2UWx8yqLez3MuKVn/ph+fqqj3GXBJyUZzWiSvDONmCxvkVJAmCGsJXkmGsJacpCnCekeSJEVY/36WLEXYEDMZvI8Km03n3B7MZJM+H4yRxSvCiIAdJTvvCcUmyVs7Obsn3iqDoKTxv3Wpr1RBj10zdnVKmDBd8qy3kQRBI1lWFuolBmUPmJ6AjSJtkZ2rfZ6iUfNgzS6BQdfUV5PhhA6zV0TfvwPMVH6qOTfkNE1eNS2AJHkVJMcgVfsO4KTzDef8UdW3YfOO4TWFWdQOZJNbRnrpoabVWUWMPNW/dj6qN6Cf1N+hzTHNkxhcz8utIpPTXiOPU/qN18q0Hz0i8tRDrMtGo0wyVJnrSdZTgz5SG13gnxbLeEuzycgTLamTRMkYKxJACANOEkWJA06KpQNOM07VsM0TSAmM8woZ6yIflc5qZKatfEmySuW6yFPY1Kel0stKVYGhikQniuxVFcmrZP0UKa/qmKcJrETeabmUdZYMq4azRtIrGff7BwVix0+JxSsKNsWCqGbV9z8UfU1qukkSXTFqhQovr5oireHKJAXdpyN42z1ks2o4NVGv8IF+3ac5aLKqNpNW6jhFnNoQSzBYEqrmO3j85egtsVQb6XPKuir/VD+5o8Tv/Ik1GhFqN73TJ5ZwgLYliyXhiaHF2KFFm0v85OX2MDeivAn/3QUMgU2M1DM/RE/ACkm1BYMg+feFyYdBK/Oj+wjtS3wdhbsoJFOG7qPDYCY2q6v6TxJksWNeXu+Sf0/SxxTIMBGZArzGP0Qo/hw9G/eF5MVEwSK217PX11iWxb7IOIn/d0zFKFu+ws24he7OIcyCa7wBL7DN2O4C+BPcAmufh2uomdQLgl325TkCWx+4QcajpCd/Egzb7ut3vwGpY3gAnoYAAA==</value>
   </data>
-  <data name="Create_tr_WatchDownUpStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_tr_WatchDownUpStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Create_tr_WatchFills" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_tr_WatchFills.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Create_tr_WatchOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_tr_WatchOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Create_tr_WatchStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_tr_WatchStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Create_tr_WatchTicker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_tr_WatchTicker.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Create_tr_WatchTrend" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Create_tr_WatchTrend.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Create_V_Orders" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Views\Create_V_Orders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_sp_add_trend" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_sp_add_trend.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_tr_WatchDownUpStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_tr_WatchDownUpStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_tr_WatchFills" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_tr_WatchFills.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_tr_WatchOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_tr_WatchOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_tr_WatchStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_tr_WatchStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_tr_WatchTicker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_tr_WatchTicker.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_tr_WatchTrend" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Drop_tr_WatchTrend.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Drop_V_Orders" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\Views\Drop_V_Orders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>
