@@ -19,9 +19,17 @@ namespace Models
         public int Type { get; set; }
         public int Status { get; set; }
     }
-    public class OrderData : DbContext
+
+    public class OrderAudit
     {
-        public DbSet<Order> Orders { get; set; }
+        [Key]
+        public int AuditId { get; set; }
+        public int OrderId { get; set; }
+        public string Changes { get; set; }
+        public string Modifer { get; set; }
+
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; }
     }
 }
 

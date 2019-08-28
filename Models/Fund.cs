@@ -19,8 +19,4 @@ namespace Models
         public int AllocationType { get; set; }
         public int Status { get; set; }
     }
-    public class FundAssignments : DbContext
-    {
-        public DbSet<Fund> Funds { get; set; }
-    }
 }

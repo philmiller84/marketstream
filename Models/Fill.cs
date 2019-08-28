@@ -13,14 +13,12 @@ namespace Models
     {
         [Key]
         public int FillId { get; set; }
-        [ForeignKey("Orders")]
         public int OrderId { get; set; }
+
         public decimal Price { get; set; }
         public decimal Size { get; set; }
 
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; }
     }
-    public class TradesData : DbContext
-    {
-        public DbSet<Fill> Fills { get; set; }
-    }
-}
+ }

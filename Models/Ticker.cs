@@ -33,8 +33,4 @@ namespace Models
         public decimal AskPrice { get; set; }
         public decimal AskSize { get; set; }
     }
-    public class MarketData : DbContext
-    {
-        public DbSet<Ticker> Tickers { get; set; }
-    }
 }

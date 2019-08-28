@@ -18,7 +18,7 @@ SELECT @bidPrice = bidPrice,
 
 --TODO: TEMPORARY!!! Process any fills due to price movement
 INSERT INTO dbo.Fills
-SELECT Price, Size, OrderId FROM dbo.Orders 
+SELECT OrderId, Price, Size  FROM dbo.Orders 
 WHERE Status = 0  --TODO: 1 is OPEN ORDER, 0 is READY ORDER => THIS SHOULD BE OPEN ORDERS ONLY!!! ***********
 AND ((Type = 1 AND @askPrice <= Price) OR (Type = 2 AND @bidPrice >= Price))
 

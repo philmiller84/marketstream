@@ -11,7 +11,6 @@ namespace Differentiator
     {
         public void FetchL1Data()
         {
-            var db2 = new Models.TrendAnalysis();
             var db = new Models.MarketData();
             var tickerQuery = from t in db.Tickers select t;
             var tList = tickerQuery.ToList();

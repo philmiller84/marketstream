@@ -18,8 +18,4 @@ namespace Models
         public int Status { get; set; }
     }
 
-    public class GlobalData : DbContext
-    {
-        public DbSet<Global> Globals { get; set; }
-    }
 }

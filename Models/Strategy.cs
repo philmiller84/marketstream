@@ -9,6 +9,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
+    public class DownUpStrategy
+    {
+        [Key]
+        public int StrategyId { get; set; }
+        public decimal BuyPrice { get; set; }
+        public decimal MinimumThreshold { get; set; }
+        //public decimal SellTarget { get; set; }
+        //public decimal SoldPrice { get; set; }
+
+        [ForeignKey("StrategyId")]
+        public Strategy Strategy { get; set; }
+    }
+
     public class Strategy
     {
         public int StrategyId { get; set; }
@@ -18,16 +31,28 @@ namespace Models
 
     public class StrategyOrderJoin
     {
-        [Key, ForeignKey("Strategy")]
+        [Key, Column(Order = 0)]
+        public int StrategyId { get; set; }
+        [Key, Column(Order = 1)]
+        public int OrderId { get; set; }
+
+
+        [ForeignKey("StrategyId")]
         public Strategy Strategy { get; set; }
-        [Key, ForeignKey("Order")]
+        [ForeignKey("OrderId")]
         public Order Order { get; set; }
     }
-
-    public class StategyData : DbContext
-    {
-        public DbSet<Strategy> Strategies { get; set; }
-        public DbSet<DownUpStrategy> DownUpStrategies { get; set; }
-        public DbSet<StrategyOrderJoin> StrategyOrderJoins { get; set; }
-    }
 }
+
+
+/*
+    Status:=
+        -1 Pending (all negative numbers, used for strategy????)
+         0 Ready
+         1 Started
+         2 Completed
+
+    Type:=
+         1 Down Up
+*/
+

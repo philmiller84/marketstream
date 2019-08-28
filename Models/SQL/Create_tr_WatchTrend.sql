@@ -41,7 +41,7 @@ BEGIN
 	--END
 
 	IF @PreviousTrendType = -1 --previous was an downward trend, create pending strategy
-	BEGIN --type 0 is the simple spread, status -1 is pending	
+	BEGIN --type 0 is the down up, status -1 is pending	
 		INSERT INTO dbo.Strategies VALUES (0,-1) --, @TrendId, @PreviousTrendId)
 	END
 
