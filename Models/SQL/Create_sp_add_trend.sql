@@ -47,7 +47,7 @@ BEGIN
 	BEGIN
 		IF @t_trendType IS NOT NULL -- we have a trend
 		BEGIN 
-			-- can use function or complicated tables for threshold later
+			--TODO: can use function or complicated tables for threshold later
 			DECLARE @thresholdValue FLOAT = 0.01
 			DECLARE @isAbortTrend INTEGER=0
 

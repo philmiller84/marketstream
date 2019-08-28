@@ -11,7 +11,7 @@ SELECT @DownUpStrategyId 	= DownUpStrategyId,
        @MinimumThreshold 		= MinimumThreshold 	
 FROM INSERTED	   
 
---Logic to calculate the size of the order will need to be computed more accurately
+--TODO: Logic to calculate the size of the order will need to be computed more accurately
 DECLARE @Size AS decimal(18,10)
 DECLARE @Funds AS decimal(18,2)=100
 DECLARE @MaxOpenOrders AS int=5

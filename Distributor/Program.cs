@@ -15,24 +15,29 @@ namespace Distributor
             SynchronousSocketClient s = new SynchronousSocketClient();
             var rec = new RecordKeeper();
 
-            for (int i = 0; i < 1000; i++)
+            using (TradesData t = new TradesData())
             {
-                var ticker = s.Request("GET");
 
-                if (!String.IsNullOrEmpty(ticker))
-                {
-                    var topOfBook = JsonConvert.DeserializeObject<CBPRO.TopOfBook>(ticker);
-
-                    var t = new Models.Ticker();
-                    t.BidPrice = Convert.ToDecimal(topOfBook.bids[0][0]);
-                    t.BidSize = Convert.ToDecimal(topOfBook.bids[0][1]);
-                    t.AskPrice = Convert.ToDecimal(topOfBook.asks[0][0]);
-                    t.AskSize = Convert.ToDecimal(topOfBook.asks[0][1]);
-                    t.Sequence = topOfBook.sequence;
-
-                    rec.AddL1Data(t);
-                }
             }
+
+                for (int i = 0; i < 1000; i++)
+                {
+                    var ticker = s.Request("GET");
+
+                    if (!String.IsNullOrEmpty(ticker))
+                    {
+                        var topOfBook = JsonConvert.DeserializeObject<CBPRO.TopOfBook>(ticker);
+
+                        var t = new Models.Ticker();
+                        t.BidPrice = Convert.ToDecimal(topOfBook.bids[0][0]);
+                        t.BidSize = Convert.ToDecimal(topOfBook.bids[0][1]);
+                        t.AskPrice = Convert.ToDecimal(topOfBook.asks[0][0]);
+                        t.AskSize = Convert.ToDecimal(topOfBook.asks[0][1]);
+                        t.Sequence = topOfBook.sequence;
+
+                        rec.AddL1Data(t);
+                    }
+                }
             
             //Console.WriteLine("FINISHED");
         }

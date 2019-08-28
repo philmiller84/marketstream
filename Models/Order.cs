@@ -25,3 +25,15 @@ namespace Models
     }
 }
 
+/*
+    Status:=
+        -1 Pending (all negative numbers, used for strategy????)
+         0 Ready
+         1 Open Order
+         2 Completed Order
+
+    Type:=
+         1 Limit Buy
+         2 Limit Sell
+*/
+	

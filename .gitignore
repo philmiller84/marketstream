@@ -1019,3 +1019,6 @@ Models/obj/Release/Models.Migrations.createglobalstable.resources
 Models/obj/Release/Models.Migrations.createstrategyorderjointable.resources
 Models/obj/Release/Models.Migrations.createtriggerondownupstrategy.resources
 Models/obj/Release/Models.Migrations.createtriggeronorder.resources
+Differentiator/bin/Release/Models.exe.config
+Models/bin/Release/Models.exe.config
+Models/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache

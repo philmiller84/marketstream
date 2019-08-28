@@ -67,43 +67,6 @@ namespace Models.Properties {
         ///GO
         ///SET QUOTED_IDENTIFIER OFF
         ///GO
-        ///CREATE procedure [dbo].[sp_add_strategy] (
-        ///	@bidPrice decimal(18, 2),
-        ///	@bidSize decimal (18, 2),
-        ///	@askPrice decimal (18, 2),
-        ///	@askSize decimal (18, 2),
-        ///	@Sequence bigint 
-        ///) 
-        ///AS
-        ///BEGIN
-        ///
-        ///    SET NOCOUNT ON
-        ///
-        ///    /*
-        ///    ** Declarations.
-        ///    */
-        ///    DECLARE @retcode int=0
-        ///            
-        ///	-- CREATE TREND ENTRY -- 
-        ///	--check if current trend
-        ///	DECLARE @t_id INTEGER=NULL
-        ///	DECLARE @t_trendType INTEGER=NULL
-        ///
-        ///	-- Status [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Create_sp_add_strategy {
-            get {
-                return ResourceManager.GetString("Create_sp_add_strategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to USE [Models.MarketData]
-        ///GO
-        ///SET ANSI_NULLS OFF
-        ///GO
-        ///SET QUOTED_IDENTIFIER OFF
-        ///GO
         ///CREATE procedure [dbo].[sp_add_trend] (
         ///	@bidPrice decimal(18, 2),
         ///	@bidSize decimal (18, 2),
@@ -138,21 +101,49 @@ namespace Models.Properties {
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchDownUpStrategy]  ON dbo.DownUpStrategies AFTER INSERT
         ///AS  
         ///DECLARE @DownUpStrategyID AS int 
+        ///DECLARE @StrategyID AS int
         ///DECLARE @BuyPrice AS decimal(18,2)
         ///DECLARE @MinimumThreshold AS decimal(18,10)
         ///
         ///SELECT @DownUpStrategyId 	= DownUpStrategyId,		
+        ///	   @StrategyID			= StrategyID,
         ///       @BuyPrice 		= BuyPrice,
         ///       @MinimumThreshold 		= MinimumThreshold 	
         ///FROM INSERTED	   
         ///
-        ///--Logic to calculate the size of the order will need to be computed more accurately
-        ///DECLARE @Size AS decimal(18,10)
-        ///DECLARE @Funds AS decimal(18,2)=10 [rest of string was truncated]&quot;;.
+        ///--TODO: Logic to calculate the size of the order will need to be computed more accurately
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchDownUpStrategy {
             get {
                 return ResourceManager.GetString("Create_tr_WatchDownUpStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchFills]  ON dbo.Fills AFTER INSERT
+        ///AS  
+        ///DECLARE @FillId AS int 
+        ///DECLARE @Price AS decimal(18,2)
+        ///DECLARE @Size AS decimal(18,10)
+        ///DECLARE @OrderId AS int 
+        ///
+        ///SELECT @FillId 	= FillId,		
+        ///	   @Price	= Price,
+        ///       @Size 	= Size,
+        ///       @OrderId = OrderId
+        ///FROM INSERTED	   
+        ///
+        ///--TODO: Will have to change for partial fills!!!!  **********
+        ///UPDATE dbo.Orders SET Status = 2
+        ///
+        ///
+        ///
+        ///GO.
+        /// </summary>
+        internal static string Create_tr_WatchFills {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchFills", resourceCulture);
             }
         }
         
@@ -191,11 +182,13 @@ namespace Models.Properties {
         ///       @Status 		= Status 	
         ///FROM INSERTED	   
         ///
-        ///--Logic to calculate the size of the order will need to be computed more accurately
-        ///--DECLARE @Price AS decimal(18,10)
-        ///--DECLARE @Size AS decimal(18,10)
-        ///--DECLARE @Funds AS decimal(18,10)=100
-        ///--DECLARE @MaxOpenOrders AS decimal(18,10)=5        /// [rest of string was truncated]&quot;;.
+        ///--TODO: Logic to calculate the size of the order will need to be computed more accurately
+        ///--DownUpStrategy
+        ///DECLARE @Price AS decimal(18,10)
+        ///SELECT TOP 1 @Price = AskPrice FROM dbo.Tickers ORDER BY Sequence DESC
+        ///IF @Price &gt; 0
+        ///BEGIN
+        ///	DEC [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchStrategy {
             get {
@@ -207,10 +200,11 @@ namespace Models.Properties {
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchTicker]  ON dbo.Tickers AFTER INSERT
         ///AS  
         ///
+        ///--Store in variables
         ///DECLARE	@bidPrice AS decimal(18, 2)
-        ///DECLARE	@bidSize  AS decimal(18, 2)
+        ///DECLARE	@bidSize  AS decimal(18, 10)
         ///DECLARE	@askPrice AS decimal(18, 2)
-        ///DECLARE	@askSize  AS decimal(18, 2)
+        ///DECLARE	@askSize  AS decimal(18, 10)
         ///DECLARE	@Sequence AS bigint 
         ///
         ///SELECT @bidPrice = bidPrice,
@@ -220,9 +214,9 @@ namespace Models.Properties {
         ///	   @Sequence = Sequence
         ///	   FROM inserted
         ///
-        ///EXEC [dbo].[sp_add_trend] @bidPrice, @bidSize,	@askPrice,	@askSize, @Sequence 
         ///
-        ///GO.
+        ///--TODO: TEMPORARY!!! Process any fills due to price movement
+        ///INSERT INT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchTicker {
             get {
@@ -255,15 +249,6 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[sp_add_strategy].
-        /// </summary>
-        internal static string Drop_sp_add_strategy {
-            get {
-                return ResourceManager.GetString("Drop_sp_add_strategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to DROP TRIGGER [dbo].[sp_add_trend].
         /// </summary>
         internal static string Drop_sp_add_trend {
@@ -278,6 +263,15 @@ namespace Models.Properties {
         internal static string Drop_tr_WatchDownUpStrategy {
             get {
                 return ResourceManager.GetString("Drop_tr_WatchDownUpStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchDownUpStrategy].
+        /// </summary>
+        internal static string Drop_tr_WatchFills {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchFills", resourceCulture);
             }
         }
         

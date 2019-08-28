@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3945176D-9013-4660-8305-003FFC6D5FE3}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Models</RootNamespace>
     <AssemblyName>Models</AssemblyName>
@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -49,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownUpStrategy.cs" />
+    <Compile Include="Fill.cs" />
     <Compile Include="Fund.cs" />
     <Compile Include="Migrations\201908242046461_InitialCreate.cs" />
     <Compile Include="Migrations\201908242046461_InitialCreate.Designer.cs">
@@ -81,10 +85,6 @@
     <Compile Include="Migrations\201908270057460_add-strategy-table.cs" />
     <Compile Include="Migrations\201908270057460_add-strategy-table.Designer.cs">
       <DependentUpon>201908270057460_add-strategy-table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908270129310_refactor_add_trend.cs" />
-    <Compile Include="Migrations\201908270129310_refactor_add_trend.Designer.cs">
-      <DependentUpon>201908270129310_refactor_add_trend.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201908270147539_add-strategy-on-ticker-update.cs" />
     <Compile Include="Migrations\201908270147539_add-strategy-on-ticker-update.Designer.cs">
@@ -122,8 +122,17 @@
     <Compile Include="Migrations\201908272214098_create-strategy-order-join-table.Designer.cs">
       <DependentUpon>201908272214098_create-strategy-order-join-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908281642392_create-fills-table.cs" />
+    <Compile Include="Migrations\201908281642392_create-fills-table.Designer.cs">
+      <DependentUpon>201908281642392_create-fills-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908281814332_create-trigger-for-fills.cs" />
+    <Compile Include="Migrations\201908281814332_create-trigger-for-fills.Designer.cs">
+      <DependentUpon>201908281814332_create-trigger-for-fills.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -164,9 +173,6 @@
     <EmbeddedResource Include="Migrations\201908270057460_add-strategy-table.resx">
       <DependentUpon>201908270057460_add-strategy-table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908270129310_refactor_add_trend.resx">
-      <DependentUpon>201908270129310_refactor_add_trend.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908270147539_add-strategy-on-ticker-update.resx">
       <DependentUpon>201908270147539_add-strategy-on-ticker-update.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +200,12 @@
     <EmbeddedResource Include="Migrations\201908272214098_create-strategy-order-join-table.resx">
       <DependentUpon>201908272214098_create-strategy-order-join-table.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908281642392_create-fills-table.resx">
+      <DependentUpon>201908281642392_create-fills-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908281814332_create-trigger-for-fills.resx">
+      <DependentUpon>201908281814332_create-trigger-for-fills.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -206,6 +218,7 @@
     <None Include="SQL\Drop_tr_WatchTicker.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SQL\Drop_tr_WatchFills.sql" />
     <None Include="SQL\Drop_tr_WatchDownUpStrategy.sql" />
     <None Include="SQL\Drop_tr_WatchOrder.sql" />
     <None Include="SQL\Drop_tr_WatchStrategy.sql" />
@@ -217,6 +230,7 @@
     <Content Include="SQL\Create_sp_add_trend.sql" />
     <None Include="SQL\Create_tr_WatchOrder.sql" />
     <None Include="SQL\Create_tr_WatchDownUpStrategy.sql" />
+    <None Include="SQL\Create_tr_WatchFills.sql" />
     <Content Include="SQL\Drop_sp_add_trend.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
