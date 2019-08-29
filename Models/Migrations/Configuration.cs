@@ -32,6 +32,7 @@ namespace Models.Migrations
             context.Funds.AddOrUpdate(f => new { f.Value, f.Currency, f.AllocationType }, new Fund { Value = 100, Currency = 0, AllocationType = 1 });
 
             context.Globals.AddOrUpdate(g => new { g.Description, g.Value }, new Global { Description = "Minimum Order Size", Value = 0.001M });
+            context.Globals.AddOrUpdate(g => new { g.Description, g.Value }, new Global { Description = "Minimum Size Increment", Value = 0.00000001M });
         }
     }
 }
