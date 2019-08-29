@@ -67,6 +67,43 @@ namespace Models.Properties {
         ///GO
         ///SET QUOTED_IDENTIFIER OFF
         ///GO
+        ///CREATE procedure [dbo].[sp_add_strategy] (
+        ///	@bidPrice decimal(18, 2),
+        ///	@bidSize decimal (18, 2),
+        ///	@askPrice decimal (18, 2),
+        ///	@askSize decimal (18, 2),
+        ///	@Sequence bigint 
+        ///) 
+        ///AS
+        ///BEGIN
+        ///
+        ///    SET NOCOUNT ON
+        ///
+        ///    /*
+        ///    ** Declarations.
+        ///    */
+        ///    DECLARE @retcode int=0
+        ///            
+        ///	-- CREATE TREND ENTRY -- 
+        ///	--check if current trend
+        ///	DECLARE @t_id INTEGER=NULL
+        ///	DECLARE @t_trendType INTEGER=NULL
+        ///
+        ///	-- Status [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Create_sp_add_strategy {
+            get {
+                return ResourceManager.GetString("Create_sp_add_strategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [Models.MarketData]
+        ///GO
+        ///SET ANSI_NULLS OFF
+        ///GO
+        ///SET QUOTED_IDENTIFIER OFF
+        ///GO
         ///CREATE procedure [dbo].[sp_add_trend] (
         ///	@bidPrice decimal(18, 2),
         ///	@bidSize decimal (18, 2),
@@ -150,10 +187,12 @@ namespace Models.Properties {
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchOrder] ON dbo.Orders AFTER INSERT, UPDATE
         ///AS  
         ///DECLARE @OrderID AS int 
+        ///DECLARE @Size 		AS decimal(18,10)
         ///DECLARE @Type 		AS int
         ///DECLARE @Status 	AS int 
         ///
         ///SELECT @OrderID 	= OrderId,
+        ///       @Size 		= Size,
         ///       @Type 		= Type,
         ///       @Status 		= Status 	
         ///FROM INSERTED	   
@@ -165,8 +204,7 @@ namespace Models.Properties {
         ///	(
         ///		SELECT o2.OrderId, o2.Status, s.StrategyId
         ///		FROM dbo.StrategyOrderJoins so
-        ///		JOIN dbo.StrategyOrderJoins so2 ON so.StrategyId = so2.StrategyId
-        ///		JOIN dbo.O [rest of string was truncated]&quot;;.
+        ///		JOIN dbo.StrategyOrd [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchOrder {
             get {
@@ -254,12 +292,16 @@ namespace Models.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N&apos;[dbo].[V_Orders&apos;))
-        ///EXEC dbo.sp_executesql @statement = N&apos;CREATE VIEW [dbo].[V_Orders]
-        ///AS
-        ///SELECT       o.OrderId 
-        ///FROM            dbo.Orders o
-        ///&apos;.
+        ///CREATE VIEW [dbo].[V_Exposure] AS
+        ///WITH CurrentPrices(BidPrice, AskPrice) AS
+        ///(
+        ///SELECT TOP 1 t.BidPrice, t.AskPrice
+        ///FROM dbo.Tickers t
+        ///ORDER BY t.Sequence DESC
+        ///)
+        ///SELECT	NEWID() AS Id, (p.Size * cp.BidPrice) AS Value, p.Size AS Size
+        ///FROM	dbo.Positions p, CurrentPrices cp 
+        ///.
         /// </summary>
         internal static string Create_V_Exposure {
             get {
@@ -269,16 +311,23 @@ namespace Models.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N&apos;[dbo].[V_Orders&apos;))
-        ///EXEC dbo.sp_executesql @statement = N&apos;CREATE VIEW [dbo].[V_Orders]
-        ///AS
-        ///SELECT       o.OrderId 
-        ///FROM            dbo.Orders o
-        ///&apos;.
+        ///CREATE VIEW [dbo].[V_Orders] AS
+        ///SELECT	o.OrderId  AS OrderId
+        ///FROM	dbo.Orders o
+        ///.
         /// </summary>
         internal static string Create_V_Orders {
             get {
                 return ResourceManager.GetString("Create_V_Orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[sp_add_strategy].
+        /// </summary>
+        internal static string Drop_sp_add_strategy {
+            get {
+                return ResourceManager.GetString("Drop_sp_add_strategy", resourceCulture);
             }
         }
         
@@ -346,7 +395,7 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DROP VIEW V_Orders.
+        ///   Looks up a localized string similar to DROP VIEW V_Exposure.
         /// </summary>
         internal static string Drop_V_Exposure {
             get {
