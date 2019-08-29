@@ -15,7 +15,7 @@ namespace Models
         public int FundId { get; set; }
         public decimal Value { get; set; }
         public int Currency { get; set; }
-        public int AllocationId { get; set; }
+        //public int AllocationId { get; set; }
         public int AllocationType { get; set; }
         public int Status { get; set; }
     }

@@ -58,10 +58,6 @@
     <Compile Include="Migrations\201908282107242_New-Initial-Create.Designer.cs">
       <DependentUpon>201908282107242_New-Initial-Create.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908282108407_create-triggers-and-sprocs.cs" />
-    <Compile Include="Migrations\201908282108407_create-triggers-and-sprocs.Designer.cs">
-      <DependentUpon>201908282108407_create-triggers-and-sprocs.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201908282124448_Change-Precision.cs" />
     <Compile Include="Migrations\201908282124448_Change-Precision.Designer.cs">
       <DependentUpon>201908282124448_Change-Precision.cs</DependentUpon>
@@ -90,6 +86,14 @@
     <Compile Include="Migrations\201908290539087_create-strategy-properties-table.Designer.cs">
       <DependentUpon>201908290539087_create-strategy-properties-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908292125257_minor-table-changes.cs" />
+    <Compile Include="Migrations\201908292125257_minor-table-changes.Designer.cs">
+      <DependentUpon>201908292125257_minor-table-changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908292125479_create-triggers.cs" />
+    <Compile Include="Migrations\201908292125479_create-triggers.Designer.cs">
+      <DependentUpon>201908292125479_create-triggers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Position.cs" />
@@ -114,9 +118,6 @@
     <EmbeddedResource Include="Migrations\201908282107242_New-Initial-Create.resx">
       <DependentUpon>201908282107242_New-Initial-Create.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908282108407_create-triggers-and-sprocs.resx">
-      <DependentUpon>201908282108407_create-triggers-and-sprocs.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908282124448_Change-Precision.resx">
       <DependentUpon>201908282124448_Change-Precision.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,6 +138,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908290539087_create-strategy-properties-table.resx">
       <DependentUpon>201908290539087_create-strategy-properties-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908292125257_minor-table-changes.resx">
+      <DependentUpon>201908292125257_minor-table-changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908292125479_create-triggers.resx">
+      <DependentUpon>201908292125479_create-triggers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

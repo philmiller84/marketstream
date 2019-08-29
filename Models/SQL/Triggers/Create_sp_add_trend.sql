@@ -52,7 +52,7 @@ BEGIN
 
 			SELECT @thresholdValue = sp.Value
 			FROM dbo.StrategyProperties sp
-			WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold - Real value'
+			WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold'
 
 			DECLARE @isAbortTrend INTEGER=0
 

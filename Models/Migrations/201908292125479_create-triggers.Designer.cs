@@ -7,13 +7,13 @@ namespace Models.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class createtriggersandsprocs : IMigrationMetadata
+    public sealed partial class createtriggers : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(createtriggersandsprocs));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(createtriggers));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908282108407_create-triggers-and-sprocs"; }
+            get { return "201908292125479_create-triggers"; }
         }
         
         string IMigrationMetadata.Source

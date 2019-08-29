@@ -9,7 +9,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-
 namespace Models
 {
     public class MarketData : DbContext
@@ -17,7 +16,7 @@ namespace Models
         public DbSet<Ticker> Tickers { get; set; }
         public DbSet<Fund> Funds { get; set; }
         public DbSet<Global> Globals { get; set; }
-        public DbSet<Fee> Feeds { get; set; }
+        public DbSet<Fee> Fees { get; set; }
         public DbSet<Fill> Fills { get; set; }
         public DbSet<Trend> Trends { get; set; }
         public DbSet<Strategy> Strategies { get; set; }
@@ -40,7 +39,11 @@ namespace Models
 
             modelBuilder.Entity<Order>().Property(p => p.Size).HasPrecision(18, 10);
             modelBuilder.Entity<Position>().Property(p => p.Size).HasPrecision(18, 10);
+
+            modelBuilder.Entity<Global>().Property(p => p.Value).HasPrecision(18, 10);
             modelBuilder.Entity<Fee>().Property(p => p.Value).HasPrecision(18, 10);
+            modelBuilder.Entity<Fund>().Property(p => p.Value).HasPrecision(18, 10);
+
             modelBuilder.Entity<StrategyProperty>().Property(p => p.Value).HasPrecision(18, 10);
         }
     }

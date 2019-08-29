@@ -19,12 +19,12 @@ SELECT @bidPrice = bidPrice,
 --TODO: TEMPORARY!!! Process any fills due to price movement
 INSERT INTO dbo.Fills
 SELECT OrderId, Price, Size  FROM dbo.Orders 
-WHERE Status = 0  --TODO: 1 is OPEN ORDER, 0 is READY ORDER => THIS SHOULD BE OPEN ORDERS ONLY!!! ***********
+WHERE Status IN (0, 1)  --TODO: 1 is OPEN ORDER, 0 is READY ORDER => THIS SHOULD BE OPEN ORDERS ONLY!!! ***********
 AND ((Type = 1 AND @askPrice <= Price) OR (Type = 2 AND @bidPrice >= Price))
 
---TODO: TEMPORARY!!! Enter sell order when ticker passes initial threshold
+--TODO: TEMPORARY!!! Enter sell order when ticker passes initial threshold (Setting to Open order for testing!!!)
 UPDATE dbo.Orders 
-SET Status = 0 WHERE Status = -1 AND Type = 2
+SET Status = 1 WHERE Status = -1 AND Type = 2
 AND Price <= @bidPrice
 
 --Create trend entries

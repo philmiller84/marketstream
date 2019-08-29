@@ -1,3 +1,17 @@
+delete from tickers
+delete from trends
+delete from StrategyOrderJoins
+delete from DownUpStrategies
+delete from orders
+delete from fills
+delete from strategies
+
+
+
+
+
+
+
 INSERT INTO Tickers VALUES(10717221829,10193.01,0.54,10195.89,0.73       )
 WAITFOR DELAY '00:00:01.000'
 INSERT INTO Tickers VALUES(10717222028,10193.01,0.54,10193.02,32.54      )

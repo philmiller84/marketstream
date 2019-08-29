@@ -3,7 +3,7 @@ namespace Models.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class createtriggersandsprocs : DbMigration
+    public partial class createtriggers : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,7 @@ namespace Models.Migrations
             this.Sql(Properties.Resources.Create_tr_WatchDownUpStrategy);
             this.Sql(Properties.Resources.Create_tr_WatchFills);
         }
-        
+
         public override void Down()
         {
             this.Sql(Properties.Resources.Drop_tr_WatchFills);

@@ -12,7 +12,6 @@ C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.csproj.CopyC
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.dll
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.pdb
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.NewInitialCreate.resources
-C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createtriggersandsprocs.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.ChangePrecision.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.altertrendmaketypenullable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.removesoldpricefromdownupstrategy.resources
@@ -21,3 +20,5 @@ C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.csprojAssemb
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createexposureview.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createfeestable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createstrategypropertiestable.resources
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.minortablechanges.resources
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createtriggers.resources
