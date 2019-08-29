@@ -20,3 +20,4 @@ C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.t
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.csprojAssemblyReference.cache
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createexposureview.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createfeestable.resources
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createstrategypropertiestable.resources

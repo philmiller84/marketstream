@@ -5,16 +5,19 @@ DECLARE @BuyPrice AS decimal(18,2)
 DECLARE @MinimumThreshold AS decimal(18,10)
 
 SELECT @StrategyID			= StrategyID,
-       @BuyPrice 		= BuyPrice,
-       @MinimumThreshold 		= MinimumThreshold 	
+       @BuyPrice 			= BuyPrice,
+       @MinimumThreshold	= MinimumThreshold 	
 FROM INSERTED	   
 
 --TODO: Logic to calculate the size of the order will need to be computed more accurately
 DECLARE @Size AS decimal(18,10)
 DECLARE @Funds AS decimal(18,2)=100
-DECLARE @MaxOpenOrders AS int=5
+DECLARE @MaxOpenOrders AS int
+SELECT @MaxOpenOrders = sp.Value
+FROM dbo.StrategyProperties sp
+WHERE sp.StrategyType = 0 AND sp.Description = 'Max Open Orders - Int value"'
 
-SELECT TOP 1 @Funds = Value FROM dbo.Funds WHERE AllocationType = 1 --0 is reserve funds, 1 allocation type is funds for use
+SELECT TOP 1 @Funds = Value FROM dbo.Funds WHERE AllocationType = 1 --allocation type is funds for use
 
 IF @Funds > 0 AND @MaxOpenOrders > 0 AND @BuyPrice > 0
 BEGIN

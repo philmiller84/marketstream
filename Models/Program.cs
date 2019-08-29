@@ -22,6 +22,7 @@ namespace Models
         public DbSet<Trend> Trends { get; set; }
         public DbSet<Strategy> Strategies { get; set; }
         public DbSet<DownUpStrategy> DownUpStrategies { get; set; }
+        public DbSet<StrategyProperty> StrategyProperties { get; set; }
         public DbSet<StrategyOrderJoin> StrategyOrderJoins { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderAudit> OrderAudits { get; set; }
@@ -40,6 +41,7 @@ namespace Models
             modelBuilder.Entity<Order>().Property(p => p.Size).HasPrecision(18, 10);
             modelBuilder.Entity<Position>().Property(p => p.Size).HasPrecision(18, 10);
             modelBuilder.Entity<Fee>().Property(p => p.Value).HasPrecision(18, 10);
+            modelBuilder.Entity<StrategyProperty>().Property(p => p.Value).HasPrecision(18, 10);
         }
     }
 }

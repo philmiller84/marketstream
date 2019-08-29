@@ -27,7 +27,19 @@ namespace Models
         public int StrategyId { get; set; }
         public int Type { get; set; }
         public int Status { get; set; }
+
+        /*  Status:=
+         *      -1 Pending (all negative numbers, used for strategy????)
+         *       0 Ready
+         *       1 Started
+         *       2 Completed
+         *       
+         *  Type:=
+         *       1 Down Up
+        */
+
     }
+
 
     public class StrategyOrderJoin
     {
@@ -42,17 +54,23 @@ namespace Models
         [ForeignKey("OrderId")]
         public Order Order { get; set; }
     }
+
+    public class StrategyProperty
+    {
+        [Key]
+        public int PropertyId { get; set; }
+        public int StrategyType { get; set; }
+        public string Description { get; set; }
+        public decimal Value { get; set; }
+
+       /*  Type:=
+        *       0 - String
+        *       1 - Integer
+        *       2 - Decimal (precision 2)
+        *       3 - Decimal (precision 10)
+        */
+    }
+
+
 }
-
-
-/*
-    Status:=
-        -1 Pending (all negative numbers, used for strategy????)
-         0 Ready
-         1 Started
-         2 Completed
-
-    Type:=
-         1 Down Up
-*/
 

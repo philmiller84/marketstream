@@ -48,7 +48,12 @@ BEGIN
 		IF @t_trendType IS NOT NULL -- we have a trend
 		BEGIN 
 			--TODO: can use function or complicated tables for threshold later
-			DECLARE @thresholdValue FLOAT = 0.01
+			DECLARE @thresholdValue AS decimal(18,10)
+
+			SELECT @thresholdValue = sp.Value
+			FROM dbo.StrategyProperties sp
+			WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold - Real value'
+
 			DECLARE @isAbortTrend INTEGER=0
 
 			SELECT @isAbortTrend = 
@@ -69,11 +74,11 @@ BEGIN
 				-- Create new trend element
 				INSERT INTO [dbo].[Trends]
 				SELECT t.EndSequence		--[StartSequence]
-					  ,@Sequence	--[EndSequence]
+					  ,@Sequence			--[EndSequence]
 					  ,t.EndBidPrice		--[StartBidPrice]		
-					  ,@bidPrice	--[EndBidPrice]
+					  ,@bidPrice			--[EndBidPrice]
 					  ,t.EndAskPrice		--[StartAskPrice]
-					  ,@askPrice	--[EndAskPrice]
+					  ,@askPrice			--[EndAskPrice]
 					  ,CASE 
 						WHEN t.EndBidPrice < @bidPrice 
 						THEN 1 

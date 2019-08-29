@@ -15,7 +15,12 @@ DECLARE @Price AS decimal(18,10)
 SELECT TOP 1 @Price = AskPrice FROM dbo.Tickers ORDER BY Sequence DESC
 IF @Price > 0
 BEGIN
-	DECLARE @Threshold AS decimal(18,10)=0.12
+	DECLARE @Threshold AS decimal(18,10)
+
+	SELECT @Threshold = sp.Value
+	FROM dbo.StrategyProperties sp
+	WHERE sp.StrategyType = 0 AND sp.Description = 'Sell Increment - Real value'
+
 	INSERT INTO dbo.DownUpStrategies(StrategyID, BuyPrice, MinimumThreshold) VALUES (@StrategyId, @Price, @Threshold) 
 END
 

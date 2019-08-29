@@ -22,7 +22,12 @@ namespace Models.Migrations
             //TODO: Fix the capital gains tax based on the total income. This will need to change based on tax bracket. 
             context.Feeds.AddOrUpdate(f => new { f.Type, f.Value , f.Description}, new Fee { Type = 0, Value = .28M, Description = "Capital Gains (Short Term) - Percentage" });
             context.Feeds.AddOrUpdate(f => new { f.Type, f.Value , f.Description}, new Fee { Type = 1, Value = .0025M, Description = "Taker Fee - Percentage" });
-            //context.Feeds.AddOrUpdate(btcTransaction => new { btcTransaction.Type, btcTransaction.Value }, new Fee { Type = 1, Value = .003M });
+
+
+            context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Sell Increment - Real value", Value = .10M });
+            context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Downturn Threshold - Real value", Value = .01M });
+            context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Max Open Orders - Int value", Value = 5 });
+
         }
     }
 }

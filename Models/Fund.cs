@@ -19,4 +19,8 @@ namespace Models
         public int AllocationType { get; set; }
         public int Status { get; set; }
     }
+    /*  AllocationType:=
+     *      0 - Reserve Funds (do not spend)
+     *      1 - For general use
+     */
 }

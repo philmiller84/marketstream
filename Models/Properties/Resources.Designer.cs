@@ -67,43 +67,6 @@ namespace Models.Properties {
         ///GO
         ///SET QUOTED_IDENTIFIER OFF
         ///GO
-        ///CREATE procedure [dbo].[sp_add_strategy] (
-        ///	@bidPrice decimal(18, 2),
-        ///	@bidSize decimal (18, 2),
-        ///	@askPrice decimal (18, 2),
-        ///	@askSize decimal (18, 2),
-        ///	@Sequence bigint 
-        ///) 
-        ///AS
-        ///BEGIN
-        ///
-        ///    SET NOCOUNT ON
-        ///
-        ///    /*
-        ///    ** Declarations.
-        ///    */
-        ///    DECLARE @retcode int=0
-        ///            
-        ///	-- CREATE TREND ENTRY -- 
-        ///	--check if current trend
-        ///	DECLARE @t_id INTEGER=NULL
-        ///	DECLARE @t_trendType INTEGER=NULL
-        ///
-        ///	-- Status [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Create_sp_add_strategy {
-            get {
-                return ResourceManager.GetString("Create_sp_add_strategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to USE [Models.MarketData]
-        ///GO
-        ///SET ANSI_NULLS OFF
-        ///GO
-        ///SET QUOTED_IDENTIFIER OFF
-        ///GO
         ///CREATE procedure [dbo].[sp_add_trend] (
         ///	@bidPrice decimal(18, 2),
         ///	@bidSize decimal (18, 2),
@@ -319,15 +282,6 @@ namespace Models.Properties {
         internal static string Create_V_Orders {
             get {
                 return ResourceManager.GetString("Create_V_Orders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[sp_add_strategy].
-        /// </summary>
-        internal static string Drop_sp_add_strategy {
-            get {
-                return ResourceManager.GetString("Drop_sp_add_strategy", resourceCulture);
             }
         }
         
