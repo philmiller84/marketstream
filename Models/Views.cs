@@ -9,6 +9,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
+    [Table("V_Exposure")]
+    public class VExposure
+    {
+        [Key]
+        public Guid Id { get; set; }
+        public decimal Value { get; set; }
+        public decimal Size { get; set; }
+    }
+
     [Table("V_Orders")]
     public class VOrders
     {

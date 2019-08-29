@@ -24,9 +24,10 @@ namespace Models
         public DbSet<StrategyOrderJoin> StrategyOrderJoins { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderAudit> OrderAudits { get; set; }
-        //public DbSet<Position> Positions { get; set; }
+        public DbSet<Position> Positions { get; set; }
 
         public DbSet<VOrders> VOrders { get; set; }
+        public DbSet<VExposure> VExposure { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +37,7 @@ namespace Models
             modelBuilder.Entity<Fill>().Property(p => p.Size).HasPrecision(18, 10);
 
             modelBuilder.Entity<Order>().Property(p => p.Size).HasPrecision(18, 10);
+            modelBuilder.Entity<Position>().Property(p => p.Size).HasPrecision(18, 10);
         }
     }
 }

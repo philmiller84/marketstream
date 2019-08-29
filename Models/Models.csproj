@@ -77,8 +77,13 @@
     <Compile Include="Migrations\201908282333489_test-create-view.Designer.cs">
       <DependentUpon>201908282333489_test-create-view.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908290016369_create-exposure-view.cs" />
+    <Compile Include="Migrations\201908290016369_create-exposure-view.Designer.cs">
+      <DependentUpon>201908290016369_create-exposure-view.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -115,6 +120,9 @@
     <EmbeddedResource Include="Migrations\201908282333489_test-create-view.resx">
       <DependentUpon>201908282333489_test-create-view.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908290016369_create-exposure-view.resx">
+      <DependentUpon>201908290016369_create-exposure-view.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -127,6 +135,8 @@
     <None Include="SQL\Drop_tr_WatchTicker.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SQL\Views\Drop_V_Exposure.sql" />
+    <None Include="SQL\Views\Create_V_Exposure.sql" />
     <None Include="SQL\Views\Drop_V_Orders.sql" />
     <None Include="SQL\Views\Create_V_Orders.sql" />
     <None Include="SQL\Drop_tr_WatchFills.sql" />

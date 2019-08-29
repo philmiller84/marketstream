@@ -258,7 +258,22 @@ namespace Models.Properties {
         ///EXEC dbo.sp_executesql @statement = N&apos;CREATE VIEW [dbo].[V_Orders]
         ///AS
         ///SELECT       o.OrderId 
-        ///FROM            dbo.Orders
+        ///FROM            dbo.Orders o
+        ///&apos;.
+        /// </summary>
+        internal static string Create_V_Exposure {
+            get {
+                return ResourceManager.GetString("Create_V_Exposure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N&apos;[dbo].[V_Orders&apos;))
+        ///EXEC dbo.sp_executesql @statement = N&apos;CREATE VIEW [dbo].[V_Orders]
+        ///AS
+        ///SELECT       o.OrderId 
+        ///FROM            dbo.Orders o
         ///&apos;.
         /// </summary>
         internal static string Create_V_Orders {
@@ -327,6 +342,15 @@ namespace Models.Properties {
         internal static string Drop_tr_WatchTrend {
             get {
                 return ResourceManager.GetString("Drop_tr_WatchTrend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP VIEW V_Orders.
+        /// </summary>
+        internal static string Drop_V_Exposure {
+            get {
+                return ResourceManager.GetString("Drop_V_Exposure", resourceCulture);
             }
         }
         
