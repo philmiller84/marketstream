@@ -127,8 +127,14 @@
   <data name="Create_tr_WatchFills" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Create_tr_WatchFills.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Create_tr_WatchFund" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Triggers\Create_tr_WatchFund.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Create_tr_WatchOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Create_tr_WatchOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Create_tr_WatchPosition" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Triggers\Create_tr_WatchPosition.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Create_tr_WatchStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Create_tr_WatchStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -154,8 +160,14 @@
   <data name="Drop_tr_WatchFills" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Drop Triggers\Drop_tr_WatchFills.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Drop_tr_WatchFund" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Triggers\Drop Triggers\Drop_tr_WatchFund.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Drop_tr_WatchOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Drop Triggers\Drop_tr_WatchOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Drop_tr_WatchPosition" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Triggers\Drop Triggers\Drop_tr_WatchPosition.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Drop_tr_WatchStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Drop Triggers\Drop_tr_WatchStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

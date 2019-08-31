@@ -1,9 +1,3 @@
-USE [Models.MarketData]
-GO
-SET ANSI_NULLS OFF
-GO
-SET QUOTED_IDENTIFIER OFF
-GO
 CREATE procedure [dbo].[sp_add_trend] (
 	@bidPrice decimal(18, 2),
 	@bidSize decimal (18, 2),

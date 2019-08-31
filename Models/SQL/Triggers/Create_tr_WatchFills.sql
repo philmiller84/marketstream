@@ -12,7 +12,7 @@ SELECT @FillId 	= FillId,
 FROM INSERTED	   
 
 --TODO: Will have to change for partial fills!!!!  **********
-UPDATE dbo.Orders SET Status = 2
-WHERE @orderId = OrderId
+UPDATE dbo.Orders SET Status = 2 WHERE @orderId = OrderId
+
 
 GO

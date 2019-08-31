@@ -1,0 +1,1 @@
+DROP TRIGGER [dbo].[tr_WatchPosition]

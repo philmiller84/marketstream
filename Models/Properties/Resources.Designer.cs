@@ -105,14 +105,11 @@ namespace Models.Properties {
         ///DECLARE @MinimumThreshold AS decimal(18,10)
         ///
         ///SELECT @StrategyID			= StrategyID,
-        ///       @BuyPrice 		= BuyPrice,
-        ///       @MinimumThreshold 		= MinimumThreshold 	
+        ///       @BuyPrice 			= BuyPrice,
+        ///       @MinimumThreshold	= MinimumThreshold 	
         ///FROM INSERTED	   
         ///
-        ///--TODO: Logic to calculate the size of the order will need to be computed more accurately
-        ///DECLARE @Size AS decimal(18,10)
-        ///DECLARE @Funds AS decimal(18,2)=100
-        ///DECLARE @Ma [rest of string was truncated]&quot;;.
+        ///GO.
         /// </summary>
         internal static string Create_tr_WatchDownUpStrategy {
             get {
@@ -147,31 +144,53 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchFund]  ON dbo.Funds AFTER INSERT, UPDATE
+        ///AS  
+        ///
+        ///GO.
+        /// </summary>
+        internal static string Create_tr_WatchFund {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchFund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchOrder] ON dbo.Orders AFTER INSERT, UPDATE
         ///AS  
         ///DECLARE @OrderID AS int 
+        ///DECLARE @Price		AS decimal(18,2)
         ///DECLARE @Size 		AS decimal(18,10)
         ///DECLARE @Type 		AS int
         ///DECLARE @Status 	AS int 
         ///
         ///SELECT @OrderID 	= OrderId,
+        ///       @Price 		= Price,
         ///       @Size 		= Size,
         ///       @Type 		= Type,
         ///       @Status 		= Status 	
         ///FROM INSERTED	   
-        ///	
-        ///IF @Status = 2
-        ///BEGIN
-        ///	;
-        ///	WITH StrategyStatus(OrderId, OrderStatus, StrategyId) AS
-        ///	(
-        ///		SELECT o2.OrderId, o2.Status, s.StrategyId
-        ///		FROM dbo.StrategyOrderJoins so
-        ///		JOIN dbo.StrategyOrd [rest of string was truncated]&quot;;.
+        ///
+        ///
+        ///IF @Type = 1  AND @Status IN (1,2) --limit buy order on exchange
+        ///	UPDATE dbo.Funds SET Value = Value - (@Size * @Price) 
+        ///IF @Type [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchOrder {
             get {
                 return ResourceManager.GetString("Create_tr_WatchOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchPosition]  ON dbo.Positions AFTER INSERT, UPDATE
+        ///AS  
+        ///
+        ///GO.
+        /// </summary>
+        internal static string Create_tr_WatchPosition {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchPosition", resourceCulture);
             }
         }
         
@@ -187,13 +206,8 @@ namespace Models.Properties {
         ///       @Status 		= Status 	
         ///FROM INSERTED	   
         ///
-        ///--TODO: Logic to calculate the size of the order will need to be computed more accurately
-        ///--DownUpStrategy
-        ///DECLARE @Price AS decimal(18,10)
-        ///SELECT TOP 1 @Price = AskPrice FROM dbo.Tickers ORDER BY Sequence DESC
-        ///IF @Price &gt; 0
-        ///BEGIN
-        ///	DEC [rest of string was truncated]&quot;;.
+        ///
+        ///GO.
         /// </summary>
         internal static string Create_tr_WatchStrategy {
             get {
@@ -313,11 +327,29 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchFund].
+        /// </summary>
+        internal static string Drop_tr_WatchFund {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchFund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchOrder].
         /// </summary>
         internal static string Drop_tr_WatchOrder {
             get {
                 return ResourceManager.GetString("Drop_tr_WatchOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchPosition].
+        /// </summary>
+        internal static string Drop_tr_WatchPosition {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchPosition", resourceCulture);
             }
         }
         

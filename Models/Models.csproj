@@ -171,5 +171,17 @@
     <None Include="SQL\Views\Drop_V_Orders.sql" />
     <None Include="SQL\Views\Create_V_Orders.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Create_tr_WatchFund.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Create_tr_WatchPosition.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchFund.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchPosition.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

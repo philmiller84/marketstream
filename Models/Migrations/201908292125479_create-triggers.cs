@@ -14,10 +14,14 @@ namespace Models.Migrations
             this.Sql(Properties.Resources.Create_tr_WatchOrder);
             this.Sql(Properties.Resources.Create_tr_WatchDownUpStrategy);
             this.Sql(Properties.Resources.Create_tr_WatchFills);
+            this.Sql(Properties.Resources.Create_tr_WatchPosition);
+            this.Sql(Properties.Resources.Create_tr_WatchFund);
         }
 
         public override void Down()
         {
+            this.Sql(Properties.Resources.Drop_tr_WatchFund);
+            this.Sql(Properties.Resources.Drop_tr_WatchPosition);
             this.Sql(Properties.Resources.Drop_tr_WatchFills);
             this.Sql(Properties.Resources.Drop_tr_WatchDownUpStrategy);
             this.Sql(Properties.Resources.Drop_tr_WatchOrder);

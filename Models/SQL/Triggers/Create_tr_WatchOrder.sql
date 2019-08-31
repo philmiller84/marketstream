@@ -11,29 +11,47 @@ SELECT @OrderID 	= OrderId,
        @Size 		= Size,
        @Type 		= Type,
        @Status 		= Status 	
-FROM INSERTED	   
+FROM INSERTED	  
 
+DECLARE @PreviousStatus AS int
+SELECT @PreviousStatus = Status FROM DELETED
 
-IF @Type = 1  AND @Status IN (1,2) --limit buy order on exchange
+IF @Type = 1  AND ((@PreviousStatus IS NULL OR @PreviousStatus < 1) AND @Status IN (1, 2)) --limit buy order on exchange
 	UPDATE dbo.Funds SET Value = Value - (@Size * @Price) 
-IF @Type = 2 AND @Status IN(2)
+IF @Type = 2 AND ((@PreviousStatus IS NULL OR @PreviousStatus < 2) AND @Status = 2)
 	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) 
 
-IF @Status = 2 --completed order
+IF @PreviousStatus < 2 AND @Status = 2 --completed order
 BEGIN
 	--Adjust position
 	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
+
 	UPDATE dbo.Positions SET Size = CASE WHEN @Type = 1 THEN Size + @Size WHEN @Type = 2 THEN Size - @Size ELSE Size END
 
-	;--Mark strategy complete
+	--For completed buy orders, update the related sell order for DownUpStrategy
+	IF @Type = 1
+	BEGIN
+		;
+		UPDATE o2
+		SET Status = 1
+		FROM dbo.StrategyOrderJoins so
+		JOIN dbo.Strategies  s ON so.StrategyId = s.StrategyId
+		JOIN dbo.Orders o ON so.OrderId = o.OrderId
+		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
+		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
+		WHERE so.OrderId = @OrderID AND o2.Status < 1 AND o2.Type = 2
+	END
+
+	;--Mark strategy complete if all orders complete
 	WITH StrategyStatus(OrderId, OrderStatus, StrategyId) AS
 	(
 		SELECT o2.OrderId, o2.Status, s.StrategyId
-		FROM dbo.StrategyOrderJoins so
-		JOIN dbo.StrategyOrderJoins so2 ON so.StrategyId = so2.StrategyId
-		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
+		FROM dbo.StrategyOrderJoins so 
 		JOIN dbo.Strategies  s ON so.StrategyId = s.StrategyId
-		WHERE so.OrderId = @OrderID
+		JOIN dbo.Orders o ON so.OrderId = o.OrderId
+		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
+		JOIN dbo.Orders o2 ON o2.OrderId = so2.OrderId
+		WHERE so.OrderId = @OrderID 
 	)
 	UPDATE dbo.Strategies  
 	SET Status = 2
@@ -41,4 +59,6 @@ BEGIN
 	JOIN StrategyStatus ON s.StrategyId = StrategyStatus.StrategyId
 	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> 2)
 END
+
+
 GO
