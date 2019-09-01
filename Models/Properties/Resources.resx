@@ -124,6 +124,9 @@
   <data name="Create_sp_add_trend" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Procedures\Create_sp_add_trend.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Create_sp_down_up_strategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Procedures\Create_sp_down_up_strategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Create_sp_log_event" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Procedures\Create_sp_log_event.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -162,6 +165,9 @@
   </data>
   <data name="Drop_sp_add_trend" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Procedures\Drop Procedures\Drop_sp_add_trend.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Drop_sp_down_up_strategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Procedures\Drop Procedures\Drop_sp_down_up_strategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Drop_sp_log_event" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Procedures\Drop Procedures\Drop_sp_log_event.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

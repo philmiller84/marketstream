@@ -207,5 +207,11 @@
   <ItemGroup>
     <None Include="SQL\Procedures\Drop Procedures\Drop_sp_log_event.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Create_sp_down_up_strategy.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Drop Procedures\Drop_sp_down_up_strategy.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

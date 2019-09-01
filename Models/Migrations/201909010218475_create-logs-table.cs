@@ -18,12 +18,10 @@ namespace Models.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            this.Sql(Properties.Resources.Create_GetLogLevel);
         }
         
         public override void Down()
         {
-            this.Sql(Properties.Resources.Drop_GetLogLevel);
             DropTable("dbo.Logs");
         }
     }

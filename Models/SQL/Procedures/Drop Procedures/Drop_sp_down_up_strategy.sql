@@ -1,0 +1,1 @@
+DROP PROCEDURE [dbo].[sp_down_up_strategy]

@@ -111,6 +111,35 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_down_up_strategy]  
+        ///AS
+        ///BEGIN
+        ///
+        ///    SET NOCOUNT ON
+        ///
+        ///    /*
+        ///    ** Declarations.
+        ///    */
+        ///    DECLARE @retcode int=0
+        ///   
+        ///	DECLARE @Funds AS decimal(18,10)=0
+        ///	SELECT @Funds = Value FROM dbo.Funds WHERE AllocationType = 1 --allocation type is funds for use
+        ///
+        ///	--Get open strategies
+        ///	DECLARE @OpenStrategies AS int = 0
+        ///	SELECT @OpenStrategies = COUNT(*) FROM dbo.Strategies s
+        ///	WHERE s.Status &lt;&gt; 2
+        ///
+        ///	DECLARE @MaxOpenOrders AS int
+        ///	SELECT @MaxOpenOrders = sp.Value FROM dbo.St [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Create_sp_down_up_strategy {
+            get {
+                return ResourceManager.GetString("Create_sp_down_up_strategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_log_event] (
         ///	@Level AS int,
         ///	@Context AS NVARCHAR(max),
@@ -285,8 +314,9 @@ namespace Models.Properties {
         ///	   @Sequence = Sequence
         ///	   FROM inserted
         ///
+        ///--TODO: Make this controlled by exchange messages
         ///INSERT INTO dbo.Fills
-        ///SELECT OrderId, Price, Size  FROM dbo.Orders --TODO [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchTicker {
             get {
@@ -366,6 +396,15 @@ namespace Models.Properties {
         internal static string Drop_sp_add_trend {
             get {
                 return ResourceManager.GetString("Drop_sp_add_trend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP PROCEDURE [dbo].[sp_down_up_strategy].
+        /// </summary>
+        internal static string Drop_sp_down_up_strategy {
+            get {
+                return ResourceManager.GetString("Drop_sp_down_up_strategy", resourceCulture);
             }
         }
         
