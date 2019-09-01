@@ -28,6 +28,7 @@ namespace Models.Migrations
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Sell Increment", Value = .10M });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Downturn Threshold", Value = .01M });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Max Open Orders", Value = 5 });
+            context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Moving Average Trend Records Max", Value = 5 });
 
             context.Funds.AddOrUpdate(f => new { f.Value, f.Currency, f.AllocationType }, new Fund { Value = 100, Currency = 0, AllocationType = 1 });
 

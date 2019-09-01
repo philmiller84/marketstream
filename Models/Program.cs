@@ -20,6 +20,7 @@ namespace Models
         public DbSet<Fee> Fees { get; set; }
         public DbSet<Fill> Fills { get; set; }
         public DbSet<Trend> Trends { get; set; }
+        public DbSet<Analysis> Analysis { get; set; }
         public DbSet<Strategy> Strategies { get; set; }
         public DbSet<DownUpStrategy> DownUpStrategies { get; set; }
         public DbSet<StrategyProperty> StrategyProperties { get; set; }

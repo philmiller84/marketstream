@@ -65,6 +65,27 @@ BEGIN
 				--Update existing trend
 				UPDATE [dbo].[Trends] SET Status = 1 FROM [dbo].[Trends] t WHERE t.TrendId = @t_id
 
+				--Calculate Moving Averages
+				DECLARE @movingAverageTrendCount INT = 0
+				SELECT @movingAverageTrendCount = Value FROM dbo.Analysis WHERE Description = 'Moving Average Trend Count'
+
+				IF @movingAverageTrendCount IS NULL INSERT dbo.Analysis VALUES ('Moving Average Trend Count', 0)
+
+				DECLARE @movingAverageTrendRecordsMax INT = 0
+				SELECT @movingAverageTrendRecordsMax = sp.Value FROM dbo.StrategyProperties sp WHERE sp.StrategyType = 0 AND sp.Description = 'Moving Average Trend Records Max'
+
+				IF @movingAverageTrendCount = @movingAverageTrendRecordsMax
+					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + (@bidPrice - Value) / @movingAverageTrendCount WHERE Description = 'Moving Average'
+				ELSE
+				BEGIN
+					IF @movingAverageTrendCount < @movingAverageTrendRecordsMax
+						UPDATE dbo.Analysis SET Value = Value + (@bidPrice - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average'
+					ELSE IF NOT EXISTS (SELECT 1 FROM dbo.Analysis WHERE Description = 'Moving Average') 
+						INSERT dbo.Analysis VALUES ('Moving Average', @bidPrice)
+						
+					UPDATE dbo.Analysis SET Value = @movingAverageTrendCount + 1 WHERE Description = 'Moving Average Trend Count'
+				END
+
 				-- Create new trend element
 				INSERT INTO [dbo].[Trends]
 				SELECT t.EndSequence		--[StartSequence]

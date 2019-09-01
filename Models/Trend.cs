@@ -19,4 +19,12 @@ namespace Models
         public int? Type { get; set; }
         public int Status { get; set; }
     }
+
+    /* Status:=
+     *      0 - Started
+     *      1 - Finished
+     * Type:=
+     *     -1 - Downward Trend
+     *      1 - Upward Trend
+     */
 }
