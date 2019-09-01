@@ -11,8 +11,8 @@ SELECT @FillId 	= FillId,
        @OrderId = OrderId
 FROM INSERTED	   
 
---TODO: Will have to change for partial fills!!!!  **********
 UPDATE dbo.Orders SET Status = 2 WHERE @orderId = OrderId
+IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchFills]', N'Set order filled. TODO: Will have to change for partial fills!!!!  **********'
 
 
 GO

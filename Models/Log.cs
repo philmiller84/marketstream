@@ -9,12 +9,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
-    public class Global
+    public class Log
     {
         [Key]
-        public int PropertyId { get; set; }
-        public string Description { get; set; }
-        public decimal Value { get; set; }
+        public int Id { get; set; }
+        public int Level { get; set; }
+        public string Context { get; set; }
+        public string Text { get; set; }
     }
-
 }

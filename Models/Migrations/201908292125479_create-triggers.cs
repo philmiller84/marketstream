@@ -7,6 +7,7 @@ namespace Models.Migrations
     {
         public override void Up()
         {
+            this.Sql(Properties.Resources.Create_sp_log_event);
             this.Sql(Properties.Resources.Create_sp_add_trend);
             this.Sql(Properties.Resources.Create_tr_WatchTicker);
             this.Sql(Properties.Resources.Create_tr_WatchTrend);
@@ -29,6 +30,7 @@ namespace Models.Migrations
             this.Sql(Properties.Resources.Drop_tr_WatchTrend);
             this.Sql(Properties.Resources.Drop_tr_WatchTicker);
             this.Sql(Properties.Resources.Drop_sp_add_trend);
+            this.Sql(Properties.Resources.Drop_sp_log_event);
         }
     }
 }

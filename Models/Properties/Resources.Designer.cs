@@ -61,13 +61,24 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [Models.MarketData]
+        ///   Looks up a localized string similar to CREATE FUNCTION GetLogLevel()
+        ///RETURNS int WITH SCHEMABINDING
+        ///BEGIN
+        ///DECLARE @logLevel INT = 0
+        ///SELECT @logLevel = Value FROM dbo.Globals WHERE Description = &apos;Logging Enabled&apos;
+        ///RETURN @logLevel
+        ///END
         ///GO
-        ///SET ANSI_NULLS OFF
-        ///GO
-        ///SET QUOTED_IDENTIFIER OFF
-        ///GO
-        ///CREATE procedure [dbo].[sp_add_trend] (
+        ///.
+        /// </summary>
+        internal static string Create_GetLogLevel {
+            get {
+                return ResourceManager.GetString("Create_GetLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_add_trend] (
         ///	@bidPrice decimal(18, 2),
         ///	@bidSize decimal (18, 2),
         ///	@askPrice decimal (18, 2),
@@ -89,11 +100,39 @@ namespace Models.Properties {
         ///	DECLARE @t_id INTEGER=NULL
         ///	DECLARE @t_trendType INTEGER=NULL
         ///
-        ///	-- Status va [rest of string was truncated]&quot;;.
+        ///	-- Status values: NULL (undefined), 0 (started), 1 (finished)
+        ///
+        ///	SELECT @t_id = t.TrendId, @t_t [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_sp_add_trend {
             get {
                 return ResourceManager.GetString("Create_sp_add_trend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_log_event] (
+        ///	@Level AS int,
+        ///	@Context AS NVARCHAR(max),
+        ///	@Text AS NVARCHAR(max)
+        ///) 
+        ///AS
+        ///BEGIN
+        ///
+        ///    SET NOCOUNT ON
+        ///
+        ///    /*
+        ///    ** Declarations.
+        ///    */
+        ///    DECLARE @retcode int=0
+        /// 
+        ///	INSERT dbo.Logs VALUES (@Level, @Context, @Text)
+        ///	return @retcode
+        ///END.
+        /// </summary>
+        internal static string Create_sp_log_event {
+            get {
+                return ResourceManager.GetString("Create_sp_log_event", resourceCulture);
             }
         }
         
@@ -131,11 +170,8 @@ namespace Models.Properties {
         ///       @OrderId = OrderId
         ///FROM INSERTED	   
         ///
-        ///--TODO: Will have to change for partial fills!!!!  **********
-        ///UPDATE dbo.Orders SET Status = 2
-        ///WHERE @orderId = OrderId
-        ///
-        ///GO.
+        ///UPDATE dbo.Orders SET Status = 2 WHERE @orderId = OrderId
+        ///IF @@ROWCOUNT &gt; 0 AND dbo.GetLogLevel() &gt;= 1 EXEC dbo.sp_log_event 1, N&apos;[tr_WatchFills]&apos;, N&apos;Set order filled. TODO: Will have to change for pa [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchFills {
             get {
@@ -146,7 +182,22 @@ namespace Models.Properties {
         /// <summary>
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchFund]  ON dbo.Funds AFTER INSERT, UPDATE
         ///AS  
+        ///DECLARE @Value as DECIMAL(18,10)
         ///
+        ///SELECT @Value = VALUE
+        ///FROM INSERTED
+        ///
+        ///
+        ///declare @sequence bigint
+        ///select top 1 @sequence = sequence from tickers order by sequence desc
+        ///declare @seqstr varchar(20) = CONVERT(varchar(20), @sequence)
+        ///
+        ///IF @Value &lt; 0
+        ///	RAISERROR(N&apos;Funds dropped below 0 at sequence %s&apos;,
+        ///				18, --Severity
+        ///				1, 
+        ///				@seqstr
+        ///				);
         ///GO.
         /// </summary>
         internal static string Create_tr_WatchFund {
@@ -169,12 +220,12 @@ namespace Models.Properties {
         ///       @Size 		= Size,
         ///       @Type 		= Type,
         ///       @Status 		= Status 	
-        ///FROM INSERTED	   
+        ///FROM INSERTED	  
         ///
+        ///DECLARE @PreviousStatus AS int
+        ///SELECT @PreviousStatus = Status FROM DELETED
         ///
-        ///IF @Type = 1  AND @Status IN (1,2) --limit buy order on exchange
-        ///	UPDATE dbo.Funds SET Value = Value - (@Size * @Price) 
-        ///IF @Type [rest of string was truncated]&quot;;.
+        ///IF @Type = 1  AND ((@PreviousStatus IS NULL OR @Previo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchOrder {
             get {
@@ -185,6 +236,7 @@ namespace Models.Properties {
         /// <summary>
         ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchPosition]  ON dbo.Positions AFTER INSERT, UPDATE
         ///AS  
+        ///DECLARE @Value AS Decimal(18,10)
         ///
         ///GO.
         /// </summary>
@@ -233,9 +285,8 @@ namespace Models.Properties {
         ///	   @Sequence = Sequence
         ///	   FROM inserted
         ///
-        ///
-        ///--TODO: TEMPORARY!!! Process any fills due to price movement
-        ///INSERT INT [rest of string was truncated]&quot;;.
+        ///INSERT INTO dbo.Fills
+        ///SELECT OrderId, Price, Size  FROM dbo.Orders --TODO [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchTicker {
             get {
@@ -300,11 +351,30 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[sp_add_trend].
+        ///   Looks up a localized string similar to DROP FUNCTION GetLogLevel
+        ///GO.
+        /// </summary>
+        internal static string Drop_GetLogLevel {
+            get {
+                return ResourceManager.GetString("Drop_GetLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP PROCEDURE [dbo].[sp_add_trend].
         /// </summary>
         internal static string Drop_sp_add_trend {
             get {
                 return ResourceManager.GetString("Drop_sp_add_trend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP PROCEDURE [dbo].[sp_log_event].
+        /// </summary>
+        internal static string Drop_sp_log_event {
+            get {
+                return ResourceManager.GetString("Drop_sp_log_event", resourceCulture);
             }
         }
         

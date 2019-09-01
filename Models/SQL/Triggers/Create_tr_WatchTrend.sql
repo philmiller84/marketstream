@@ -82,25 +82,32 @@ BEGIN
 				FROM dbo.StrategyProperties sp
 				WHERE sp.StrategyType = @StrategyType AND sp.Description = 'Sell Increment'
 
+				IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create Strategy Entry'
+				---------------------
 				DECLARE @StrategyIdTbl AS TABLE(StrategyId INT)
 				DECLARE @StrategyId AS INT = 0
 				INSERT dbo.Strategies OUTPUT INSERTED.StrategyId INTO @StrategyIdTbl VALUES (@StrategyType, @PendingStatus)
 				SELECT TOP 1 @StrategyId = strategyid from @StrategyIdTbl
 
+				IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create DownUpStrategy Entry'
+				---------------------
 				INSERT INTO dbo.DownUpStrategies 
 				SELECT TOP 1 s.StrategyId, @AskPrice, @MinimumThreshold 
 				FROM @StrategyIdTbl s
 
+				IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create Buy Order'
+				---------------------
 				DECLARE @outputInto AS TABLE (StrategyID INT, OrderID INT)
-				--Buy order
 				INSERT dbo.Orders OUTPUT @StrategyId, INSERTED.OrderId INTO @outputInto
 				VALUES(NULL, @AskPrice, @Size, @limitBuy, @readyStatus)			
 
-				--Sell order	
+				IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create Sell Order'
+				---------------------
 				INSERT dbo.Orders OUTPUT @StrategyId, INSERTED.OrderId INTO @outputInto 
 				VALUES (NULL, @AskPrice + @MinimumThreshold, @Size, @limitSell, @pendingStatus)
 		
-				--Join record
+				IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create Join record'
+				---------------------
 				INSERT INTO StrategyOrderJoins SELECT StrategyID, OrderID FROM @outputInto
 			END
 		END

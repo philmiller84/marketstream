@@ -54,6 +54,7 @@
     <Compile Include="Fee.cs" />
     <Compile Include="Fill.cs" />
     <Compile Include="Fund.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Migrations\201908282107242_New-Initial-Create.cs" />
     <Compile Include="Migrations\201908282107242_New-Initial-Create.Designer.cs">
       <DependentUpon>201908282107242_New-Initial-Create.cs</DependentUpon>
@@ -93,6 +94,10 @@
     <Compile Include="Migrations\201908292125479_create-triggers.cs" />
     <Compile Include="Migrations\201908292125479_create-triggers.Designer.cs">
       <DependentUpon>201908292125479_create-triggers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909010218475_create-logs-table.cs" />
+    <Compile Include="Migrations\201909010218475_create-logs-table.Designer.cs">
+      <DependentUpon>201909010218475_create-logs-table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
@@ -145,6 +150,9 @@
     <EmbeddedResource Include="Migrations\201908292125479_create-triggers.resx">
       <DependentUpon>201908292125479_create-triggers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909010218475_create-logs-table.resx">
+      <DependentUpon>201909010218475_create-logs-table.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -158,14 +166,12 @@
     <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchOrder.sql" />
     <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchFills.sql" />
     <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchDownUpStrategy.sql" />
-    <None Include="SQL\Triggers\Drop Triggers\Drop_sp_add_trend.sql" />
     <None Include="SQL\Triggers\Create_tr_WatchTrend.sql" />
     <None Include="SQL\Triggers\Create_tr_WatchTicker.sql" />
     <None Include="SQL\Triggers\Create_tr_WatchStrategy.sql" />
     <None Include="SQL\Triggers\Create_tr_WatchOrder.sql" />
     <None Include="SQL\Triggers\Create_tr_WatchFills.sql" />
     <None Include="SQL\Triggers\Create_tr_WatchDownUpStrategy.sql" />
-    <None Include="SQL\Triggers\Create_sp_add_trend.sql" />
     <None Include="SQL\Views\Drop_V_Exposure.sql" />
     <None Include="SQL\Views\Create_V_Exposure.sql" />
     <None Include="SQL\Views\Drop_V_Orders.sql" />
@@ -182,6 +188,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchPosition.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Create_sp_add_trend.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Drop Procedures\Drop_sp_add_trend.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Functions\Create_GetLogLevel.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Functions\Drop_GetLogLevel.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Create_sp_log_event.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Drop Procedures\Drop_sp_log_event.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,6 +16,7 @@ namespace Models
         public DbSet<Ticker> Tickers { get; set; }
         public DbSet<Fund> Funds { get; set; }
         public DbSet<Global> Globals { get; set; }
+        public DbSet<Log> Logs { get; set; }
         public DbSet<Fee> Fees { get; set; }
         public DbSet<Fill> Fills { get; set; }
         public DbSet<Trend> Trends { get; set; }

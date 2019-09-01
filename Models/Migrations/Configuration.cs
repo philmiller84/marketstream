@@ -33,6 +33,7 @@ namespace Models.Migrations
 
             context.Globals.AddOrUpdate(g => new { g.Description, g.Value }, new Global { Description = "Minimum Order Size", Value = 0.001M });
             context.Globals.AddOrUpdate(g => new { g.Description, g.Value }, new Global { Description = "Minimum Size Increment", Value = 0.00000001M });
+            context.Globals.AddOrUpdate(g => new { g.Description, g.Value }, new Global { Description = "Logging Enabled", Value = 1 });
 
             context.Positions.AddOrUpdate(p => new { p.Size }, new Position { Size = 0 });
         }

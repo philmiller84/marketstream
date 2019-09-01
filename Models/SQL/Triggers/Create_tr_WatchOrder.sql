@@ -17,21 +17,27 @@ DECLARE @PreviousStatus AS int
 SELECT @PreviousStatus = Status FROM DELETED
 
 IF @Type = 1  AND ((@PreviousStatus IS NULL OR @PreviousStatus < 1) AND @Status IN (1, 2)) --limit buy order on exchange
+BEGIN
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update funds for completed Buy order'
 	UPDATE dbo.Funds SET Value = Value - (@Size * @Price) 
+END
 IF @Type = 2 AND ((@PreviousStatus IS NULL OR @PreviousStatus < 2) AND @Status = 2)
+BEGIN
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update funds for completed Sell order'
 	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) 
+END
 
 IF @PreviousStatus < 2 AND @Status = 2 --completed order
 BEGIN
 	--Adjust position
 	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
 
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update Position'
 	UPDATE dbo.Positions SET Size = CASE WHEN @Type = 1 THEN Size + @Size WHEN @Type = 2 THEN Size - @Size ELSE Size END
 
 	--For completed buy orders, update the related sell order for DownUpStrategy
 	IF @Type = 1
 	BEGIN
-		;
 		UPDATE o2
 		SET Status = 1
 		FROM dbo.StrategyOrderJoins so
@@ -40,10 +46,11 @@ BEGIN
 		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
 		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
 		WHERE so.OrderId = @OrderID AND o2.Status < 1 AND o2.Type = 2
+		IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Updated order status to Open Order for Sell Order'
 	END
 
-	;--Mark strategy complete if all orders complete
-	WITH StrategyStatus(OrderId, OrderStatus, StrategyId) AS
+	---------------------
+	; WITH StrategyStatus(OrderId, OrderStatus, StrategyId) AS
 	(
 		SELECT o2.OrderId, o2.Status, s.StrategyId
 		FROM dbo.StrategyOrderJoins so 
@@ -58,6 +65,8 @@ BEGIN
 	FROM dbo.Strategies  s
 	JOIN StrategyStatus ON s.StrategyId = StrategyStatus.StrategyId
 	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> 2)
+	---------------------
+	IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N' Marked strategy complete if all orders complete'
 END
 
 
