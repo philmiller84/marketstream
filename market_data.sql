@@ -15,7 +15,8 @@ update funds set value = 100
 update positions set size = 0
 --select top 1 * from tickers order by sequence desc
 
-update dbo.analysis set value = 0 where description like 'moving average%count'
+--update dbo.analysis set value = 0 where description like 'moving average%count'
+delete from dbo.Analysis
 
 update StrategyProperties set value = 5.25 where propertyid = 1
 update StrategyProperties set value = .05 where propertyid = 2

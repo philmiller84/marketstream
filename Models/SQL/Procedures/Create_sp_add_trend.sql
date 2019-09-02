@@ -65,23 +65,46 @@ BEGIN
 				--Update existing trend
 				UPDATE [dbo].[Trends] SET Status = 1 FROM [dbo].[Trends] t WHERE t.TrendId = @t_id
 
+				--Get Bid Spread for previous trend
+				DECLARE @TrendSpread INT = 0
+				SELECT @TrendSpread = 
+					CASE 
+						WHEN t.Type = 1 THEN ABS(t.EndBidPrice - t.StartBidPrice) 
+						WHEN t.Type = -1 THEN ABS(t.StartAskPrice - t.EndAskPrice) 
+					END 
+				FROM dbo.Trends t WHERE t.TrendId = @t_id 
+
 				--Calculate Moving Averages
-				DECLARE @movingAverageTrendCount INT = 0
+				DECLARE @movingAverageTrendCount INT
 				SELECT @movingAverageTrendCount = Value FROM dbo.Analysis WHERE Description = 'Moving Average Trend Count'
 
-				IF @movingAverageTrendCount IS NULL INSERT dbo.Analysis VALUES ('Moving Average Trend Count', 0)
+				IF @movingAverageTrendCount IS NULL 
+				BEGIN 
+					SET @movingAverageTrendCount = 0
+					INSERT dbo.Analysis VALUES ('Moving Average Trend Count', 0)
+					INSERT dbo.Analysis VALUES ('Moving Average Bid Price', 0)
+					INSERT dbo.Analysis VALUES ('Moving Average Spread', 0)
+					INSERT dbo.Analysis VALUES ('Moving Average Trend Spread', 0)
+					
+				END
 
 				DECLARE @movingAverageTrendRecordsMax INT = 0
 				SELECT @movingAverageTrendRecordsMax = sp.Value FROM dbo.StrategyProperties sp WHERE sp.StrategyType = 0 AND sp.Description = 'Moving Average Trend Records Max'
 
 				IF @movingAverageTrendCount = @movingAverageTrendRecordsMax
-					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + (@bidPrice - Value) / @movingAverageTrendCount WHERE Description = 'Moving Average'
+				BEGIN
+					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + (@bidPrice / @movingAverageTrendCount) WHERE Description = 'Moving Average Bid Price'
+					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + ((@askPrice - @bidPrice)  / @movingAverageTrendCount) WHERE Description = 'Moving Average Spread'
+					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + (@TrendSpread / @movingAverageTrendCount) WHERE Description = 'Moving Average Trend Spread'
+				END
 				ELSE
 				BEGIN
 					IF @movingAverageTrendCount < @movingAverageTrendRecordsMax
-						UPDATE dbo.Analysis SET Value = Value + (@bidPrice - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average'
-					ELSE IF NOT EXISTS (SELECT 1 FROM dbo.Analysis WHERE Description = 'Moving Average') 
-						INSERT dbo.Analysis VALUES ('Moving Average', @bidPrice)
+					BEGIN
+						UPDATE dbo.Analysis SET Value = Value + (@bidPrice - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average Bid Price'
+						UPDATE dbo.Analysis SET Value = Value + ((@askPrice - @bidPrice) - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average Spread'
+						UPDATE dbo.Analysis SET Value = Value + (@TrendSpread - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average Trend Spread'
+					END
 						
 					UPDATE dbo.Analysis SET Value = @movingAverageTrendCount + 1 WHERE Description = 'Moving Average Trend Count'
 				END
