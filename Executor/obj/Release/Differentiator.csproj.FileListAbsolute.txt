@@ -1,0 +1,15 @@
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\Differentiator.exe.config
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\Differentiator.exe
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\Differentiator.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\EntityFramework.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\Models.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\EntityFramework.xml
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\obj\Release\Differentiator.csprojAssemblyReference.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\obj\Release\Differentiator.csproj.CoreCompileInputs.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\obj\Release\Differentiator.csproj.CopyComplete
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\obj\Release\Differentiator.exe
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\obj\Release\Differentiator.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\Models.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Differentiator\bin\Release\Models.dll.config

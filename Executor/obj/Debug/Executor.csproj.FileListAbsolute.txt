@@ -1,0 +1,17 @@
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Executor.csprojAssemblyReference.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Executor.csproj.CoreCompileInputs.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Differentiator.exe
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Differentiator.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Differentiator.exe.config
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Differentiator.exe
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Differentiator.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\EntityFramework.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Models.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Models.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Models.dll.config
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\EntityFramework.xml
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Executor.csproj.CopyComplete

@@ -74,7 +74,6 @@ while True:
 	#	coppockD1[mm] = coppock[mm] - coppock[mm+1]
 
 	currentPrice = 3686.77
- 
 	possiblePurchase = (float(funding)) / float(currentPrice)
 
 	owned = float(auth_client.get_account(specificID)['available'])
@@ -84,7 +83,7 @@ while True:
 
 	if True:
 
-		order = auth_client.place_market_order(product_id=currency, side='buy', funds=str(funding))
+		#order = auth_client.place_market_order(product_id=currency, side='buy', funds=str(funding))
 
 		message = "Buying Approximately " + str(possiblePurchase) + " " + \
 			currency + "   Now @" + str(currentPrice) + "/Coin. TOTAL = " + str(funding)
