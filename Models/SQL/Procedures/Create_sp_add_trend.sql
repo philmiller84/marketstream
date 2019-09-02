@@ -19,27 +19,22 @@ BEGIN
 	--check if current trend
 	DECLARE @t_id INTEGER=NULL
 	DECLARE @t_trendType INTEGER=NULL
+	SELECT @t_id = t.TrendId, @t_trendType = Type FROM [dbo].[Trends] t WHERE t.StartSequence IS NOT NULL AND t.Status = 0 --Status values:= NULL (undefined), 0 (started), 1 (finished)
 
-	-- Status values: NULL (undefined), 0 (started), 1 (finished)
-
-	SELECT @t_id = t.TrendId, @t_trendType = Type FROM [dbo].[Trends] t WHERE t.StartSequence IS NOT NULL AND t.Status = 0
-
-	IF @t_id IS NULL
-	BEGIN
 	--if no current trend, start trend
-	INSERT INTO [dbo].[Trends]
-	SELECT @Sequence				--[StartSequence]
-		  ,@Sequence				--[EndSequence]
-		  ,@bidPrice				--[StartBidPrice]		
-		  ,@bidPrice				--[EndBidPrice]
-		  ,@askPrice				--[StartAskPrice]
-		  ,@askPrice				--[EndAskPrice]
-		  ,NULL					--[Type]
-		  ,0					--[Status]
-	END
-	ELSE IF @t_id IS NOT NULL
+	IF @t_id IS NULL
+		INSERT INTO [dbo].[Trends]
+		SELECT @Sequence				--[StartSequence]
+			,@Sequence				--[EndSequence]
+			,@bidPrice				--[StartBidPrice]		
+			,@bidPrice				--[EndBidPrice]
+			,@askPrice				--[StartAskPrice]
+			,@askPrice				--[EndAskPrice]
+			,NULL					--[Type]
+			,0					--[Status]
+	ELSE IF @t_id IS NOT NULL -- we have a trend!!!
 	BEGIN
-		IF @t_trendType IS NOT NULL -- we have a trend
+		IF @t_trendType IS NOT NULL
 		BEGIN 
 			--TODO: can use function or complicated tables for threshold later
 			DECLARE @thresholdValue AS decimal(18,10)
@@ -49,14 +44,8 @@ BEGIN
 			WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold'
 
 			DECLARE @isAbortTrend INTEGER=0
-
-			SELECT @isAbortTrend = 
-			CASE 
-				WHEN @t_trendType = 1
-					THEN CASE WHEN @bidPrice - t.EndBidPrice < 0 AND t.EndBidPrice - @bidPrice > @thresholdValue THEN 1 ELSE 0 END
-				WHEN @t_trendType = -1
-					THEN CASE WHEN t.EndBidPrice - @bidPrice < 0 AND @bidPrice - t.EndBidPrice > @thresholdValue THEN 1 ELSE 0 END
-			END
+			SELECT @isAbortTrend = CASE WHEN @t_trendType = 1 THEN IIF(@bidPrice < t.EndBidPrice AND t.EndBidPrice - @bidPrice > @thresholdValue, 1, 0)
+										WHEN @t_trendType = -1 THEN IIF(t.EndBidPrice < @bidPrice AND @bidPrice - t.EndBidPrice > @thresholdValue, 1, 0) END
 			FROM [dbo].[Trends] t
 			WHERE t.TrendId = @t_id
 
@@ -77,6 +66,10 @@ BEGIN
 				--Calculate Moving Averages
 				DECLARE @movingAverageTrendCount INT
 				SELECT @movingAverageTrendCount = Value FROM dbo.Analysis WHERE Description = 'Moving Average Trend Count'
+				DECLARE @averageTrendThreshold INT 
+				SELECT @averageTrendThreshold = ABS(t.EndBidPrice - @bidPrice)
+				FROM [dbo].[Trends] t
+				WHERE t.TrendId = @t_id
 
 				IF @movingAverageTrendCount IS NULL 
 				BEGIN 
@@ -85,29 +78,36 @@ BEGIN
 					INSERT dbo.Analysis VALUES ('Moving Average Bid Price', 0)
 					INSERT dbo.Analysis VALUES ('Moving Average Spread', 0)
 					INSERT dbo.Analysis VALUES ('Moving Average Trend Spread', 0)
-					
+					INSERT dbo.Analysis VALUES ('Moving Average Trend Threshold', 0)
 				END
 
 				DECLARE @movingAverageTrendRecordsMax INT = 0
 				SELECT @movingAverageTrendRecordsMax = sp.Value FROM dbo.StrategyProperties sp WHERE sp.StrategyType = 0 AND sp.Description = 'Moving Average Trend Records Max'
 
-				IF @movingAverageTrendCount = @movingAverageTrendRecordsMax
+				IF @movingAverageTrendCount < @movingAverageTrendRecordsMax
 				BEGIN
-					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + (@bidPrice / @movingAverageTrendCount) WHERE Description = 'Moving Average Bid Price'
-					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + ((@askPrice - @bidPrice)  / @movingAverageTrendCount) WHERE Description = 'Moving Average Spread'
-					UPDATE dbo.Analysis SET Value = Value - (Value / @movingAverageTrendCount) + (@TrendSpread / @movingAverageTrendCount) WHERE Description = 'Moving Average Trend Spread'
+					--Increment the count and store
+					SET @movingAverageTrendCount += 1
+					UPDATE dbo.Analysis SET Value = @movingAverageTrendCount WHERE Description = 'Moving Average Trend Count'
 				END
-				ELSE
-				BEGIN
-					IF @movingAverageTrendCount < @movingAverageTrendRecordsMax
-					BEGIN
-						UPDATE dbo.Analysis SET Value = Value + (@bidPrice - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average Bid Price'
-						UPDATE dbo.Analysis SET Value = Value + ((@askPrice - @bidPrice) - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average Spread'
-						UPDATE dbo.Analysis SET Value = Value + (@TrendSpread - Value)/(@movingAverageTrendCount + 1) FROM dbo.Analysis WHERE Description = 'Moving Average Trend Spread'
-					END
-						
-					UPDATE dbo.Analysis SET Value = @movingAverageTrendCount + 1 WHERE Description = 'Moving Average Trend Count'
-				END
+
+				UPDATE dbo.Analysis SET Value += (@bidPrice - Value)/@movingAverageTrendCount WHERE Description = 'Moving Average Bid Price'
+				UPDATE dbo.Analysis SET Value += ((@askPrice - @bidPrice) - Value)/@movingAverageTrendCount WHERE Description = 'Moving Average Spread'
+				UPDATE dbo.Analysis SET Value += (@TrendSpread  - Value )/@movingAverageTrendCount WHERE Description = 'Moving Average Trend Spread'
+				UPDATE dbo.Analysis SET Value += (@averageTrendThreshold - Value )/@movingAverageTrendCount WHERE Description = 'Moving Average Trend Threshold'
+
+				--Adjust Sell increment for new sell orders
+				UPDATE sp 
+				SET sp.Value = a.Value 
+				FROM dbo.StrategyProperties sp, dbo.Analysis a 
+				WHERE sp.StrategyType = 0 AND sp.Description = 'Sell Increment' AND a.Description = 'Moving Average Spread'
+
+				UPDATE sp
+				SET sp.Value = a.Value
+				FROM dbo.StrategyProperties sp, dbo.Analysis a
+				WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold' AND a.Description = 'Moving Average Trend Threshold'
+
+				--TODO: Adjust existing sell orders
 
 				-- Create new trend element
 				INSERT INTO [dbo].[Trends]
@@ -117,11 +117,7 @@ BEGIN
 					  ,@bidPrice			--[EndBidPrice]
 					  ,t.EndAskPrice		--[StartAskPrice]
 					  ,@askPrice			--[EndAskPrice]
-					  ,CASE 
-						WHEN t.EndBidPrice < @bidPrice 
-						THEN 1 
-						ELSE -1
-						END				--[Type]
+					  ,IIF(t.EndBidPrice < @bidPrice, 1, -1) --[Type]
 					  ,0				--[Status]
 				FROM [dbo].[Trends] t
 				WHERE t.TrendId = @t_id
