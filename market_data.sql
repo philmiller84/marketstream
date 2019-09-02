@@ -1,4 +1,3 @@
-
 delete from tickers
 delete from trends
 delete from StrategyOrderJoins
@@ -6,22 +5,20 @@ delete from DownUpStrategies
 delete from orders
 delete from fills
 delete from strategies
-
 --select * from funds
-update funds set value = 100
-
-
+update funds set value = 200
 --select * from Positions
 update positions set size = 0
 --select top 1 * from tickers order by sequence desc
-
 --update dbo.analysis set value = 0 where description like 'moving average%count'
 delete from dbo.Analysis
 
 update StrategyProperties set value = 5.25 where propertyid = 1
 update StrategyProperties set value = .05 where propertyid = 2
-update StrategyProperties set value = 5 where propertyid = 3
-select * from strategyproperties
+update StrategyProperties set value = 1 where propertyid = 3
+update StrategyProperties set value = .10 where propertyid = 4
+update StrategyProperties set value = 10 where propertyid = 5 -- max open orders
+
 
 INSERT INTO Tickers VALUES(10717221829,10193.01,0.54,10195.89,0.73       )
 WAITFOR DELAY '00:00:00.000'
@@ -528,7 +525,16 @@ WAITFOR DELAY '00:00:00.000'
 INSERT INTO Tickers VALUES(10717458937,10185.63,1.89,10186.59,0.4        )
 WAITFOR DELAY '00:00:00.000'
 INSERT INTO Tickers VALUES(10717459400,10189.99,4.99,10190,8.23          )
-select * from funds
+
+DECLARE @FundsValue DECIMAL(18,10)= 0
+DECLARE @PositionValue DECIMAL(18,10)= 0
+DECLARE @AllocatedOrdersValue DECIMAL(18,10)= 0
+select top 1 @FundsValue = ISNULL(value, 0), @PositionValue = ISNULL(p.size,0) * t.bidPrice from Positions p, tickers t, funds order by sequence desc
+select top 1 @AllocatedOrdersValue = ISNULL(SUM(o.price * o.size),0) from orders o where o.status = -1 and o.type = 1 
 
 
-select top 1 value as Funds, size as Position, size * bidprice + value as Price from Positions, tickers, funds order by sequence desc
+SELECT @FundsValue AS FundsValue, @PositionValue as PositionValue, @AllocatedOrdersValue AS AllocatedOrdersValue, @FundsValue + @PositionValue + @AllocatedOrdersValue AS Total
+
+select * from strategyproperties
+select * from analysis
+select top 10 * from tickers order by sequence desc

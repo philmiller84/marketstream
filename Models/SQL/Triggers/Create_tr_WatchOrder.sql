@@ -16,9 +16,9 @@ FROM INSERTED
 DECLARE @PreviousStatus AS int
 SELECT @PreviousStatus = Status FROM DELETED
 
-IF @Type = 1  AND ((@PreviousStatus IS NULL OR @PreviousStatus < 1) AND @Status IN (1, 2)) --limit buy order on exchange
-BEGIN
-	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update funds for completed Buy order'
+IF @Type = 1  AND @PreviousStatus IS NULL AND @Status = -1 --limit buy order pending => Allocate funds immediately
+BEGIN 
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update funds for pending Buy order'
 	UPDATE dbo.Funds SET Value = Value - (@Size * @Price) 
 END
 IF @Type = 2 AND ((@PreviousStatus IS NULL OR @PreviousStatus < 2) AND @Status = 2)

@@ -100,7 +100,7 @@ BEGIN
 				UPDATE sp 
 				SET sp.Value = a.Value 
 				FROM dbo.StrategyProperties sp, dbo.Analysis a 
-				WHERE sp.StrategyType = 0 AND sp.Description = 'Sell Increment' AND a.Description = 'Moving Average Spread'
+				WHERE sp.StrategyType = 0 AND sp.Description = 'Sell Increment' AND a.Description = 'Moving Average Trend Spread'
 
 				UPDATE sp
 				SET sp.Value = a.Value
@@ -108,14 +108,14 @@ BEGIN
 				WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold' AND a.Description = 'Moving Average Trend Threshold'
 
 				--TODO: Adjust existing sell orders
-
-				-- Create new trend element
+			
+				---- Create new trend element
 				INSERT INTO [dbo].[Trends]
 				SELECT t.EndSequence		--[StartSequence]
 					  ,@Sequence			--[EndSequence]
-					  ,t.EndBidPrice		--[StartBidPrice]		
+					  ,@bidPrice			--[StartBidPrice]		
 					  ,@bidPrice			--[EndBidPrice]
-					  ,t.EndAskPrice		--[StartAskPrice]
+					  ,@askPrice			--[StartAskPrice]
 					  ,@askPrice			--[EndAskPrice]
 					  ,IIF(t.EndBidPrice < @bidPrice, 1, -1) --[Type]
 					  ,0				--[Status]

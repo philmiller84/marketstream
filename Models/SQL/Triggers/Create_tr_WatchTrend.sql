@@ -27,7 +27,11 @@ BEGIN
 	--if new record has upward trend, check for previous entry
 	IF @Type = 1 --new record is a upward trend, check previous 
 	BEGIN DECLARE @PreviousTrendType AS int = 0
-		SELECT @PreviousTrendType = CASE WHEN TrendId = @TrendId THEN  LAG(Type) OVER (ORDER BY TrendId) ELSE @PreviousTrendType END
+		SELECT @PreviousTrendType = 
+			CASE WHEN TrendId = @TrendId 
+				THEN LAG(Type) OVER (ORDER BY TrendId) 
+				ELSE @PreviousTrendType 
+			END 
 		FROM dbo.Trends
 	END
 	----if new record has downward trend, enter sell order for down-up-strategy
@@ -42,7 +46,7 @@ BEGIN
 
 	IF @PreviousTrendType = -1 --previous was an downward trend, create pending strategy
 	BEGIN --type 0 is the down up, status -1 is pending	
-		EXEC [dbo].[sp_down_up_strategy]  
+		EXEC [dbo].[sp_down_up_strategy] @StartBidPrice, @StartAskPrice 
 	END
 END
 GO
