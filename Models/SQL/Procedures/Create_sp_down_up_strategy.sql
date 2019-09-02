@@ -33,18 +33,21 @@ BEGIN
 	DECLARE @AvgBidPrice AS decimal(18,2)
 	SELECT @AvgBidPrice =  a.Value FROM dbo.Analysis a WHERE a.Description = 'Moving Average Bid Price'
 
-	DECLARE @TradingHaltPercentage AS decimal
+	DECLARE @TradingHaltPercentage AS decimal(18,2)
 	SELECT @TradingHaltPercentage = sp.Value FROM dbo.StrategyProperties sp WHERE sp.StrategyType = @DownUpStrategy AND sp.Description = 'Trade Halt Percentage'
+
+	DECLARE @PercentOpenOfMax AS decimal(18,2)
+	SET @PercentOpenOfMax = CONVERT(DECIMAL(18,2),@OpenStrategies) / @MaxOpenOrders
 
 	--Prevent strategy creation if there is a downward trend and price does not have upward pressure
 	DECLARE @tradeHaltIncrement DECIMAL(18,10) = 1.00/@MaxOpenOrders 
-	IF(@BidPrice + @MinimumThreshold > @AvgBidPrice) AND (@OpenStrategies / @MaxOpenOrders >= @TradingHaltPercentage)
+	IF(@BidPrice + @MinimumThreshold > @AvgBidPrice) AND (@PercentOpenOfMax >= @TradingHaltPercentage)
 	BEGIN
 		UPDATE sp SET sp.Value = 1 FROM dbo.StrategyProperties sp WHERE sp.StrategyType = @DownUpStrategy AND sp.Description = 'Trade Halt Enabled'
 		UPDATE sp SET sp.Value = IIF(sp.Value - @tradeHaltIncrement <= 0, @tradeHaltIncrement, sp.Value - @tradeHaltIncrement) FROM dbo.StrategyProperties sp WHERE sp.StrategyType = @DownUpStrategy AND sp.Description = 'Trade Halt Percentage'
 		return @retCode
 	END
-	ELSE IF (@OpenStrategies / @MaxOpenOrders < @TradingHaltPercentage)
+	ELSE IF (@PercentOpenOfMax < @TradingHaltPercentage)
 		UPDATE sp SET sp.Value = 0 FROM dbo.StrategyProperties sp WHERE sp.StrategyType = @DownUpStrategy AND sp.Description = 'Trade Halt Enabled'
 
 	--If trade is currently halted, but we can enter due to upward pressure, reduce the percentage, and continue
@@ -56,7 +59,7 @@ BEGIN
 	SELECT @MinOrderSize = g.Value FROM dbo.Globals g WHERE g.Description = 'Minimum Order Size'  -- for Bitcoin (.001) 
 	DECLARE @MinOrderCost AS decimal(18,2) = @AskPrice * @MinOrderSize
 	
-	DECLARE @Size AS decimal(18,14) = @Funds / (@MaxOpenOrders - @OpenStrategies) / @AskPrice 
+	DECLARE @Size AS decimal(18,14) = @Funds / CONVERT(DECIMAL(18,2),(@MaxOpenOrders - @OpenStrategies)) / @AskPrice 
 	SELECT @Size = ROUND(@Size, ABS(LOG10(g.value)),1)
 	FROM dbo.Globals g 
 	WHERE g.Description = 'Minimum Size Increment' AND g.Value > 0

@@ -15,8 +15,9 @@ BEGIN
     */
     DECLARE @retcode int=0
             
-	-- CREATE TREND ENTRY -- 
-	--check if current trend
+	-------------------= CREATE TRENDS =-------------------- 
+
+	--Check if current trend
 	DECLARE @t_id INTEGER=NULL
 	DECLARE @t_trendType INTEGER=NULL
 	SELECT @t_id = t.TrendId, @t_trendType = Type FROM [dbo].[Trends] t WHERE t.StartSequence IS NOT NULL AND t.Status = 0 --Status values:= NULL (undefined), 0 (started), 1 (finished)
@@ -34,7 +35,14 @@ BEGIN
 			,0					--[Status]
 	ELSE IF @t_id IS NOT NULL -- we have a trend!!!
 	BEGIN
-		IF @t_trendType IS NOT NULL
+			
+		DECLARE @isAbortTrend INTEGER=0
+
+		IF @t_trendType IS NULL -- Trend not defined yet, define it here
+		BEGIN
+			UPDATE [dbo].[Trends] SET Type = CASE WHEN t.StartBidPrice < @BidPrice THEN 1 WHEN  t.StartBidPrice > @BidPrice THEN -1 ELSE NULL END FROM [dbo].[Trends] t WHERE t.TrendId = @t_id
+		END
+		ELSE --We had a trend defined before, check for abort
 		BEGIN 
 			--TODO: can use function or complicated tables for threshold later
 			DECLARE @thresholdValue AS decimal(18,10)
@@ -43,9 +51,9 @@ BEGIN
 			FROM dbo.StrategyProperties sp
 			WHERE sp.StrategyType = 0 AND sp.Description = 'Downturn Threshold'
 
-			DECLARE @isAbortTrend INTEGER=0
-			SELECT @isAbortTrend = CASE WHEN @t_trendType = 1 THEN IIF(@bidPrice < t.EndBidPrice AND t.EndBidPrice - @bidPrice > @thresholdValue, 1, 0)
-										WHEN @t_trendType = -1 THEN IIF(t.EndBidPrice < @bidPrice AND @bidPrice - t.EndBidPrice > @thresholdValue, 1, 0) END
+			SELECT @isAbortTrend = CASE WHEN @t_trendType = 1 THEN IIF(@bidPrice < t.EndBidPrice AND t.EndBidPrice - @bidPrice >= @thresholdValue, 1, 0)
+										WHEN @t_trendType = -1 THEN IIF(t.EndBidPrice < @bidPrice AND @bidPrice - t.EndBidPrice >= @thresholdValue, 1, 0) 
+								   END
 			FROM [dbo].[Trends] t
 			WHERE t.TrendId = @t_id
 
@@ -109,7 +117,7 @@ BEGIN
 
 				--TODO: Adjust existing sell orders
 			
-				---- Create new trend element
+				---- Create new trend element: opposite trend
 				INSERT INTO [dbo].[Trends]
 				SELECT t.EndSequence		--[StartSequence]
 					  ,@Sequence			--[EndSequence]
@@ -117,39 +125,25 @@ BEGIN
 					  ,@bidPrice			--[EndBidPrice]
 					  ,@askPrice			--[StartAskPrice]
 					  ,@askPrice			--[EndAskPrice]
-					  ,IIF(t.EndBidPrice < @bidPrice, 1, -1) --[Type]
+					  ,IIF(t.Type = -1, 1, -1) --[Type]
 					  ,0				--[Status]
 				FROM [dbo].[Trends] t
 				WHERE t.TrendId = @t_id
 			END
-			ELSE --IF @isAbortTrend = 0 --not abort
-			BEGIN 
-				UPDATE [dbo].[Trends]
-				SET EndBidPrice = @BidPrice,
-					EndAskPrice	= @AskPrice,
-					EndSequence	= @Sequence
-				FROM [dbo].[Trends] t
-				WHERE t.TrendId = @t_id
-			END 
 		END
-		ELSE -- @t_trendType IS NULL
-		BEGIN 
+
+		IF @isAbortTrend = 0 --Update the prices for the existing trend
 			UPDATE [dbo].[Trends]
-			SET Type =
-				CASE WHEN t.StartBidPrice < @BidPrice 
-					THEN 1 
-				WHEN  t.StartBidPrice > @BidPrice 
-					THEN -1 
-				ELSE 
-					NULL 
+			SET Status = 0,
+				EndBidPrice = CASE
+					WHEN Type = -1 THEN IIF(@BidPrice < EndBidPrice, @BidPrice, EndBidPrice) 
+					WHEN Type = 1 THEN IIF(@BidPrice > EndBidPrice, @BidPrice, EndBidPrice) 
 				END,
-			Status = 0,
-			EndBidPrice = @BidPrice,
-			EndAskPrice = @AskPrice,
-			EndSequence = @Sequence
+				EndAskPrice = @AskPrice,
+				EndSequence = @Sequence
 			FROM [dbo].[Trends] t
 			WHERE t.TrendId = @t_id
-		END
+
 	END
 
 	return @retcode
