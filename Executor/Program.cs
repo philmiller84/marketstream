@@ -19,6 +19,8 @@ namespace Executor
 
     class Program
     {
+        // Create Socket Server
+
         public void FetchL1Data()
         {
             var db = new Models.MarketData();
@@ -32,6 +34,10 @@ namespace Executor
 
         static void Main(string[] args)
         {
+
+            SynchronousSocketServer socketServer = new SynchronousSocketServer();
+
+            socketServer.StartListening();
             //Create queue for actions
             var actionQueue = new Queue<Action>();
 

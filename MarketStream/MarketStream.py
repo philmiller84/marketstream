@@ -3,7 +3,6 @@ import cbpro
 import time
 import socket
 import json
-import json
 
 #header
 print("MarketStream")

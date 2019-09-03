@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1DCD1AFC-B3EC-401E-B9CA-4F996CB48B22}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Differentiator</RootNamespace>
-    <AssemblyName>Differentiator</AssemblyName>
+    <RootNamespace>Executor</RootNamespace>
+    <AssemblyName>Executor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SynchronousSocketServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

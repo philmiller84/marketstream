@@ -1,8 +1,19 @@
-
+#OTConnect
 import cbpro
+import time
+import socket
+import json
 import numpy as np
 import datetime as dt
-import time
+
+#header
+print("OTConnect")
+
+HOST = '127.0.0.1'
+PORT = 65433
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
 
 #key = 'a3cb28a4c971f8e1efa4921dd822ef2b'
 #passphrase = 'marketdata'
@@ -50,28 +61,6 @@ while True:
 
 	#except Exception as e:
 	#	print("Error Encountered", e)
-
-	#ROC11=np.zeros(13)
-	#ROC14=np.zeros(13)
-	#ROCSUM=np.zeros(13)
-
-	#for ii in range(0,13):
-	#	ROC11[ii] = (100*(price[ii]-price[ii+11]) / float(price[ii+11]))
-	#	ROC14[ii] = (100*(price[ii]-price[ii+14]) / float(price[ii+14]))
-	#	ROCSUM[ii] = ( ROC11[ii] + ROC14[ii] )
-
-	## Calculate the past 4 Coppock values with Weighted Moving Average
-	#for ll in range(0,4):
-	#	coppock[ll] = (((1*ROCSUM[ll+9]) + (2*ROCSUM[ll+8]) + (3*ROCSUM[ll+7]) \
-	#	+ (4*ROCSUM[ll+6]) + (5*ROCSUM[ll+5]) + (6*ROCSUM[ll+4]) \
-	#	+ (7*ROCSUM[ll+3]) + (8*ROCSUM[ll+2]) + (9*ROCSUM[ll+1]) \
-	#    + (10*ROCSUM[ll])) / float(55))
-
- #   # Calculate the past 3 derivatives of the Coppock Curve
-	#coppockD1 = np.zeros(3)
-
-	#for mm in range(3):
-	#	coppockD1[mm] = coppock[mm] - coppock[mm+1]
 
 	currentPrice = 3686.77
 	possiblePurchase = (float(funding)) / float(currentPrice)
