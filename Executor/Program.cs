@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Models;
+using System.Net;
 using Newtonsoft.Json;
 
 namespace Executor
@@ -20,6 +21,7 @@ namespace Executor
     class Program
     {
         // Create Socket Server
+        public static SynchronousSocket.Client client;
 
         public void FetchL1Data()
         {
@@ -35,9 +37,9 @@ namespace Executor
         static void Main(string[] args)
         {
 
-            SynchronousSocketServer socketServer = new SynchronousSocketServer();
+            IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 65433);
+            client = new SynchronousSocket.Client(remoteEP);
 
-            socketServer.StartListening();
             //Create queue for actions
             var actionQueue = new Queue<Action>();
 
@@ -81,7 +83,6 @@ namespace Executor
 
                 //Print to console the value of positions + funds
 
-
                 //TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.
 
             } //LOOP END
@@ -89,13 +90,15 @@ namespace Executor
 
         private static int ProcessAction(Action a)
         {
-            throw new NotImplementedException();
+            var requestType = client.Request(a.Type);
+            var requestMsg = client.Request(a.Message);
+            return 0;
         }
 
         private static string GetFillRequestMessage(Order o)
         {
-            var orderRequestMsg = new CBPRO.FillsRequest { order_id = o.ExternalId };
-            return JsonConvert.SerializeObject(orderRequestMsg).ToString();
+            var fillsRequest = new CBPRO.FillsRequest { order_id = o.ExternalId };
+            return JsonConvert.SerializeObject(fillsRequest).ToString();
         }
 
         private static String GetOrderEntryMessage(Order o)

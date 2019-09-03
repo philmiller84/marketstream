@@ -16,7 +16,6 @@ C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.C
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.altertrendmaketypenullable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.removesoldpricefromdownupstrategy.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.testcreateview.resources
-C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.csprojAssemblyReference.cache
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createexposureview.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createfeestable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createstrategypropertiestable.resources

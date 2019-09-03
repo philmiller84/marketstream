@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Distributor
+namespace SynchronousSocket
 {
-    public class SynchronousSocketClient
+    public class Client
     {
-        public SynchronousSocketClient()
+        public Client(IPEndPoint remoteEp)
         {
-            StartClient();
+            StartClient(remoteEp);
         }
-        ~SynchronousSocketClient()
+        ~Client()
         {
             Shutdown();
         }
@@ -24,8 +24,8 @@ namespace Distributor
         {
             try
             {
-                sender.Connect(remoteEP);
-                Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
+                socket.Connect(remoteEP);
+                Console.WriteLine("Socket connected to {0}", socket.RemoteEndPoint.ToString());
             }
             catch (SocketException e)
             {
@@ -46,25 +46,25 @@ namespace Distributor
             return true;
         }
 
-        public void StartClient()
+        private void StartClient(IPEndPoint remoteEP)
         {
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65432);
+            //IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+            //IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+            //IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65432);
 
-            sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            socket = new System.Net.Sockets.Socket(remoteEP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             int tries = 0;
             int MAX_TRIES = 10;
 
-            while(!MakeConnection(remoteEP))
+            while (!MakeConnection(remoteEP))
             {
                 tries++;
                 if (tries >= MAX_TRIES)
                 {
                     Console.WriteLine("No connection made -- exiting()");
                     System.Environment.Exit(0);
-                }                
+                }
                 Console.WriteLine("Failed to connect, will retry");
                 Console.WriteLine("+++++++++++++++++++++++++++++++");
             }
@@ -74,8 +74,8 @@ namespace Distributor
         {
             try
             {
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
             }
             catch (Exception e)
             {
@@ -88,10 +88,10 @@ namespace Distributor
             try
             {
                 byte[] msg = Encoding.ASCII.GetBytes(commandStr);
-                int bytesSent = sender.Send(msg);
+                int bytesSent = socket.Send(msg);
 
                 byte[] bytes = new byte[1024];
-                int bytesRec = sender.Receive(bytes);
+                int bytesRec = socket.Receive(bytes);
                 string recvStr = Encoding.ASCII.GetString(bytes, 0, bytesRec);
                 //Console.WriteLine("Received: {0}", recvStr);
                 return recvStr;
@@ -113,6 +113,6 @@ namespace Distributor
             return null;
         }
 
-        public Socket sender;
+        public Socket socket;
     }
 }

@@ -9,11 +9,17 @@ import datetime as dt
 #header
 print("OTConnect")
 
-HOST = '127.0.0.1'
-PORT = 65433
+HOST = '127.0.0.1'	# Standard loopback interface address (localhost)
+PORT = 65433		# Port to listen on (non-privileged ports are > 1023)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((HOST, PORT))
+s.bind((HOST, PORT))
+s.listen()
+conn, addr = s.accept()
+print('Connected by', addr)
+
+#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#s.connect((HOST, PORT))
 
 #key = 'a3cb28a4c971f8e1efa4921dd822ef2b'
 #passphrase = 'marketdata'
@@ -25,71 +31,26 @@ passphrase = 'sandboxtest'
 b64secret = 'pdw9Mkd2I51xqnSwSywJYZgPjUsxW54ZE6DkK69qW56KIy+DveIbsI/oyrpWUDWAIYkGv9+WrJN+Mjv87Kmw7w=='
 auth_client = cbpro.AuthenticatedClient(key, b64secret, passphrase, api_url='https://api-public.sandbox.pro.coinbase.com')
 
-initInvestment = 20
-
-funding = initInvestment
-
-currency = 'BTC-USD'
-
-def getSpecificAccount(cur):
-	x = auth_client.get_accounts()
-	for account in x:
-			if account['currency'] == cur:
-					return account['id']
-
-specificID = getSpecificAccount(currency[:3])
-
-period = 60 
-
-iteration = 1
-
-buy = True
-
 while True:
 
+	#Get request type
+	data = conn.recv(1024)
+	if data:
+		body = str(data, "utf-8")
+		if body == 'ORDER_ENTRY':
+			data = conn.recv(1024)
+			body = str(data, "utf-8")
+			o = json.loads(body)
+			resp = auth_client.place_limit_order( product_id=o['product_id'], side=o['side'], price=o['price'], size=o['size'])
+		elif body == 'FILL_REQUEST':
+			data = conn.recv(1024)
+			body = str(data, "utf-8")
+			f = json.loads(body)
+			resp = auth_client.get_fills( order_id=f['order_id'], product_id=f['product_id'])
 
-	#try:
-	#	historicData = auth_client.get_product_historic_rates(currency, granularity=period)
+		conn.sendall(resp)
 
-	#	price = np.squeeze(np.asarray(np.matrix(historicData)[:,4]))
-
-	#	time.sleep(1)
-
-	#	newData = auth_client.get_product_ticker(product_id=currency)
-	#	print(newData)
-	#	currentPrice=newData['price']
-
-	#except Exception as e:
-	#	print("Error Encountered", e)
-
-	currentPrice = 3686.77
-	possiblePurchase = (float(funding)) / float(currentPrice)
-
-	owned = float(auth_client.get_account(specificID)['available'])
-
-	possibleIncome = float(currentPrice)*owned
-
-
-	if True:
-
-		#order = auth_client.place_market_order(product_id=currency, side='buy', funds=str(funding))
-
-		message = "Buying Approximately " + str(possiblePurchase) + " " + \
-			currency + "   Now @" + str(currentPrice) + "/Coin. TOTAL = " + str(funding)
-
-		print(message)
-
-		funding = 0
-		buy = False
-
-	break
-
-
-print("Current Price: ", currentPrice)
-
-print("Your Funds = ", funding)
-
-print("You Own ", owned, "BCH")
-
+	else: 
+		break
 
 print("MADE IT!")

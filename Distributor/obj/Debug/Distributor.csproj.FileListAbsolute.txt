@@ -15,3 +15,5 @@ C:\Users\Phil\Documents\GitHub\marketstream\Distributor\obj\Debug\Distributor.cs
 C:\Users\Phil\Documents\GitHub\marketstream\Distributor\obj\Debug\Distributor.csproj.CopyComplete
 C:\Users\Phil\Documents\GitHub\marketstream\Distributor\obj\Debug\Distributor.exe
 C:\Users\Phil\Documents\GitHub\marketstream\Distributor\obj\Debug\Distributor.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Distributor\bin\Debug\Socket.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Distributor\bin\Debug\Socket.pdb

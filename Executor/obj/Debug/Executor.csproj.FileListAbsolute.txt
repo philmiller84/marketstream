@@ -15,3 +15,5 @@ C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Executor.exe
 C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Executor.pdb
 C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Executor.exe
 C:\Users\Phil\Documents\GitHub\marketstream\Executor\obj\Debug\Executor.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Socket.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Executor\bin\Debug\Socket.pdb

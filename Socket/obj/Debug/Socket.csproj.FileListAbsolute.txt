@@ -1,0 +1,6 @@
+C:\Users\Phil\Documents\GitHub\marketstream\Socket\obj\Debug\Socket.csprojAssemblyReference.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Socket\obj\Debug\Socket.csproj.CoreCompileInputs.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Socket\bin\Debug\Socket.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Socket\bin\Debug\Socket.pdb
+C:\Users\Phil\Documents\GitHub\marketstream\Socket\obj\Debug\Socket.dll
+C:\Users\Phil\Documents\GitHub\marketstream\Socket\obj\Debug\Socket.pdb
