@@ -20,6 +20,7 @@ namespace CBPRO
         public decimal price;
         public string side;
         public string product_id;
+        public string order_id;
     }
 
     public class OrderEntryResponse : OrderEntry

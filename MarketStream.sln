@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Executor", "Executor\Execut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socket", "Socket\Socket.csproj", "{F7543596-82C9-4845-B843-41ED004AB4D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeView", "TradeView\TradeView.csproj", "{19D1C246-9409-40F9-9191-2773D35E31AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{F7543596-82C9-4845-B843-41ED004AB4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7543596-82C9-4845-B843-41ED004AB4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7543596-82C9-4845-B843-41ED004AB4D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19D1C246-9409-40F9-9191-2773D35E31AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19D1C246-9409-40F9-9191-2773D35E31AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19D1C246-9409-40F9-9191-2773D35E31AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19D1C246-9409-40F9-9191-2773D35E31AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,57 @@ import json
 import numpy as np
 import datetime as dt
 
+
+
+orderBook = {}
+exchangeOrderNumber = 1000
+
+
+
+def SimulatedOrderEntry(o):
+	global orderBook
+	global exchangeOrderNumber
+
+	#strip local order id
+	local_order_id = str(o['order_id'])
+	del o['order_id']
+
+	#set simulated exchange id
+	o['id'] = str(exchangeOrderNumber)
+
+	orderBook[local_order_id] = o
+
+	print(o['id'], o['product_id'],o['price'],o['size'],orderBook[local_order_id], sep=' :: ')
+	
+    #"id": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2",
+    #"price": "0.10000000",
+    #"size": "0.01000000",
+    #"product_id": "BTC-USD",
+    #"side": "buy",
+    #"stp": "dc",
+    #"type": "limit",
+    #"time_in_force": "GTC",
+    #"post_only": false,
+    #"created_at": "2016-12-08T20:02:28.53864Z",
+    #"fill_fees": "0.0000000000000000",
+    #"filled_size": "0.00000000",
+    #"executed_value": "0.0000000000000000",
+    #"status": "pending",
+    #"settled": false
+
+	return o;
+
+
+
+def SimilatedFillRequest(f):
+	global orderBook
+	global exchangeOrderNumber
+
+
+	return;
+
+
+
 #header
 print("OTConnect")
 
@@ -32,23 +83,35 @@ b64secret = 'pdw9Mkd2I51xqnSwSywJYZgPjUsxW54ZE6DkK69qW56KIy+DveIbsI/oyrpWUDWAIYk
 auth_client = cbpro.AuthenticatedClient(key, b64secret, passphrase, api_url='https://api-public.sandbox.pro.coinbase.com')
 
 while True:
-
 	#Get request type
 	data = conn.recv(1024)
 	if data:
 		body = str(data, "utf-8")
+		print('Received message', body)
 		if body == 'ORDER_ENTRY':
+			print('Processing ORDER_ENTRY. Sending acknowledge ----------------------------')
+			conn.sendall(bytes("ACK", "UTF-8"))
+			print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
 			body = str(data, "utf-8")
+			print('Received message', body)
 			o = json.loads(body)
-			resp = auth_client.place_limit_order( product_id=o['product_id'], side=o['side'], price=o['price'], size=o['size'])
+			print('Simulating Order Entry -------------------------------------------------')
+			resp = SimulatedOrderEntry(o)
+			#resp = auth_client.place_limit_order( product_id=o['product_id'], side=o['side'], price=o['price'], size=o['size'])
 		elif body == 'FILL_REQUEST':
+			print('Processing FILL_REQUEST. Sending acknowledge --- -----------------------')
+			conn.sendall(bytes("ACK", "UTF-8"))
+			print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
 			body = str(data, "utf-8")
+			print('Received message', body)
 			f = json.loads(body)
-			resp = auth_client.get_fills( order_id=f['order_id'], product_id=f['product_id'])
+			print('Simulating Fill Request -------------------------------------------------')
+			resp = SimulatedFillRequest(f)
+			#resp = auth_client.get_fills( order_id=f['order_id'], product_id=f['product_id'])
 
-		conn.sendall(resp)
+		conn.sendall(json.dumps(resp).encode('utf-8'))
 
 	else: 
 		break

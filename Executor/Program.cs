@@ -15,7 +15,7 @@ namespace Executor
         public string Type;
         public String Message;
         public int Status;
-        public int Response;
+        public string Response;
     }
 
     class Program
@@ -58,40 +58,50 @@ namespace Executor
                             where o.Type == 1 && o.Status < 1
                             select o;
 
-                foreach(var o in query.ToList())
-                {
-                    //Generate Order Entry message
-                    var msg = GetOrderEntryMessage(o);
-                    actionQueue.Enqueue(new Action { Type = "ORDER_ENTRY", Message = msg });
+				foreach (var o in query.ToList())
+				{
+					//Generate Order Entry message
+					var msg = GetOrderEntryMessage(o);
+					actionQueue.Enqueue(new Action { Type = "ORDER_ENTRY", Message = msg });
 
-                    //Generate Fill request message for order 
-                    msg = GetFillRequestMessage(o);
-                    actionQueue.Enqueue(new Action { Type = "FILL_REQUEST", Message = msg });
-                }
+					//Generate Fill request message for order 
+					msg = GetFillRequestMessage(o);
+					actionQueue.Enqueue(new Action { Type = "FILL_REQUEST", Message = msg });
 
-                while(actionQueue.Count > 0)
-                {
-                    //Execute actions in Queue as per API interval
-                    //If action fails, then wait interval and retry
-                    var a = actionQueue.Dequeue();
-                    while (ProcessAction(a) != 0)
-                    {
-                        Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
-                        Thread.Sleep(1000 / rps);
-                    }
-                }
+					while (actionQueue.Count > 0)
+					{
+						//Execute actions in Queue as per API interval
+						//If action fails, then wait interval and retry
+						var a = actionQueue.Dequeue();
+						var i = 0;
+						while ((ProcessAction(a) != 0) && (i++ < 3))
+						{
+							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
+							Thread.Sleep(1000 / rps);
+						}
+
+						o.ExternalId = JsonConvert.DeserializeObject<CBPRO.OrderEntryResponse>(a.Response).id;
+						marketData.SaveChanges();
+					}
+				}
 
                 //Print to console the value of positions + funds
 
                 //TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.
 
+                Thread.Sleep(1000 / rps);
             } //LOOP END
         }
 
         private static int ProcessAction(Action a)
         {
-            var requestType = client.Request(a.Type);
-            var requestMsg = client.Request(a.Message);
+            var initialResponse = client.Request(a.Type);
+
+			if (initialResponse != "ACK")
+				return -1;
+
+			a.Response = client.Request(a.Message);
+
             return 0;
         }
 
@@ -103,7 +113,7 @@ namespace Executor
 
         private static String GetOrderEntryMessage(Order o)
         {
-            var orderEntryMsg = new CBPRO.OrderEntry { price = o.Price, side = (o.Type == 1 ? "buy" : "sell"), size = o.Size, product_id = "BTC-USD" };
+            var orderEntryMsg = new CBPRO.OrderEntry { order_id =o.OrderId.ToString(), price = o.Price, side = (o.Type == 1 ? "buy" : "sell"), size = o.Size, product_id = "BTC-USD" };
             return JsonConvert.SerializeObject(orderEntryMsg).ToString();
         }
     }

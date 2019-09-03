@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="_Models_MarketDataDataSet" targetNamespace="http://tempuri.org/_Models_MarketDataDataSet.xsd" xmlns:mstns="http://tempuri.org/_Models_MarketDataDataSet.xsd" xmlns="http://tempuri.org/_Models_MarketDataDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="Models_MarketDataConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Models_MarketDataConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.TradeView.Properties.Settings.GlobalReference.Default.Models_MarketDataConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_ExposureTableAdapter" GeneratorDataComponentClassName="V_ExposureTableAdapter" Name="V_Exposure" UserDataComponentName="V_ExposureTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Models_MarketDataConnectionString (Settings)" DbObjectName="[Models.MarketData].dbo.V_Exposure" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Id, Value, Size FROM dbo.V_Exposure</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="Value" DataSetColumn="Value" />
+              <Mapping SourceColumn="Size" DataSetColumn="Size" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_OrdersTableAdapter" GeneratorDataComponentClassName="V_OrdersTableAdapter" Name="V_Orders" UserDataComponentName="V_OrdersTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Models_MarketDataConnectionString (Settings)" DbObjectName="[Models.MarketData].dbo.V_Orders" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT OrderId FROM dbo.V_Orders</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OrderId" DataSetColumn="OrderId" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AnalysisTableAdapter" GeneratorDataComponentClassName="AnalysisTableAdapter" Name="Analysis" UserDataComponentName="AnalysisTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Models_MarketDataConnectionString (Settings)" DbObjectName="[Models.MarketData].dbo.Analysis" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Analysis] WHERE (([Id] = @Original_Id) AND ([Value] = @Original_Value))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_Value" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Value" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Analysis] ([Description], [Value]) VALUES (@Description, @Value);
+SELECT Id, Description, Value FROM Analysis WHERE (Id = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Description" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Description" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Value" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Value" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Id, Description, Value FROM dbo.Analysis</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Analysis] SET [Description] = @Description, [Value] = @Value WHERE (([Id] = @Original_Id) AND ([Value] = @Original_Value));
+SELECT Id, Description, Value FROM Analysis WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Description" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Description" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Value" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Value" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_Value" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Value" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Id" ColumnName="Id" DataSourceName="[Models.MarketData].dbo.Analysis" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="Value" DataSetColumn="Value" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="OrdersTableAdapter" GeneratorDataComponentClassName="OrdersTableAdapter" Name="Orders" UserDataComponentName="OrdersTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Models_MarketDataConnectionString (Settings)" DbObjectName="[Models.MarketData].dbo.Orders" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Orders] WHERE (([OrderId] = @Original_OrderId) AND ([Price] = @Original_Price) AND ([Size] = @Original_Size) AND ([Type] = @Original_Type) AND ([Status] = @Original_Status))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_OrderId" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OrderId" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_Price" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Price" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_Size" Precision="18" ProviderType="Decimal" Scale="10" Size="0" SourceColumn="Size" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Orders] ([ExternalId], [Price], [Size], [Type], [Status]) VALUES (@ExternalId, @Price, @Size, @Type, @Status);
+SELECT OrderId, ExternalId, Price, Size, Type, Status FROM Orders WHERE (OrderId = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ExternalId" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ExternalId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Price" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Price" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Size" Precision="18" ProviderType="Decimal" Scale="10" Size="0" SourceColumn="Size" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT OrderId, ExternalId, Price, Size, Type, Status FROM dbo.Orders</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Orders] SET [ExternalId] = @ExternalId, [Price] = @Price, [Size] = @Size, [Type] = @Type, [Status] = @Status WHERE (([OrderId] = @Original_OrderId) AND ([Price] = @Original_Price) AND ([Size] = @Original_Size) AND ([Type] = @Original_Type) AND ([Status] = @Original_Status));
+SELECT OrderId, ExternalId, Price, Size, Type, Status FROM Orders WHERE (OrderId = @OrderId)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ExternalId" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ExternalId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Price" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Price" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Size" Precision="18" ProviderType="Decimal" Scale="10" Size="0" SourceColumn="Size" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_OrderId" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OrderId" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_Price" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="Price" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_Size" Precision="18" ProviderType="Decimal" Scale="10" Size="0" SourceColumn="Size" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="OrderId" ColumnName="OrderId" DataSourceName="[Models.MarketData].dbo.Orders" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@OrderId" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="OrderId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OrderId" DataSetColumn="OrderId" />
+              <Mapping SourceColumn="ExternalId" DataSetColumn="ExternalId" />
+              <Mapping SourceColumn="Price" DataSetColumn="Price" />
+              <Mapping SourceColumn="Size" DataSetColumn="Size" />
+              <Mapping SourceColumn="Type" DataSetColumn="Type" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TrendsTableAdapter" GeneratorDataComponentClassName="TrendsTableAdapter" Name="Trends" UserDataComponentName="TrendsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Models_MarketDataConnectionString (Settings)" DbObjectName="[Models.MarketData].dbo.Trends" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Trends] WHERE (([TrendId] = @Original_TrendId) AND ([StartSequence] = @Original_StartSequence) AND ([EndSequence] = @Original_EndSequence) AND ([StartBidPrice] = @Original_StartBidPrice) AND ([EndBidPrice] = @Original_EndBidPrice) AND ([StartAskPrice] = @Original_StartAskPrice) AND ([EndAskPrice] = @Original_EndAskPrice) AND ((@IsNull_Type = 1 AND [Type] IS NULL) OR ([Type] = @Original_Type)) AND ([Status] = @Original_Status))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TrendId" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TrendId" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_StartSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="StartSequence" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_EndSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="EndSequence" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_StartBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartBidPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_EndBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndBidPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_StartAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartAskPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_EndAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndAskPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Trends] ([StartSequence], [EndSequence], [StartBidPrice], [EndBidPrice], [StartAskPrice], [EndAskPrice], [Type], [Status]) VALUES (@StartSequence, @EndSequence, @StartBidPrice, @EndBidPrice, @StartAskPrice, @EndAskPrice, @Type, @Status);
+SELECT TrendId, StartSequence, EndSequence, StartBidPrice, EndBidPrice, StartAskPrice, EndAskPrice, Type, Status FROM Trends WHERE (TrendId = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@StartSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="StartSequence" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@EndSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="EndSequence" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@StartBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartBidPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@EndBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndBidPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@StartAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartAskPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@EndAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndAskPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT TrendId, StartSequence, EndSequence, StartBidPrice, EndBidPrice, StartAskPrice, EndAskPrice, Type, Status FROM dbo.Trends</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Trends] SET [StartSequence] = @StartSequence, [EndSequence] = @EndSequence, [StartBidPrice] = @StartBidPrice, [EndBidPrice] = @EndBidPrice, [StartAskPrice] = @StartAskPrice, [EndAskPrice] = @EndAskPrice, [Type] = @Type, [Status] = @Status WHERE (([TrendId] = @Original_TrendId) AND ([StartSequence] = @Original_StartSequence) AND ([EndSequence] = @Original_EndSequence) AND ([StartBidPrice] = @Original_StartBidPrice) AND ([EndBidPrice] = @Original_EndBidPrice) AND ([StartAskPrice] = @Original_StartAskPrice) AND ([EndAskPrice] = @Original_EndAskPrice) AND ((@IsNull_Type = 1 AND [Type] IS NULL) OR ([Type] = @Original_Type)) AND ([Status] = @Original_Status));
+SELECT TrendId, StartSequence, EndSequence, StartBidPrice, EndBidPrice, StartAskPrice, EndAskPrice, Type, Status FROM Trends WHERE (TrendId = @TrendId)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@StartSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="StartSequence" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@EndSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="EndSequence" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@StartBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartBidPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@EndBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndBidPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@StartAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartAskPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@EndAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndAskPrice" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TrendId" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TrendId" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_StartSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="StartSequence" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_EndSequence" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="EndSequence" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_StartBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartBidPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_EndBidPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndBidPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_StartAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="StartAskPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_EndAskPrice" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="EndAskPrice" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Type" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Type" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Status" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Status" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="TrendId" ColumnName="TrendId" DataSourceName="[Models.MarketData].dbo.Trends" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@TrendId" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="TrendId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="TrendId" DataSetColumn="TrendId" />
+              <Mapping SourceColumn="StartSequence" DataSetColumn="StartSequence" />
+              <Mapping SourceColumn="EndSequence" DataSetColumn="EndSequence" />
+              <Mapping SourceColumn="StartBidPrice" DataSetColumn="StartBidPrice" />
+              <Mapping SourceColumn="EndBidPrice" DataSetColumn="EndBidPrice" />
+              <Mapping SourceColumn="StartAskPrice" DataSetColumn="StartAskPrice" />
+              <Mapping SourceColumn="EndAskPrice" DataSetColumn="EndAskPrice" />
+              <Mapping SourceColumn="Type" DataSetColumn="Type" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="_Models_MarketDataDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="_Models_MarketDataDataSet" msprop:Generator_UserDSName="_Models_MarketDataDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="V_Exposure" msprop:Generator_TableClassName="V_ExposureDataTable" msprop:Generator_TableVarName="tableV_Exposure" msprop:Generator_RowChangedName="V_ExposureRowChanged" msprop:Generator_TablePropName="V_Exposure" msprop:Generator_RowDeletingName="V_ExposureRowDeleting" msprop:Generator_RowChangingName="V_ExposureRowChanging" msprop:Generator_RowEvHandlerName="V_ExposureRowChangeEventHandler" msprop:Generator_RowDeletedName="V_ExposureRowDeleted" msprop:Generator_RowClassName="V_ExposureRow" msprop:Generator_UserTableName="V_Exposure" msprop:Generator_RowEvArgName="V_ExposureRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" minOccurs="0" />
+              <xs:element name="Value" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnValue" msprop:Generator_ColumnPropNameInRow="Value" msprop:Generator_ColumnPropNameInTable="ValueColumn" msprop:Generator_UserColumnName="Value" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Size" msprop:Generator_ColumnVarNameInTable="columnSize" msprop:Generator_ColumnPropNameInRow="Size" msprop:Generator_ColumnPropNameInTable="SizeColumn" msprop:Generator_UserColumnName="Size" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="V_Orders" msprop:Generator_TableClassName="V_OrdersDataTable" msprop:Generator_TableVarName="tableV_Orders" msprop:Generator_RowChangedName="V_OrdersRowChanged" msprop:Generator_TablePropName="V_Orders" msprop:Generator_RowDeletingName="V_OrdersRowDeleting" msprop:Generator_RowChangingName="V_OrdersRowChanging" msprop:Generator_RowEvHandlerName="V_OrdersRowChangeEventHandler" msprop:Generator_RowDeletedName="V_OrdersRowDeleted" msprop:Generator_RowClassName="V_OrdersRow" msprop:Generator_UserTableName="V_Orders" msprop:Generator_RowEvArgName="V_OrdersRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OrderId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnOrderId" msprop:Generator_ColumnPropNameInRow="OrderId" msprop:Generator_ColumnPropNameInTable="OrderIdColumn" msprop:Generator_UserColumnName="OrderId" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Analysis" msprop:Generator_TableClassName="AnalysisDataTable" msprop:Generator_TableVarName="tableAnalysis" msprop:Generator_TablePropName="Analysis" msprop:Generator_RowDeletingName="AnalysisRowDeleting" msprop:Generator_RowChangingName="AnalysisRowChanging" msprop:Generator_RowEvHandlerName="AnalysisRowChangeEventHandler" msprop:Generator_RowDeletedName="AnalysisRowDeleted" msprop:Generator_UserTableName="Analysis" msprop:Generator_RowChangedName="AnalysisRowChanged" msprop:Generator_RowEvArgName="AnalysisRowChangeEvent" msprop:Generator_RowClassName="AnalysisRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Value" msprop:Generator_ColumnVarNameInTable="columnValue" msprop:Generator_ColumnPropNameInRow="Value" msprop:Generator_ColumnPropNameInTable="ValueColumn" msprop:Generator_UserColumnName="Value" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Orders" msprop:Generator_TableClassName="OrdersDataTable" msprop:Generator_TableVarName="tableOrders" msprop:Generator_TablePropName="Orders" msprop:Generator_RowDeletingName="OrdersRowDeleting" msprop:Generator_RowChangingName="OrdersRowChanging" msprop:Generator_RowEvHandlerName="OrdersRowChangeEventHandler" msprop:Generator_RowDeletedName="OrdersRowDeleted" msprop:Generator_UserTableName="Orders" msprop:Generator_RowChangedName="OrdersRowChanged" msprop:Generator_RowEvArgName="OrdersRowChangeEvent" msprop:Generator_RowClassName="OrdersRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OrderId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnOrderId" msprop:Generator_ColumnPropNameInRow="OrderId" msprop:Generator_ColumnPropNameInTable="OrderIdColumn" msprop:Generator_UserColumnName="OrderId" type="xs:int" />
+              <xs:element name="ExternalId" msprop:Generator_ColumnVarNameInTable="columnExternalId" msprop:Generator_ColumnPropNameInRow="ExternalId" msprop:Generator_ColumnPropNameInTable="ExternalIdColumn" msprop:Generator_UserColumnName="ExternalId" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Price" msprop:Generator_ColumnVarNameInTable="columnPrice" msprop:Generator_ColumnPropNameInRow="Price" msprop:Generator_ColumnPropNameInTable="PriceColumn" msprop:Generator_UserColumnName="Price" type="xs:decimal" />
+              <xs:element name="Size" msprop:Generator_ColumnVarNameInTable="columnSize" msprop:Generator_ColumnPropNameInRow="Size" msprop:Generator_ColumnPropNameInTable="SizeColumn" msprop:Generator_UserColumnName="Size" type="xs:decimal" />
+              <xs:element name="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_UserColumnName="Type" type="xs:int" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Trends" msprop:Generator_TableClassName="TrendsDataTable" msprop:Generator_TableVarName="tableTrends" msprop:Generator_TablePropName="Trends" msprop:Generator_RowDeletingName="TrendsRowDeleting" msprop:Generator_RowChangingName="TrendsRowChanging" msprop:Generator_RowEvHandlerName="TrendsRowChangeEventHandler" msprop:Generator_RowDeletedName="TrendsRowDeleted" msprop:Generator_UserTableName="Trends" msprop:Generator_RowChangedName="TrendsRowChanged" msprop:Generator_RowEvArgName="TrendsRowChangeEvent" msprop:Generator_RowClassName="TrendsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TrendId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnTrendId" msprop:Generator_ColumnPropNameInRow="TrendId" msprop:Generator_ColumnPropNameInTable="TrendIdColumn" msprop:Generator_UserColumnName="TrendId" type="xs:int" />
+              <xs:element name="StartSequence" msprop:Generator_ColumnVarNameInTable="columnStartSequence" msprop:Generator_ColumnPropNameInRow="StartSequence" msprop:Generator_ColumnPropNameInTable="StartSequenceColumn" msprop:Generator_UserColumnName="StartSequence" type="xs:long" />
+              <xs:element name="EndSequence" msprop:Generator_ColumnVarNameInTable="columnEndSequence" msprop:Generator_ColumnPropNameInRow="EndSequence" msprop:Generator_ColumnPropNameInTable="EndSequenceColumn" msprop:Generator_UserColumnName="EndSequence" type="xs:long" />
+              <xs:element name="StartBidPrice" msprop:Generator_ColumnVarNameInTable="columnStartBidPrice" msprop:Generator_ColumnPropNameInRow="StartBidPrice" msprop:Generator_ColumnPropNameInTable="StartBidPriceColumn" msprop:Generator_UserColumnName="StartBidPrice" type="xs:decimal" />
+              <xs:element name="EndBidPrice" msprop:Generator_ColumnVarNameInTable="columnEndBidPrice" msprop:Generator_ColumnPropNameInRow="EndBidPrice" msprop:Generator_ColumnPropNameInTable="EndBidPriceColumn" msprop:Generator_UserColumnName="EndBidPrice" type="xs:decimal" />
+              <xs:element name="StartAskPrice" msprop:Generator_ColumnVarNameInTable="columnStartAskPrice" msprop:Generator_ColumnPropNameInRow="StartAskPrice" msprop:Generator_ColumnPropNameInTable="StartAskPriceColumn" msprop:Generator_UserColumnName="StartAskPrice" type="xs:decimal" />
+              <xs:element name="EndAskPrice" msprop:Generator_ColumnVarNameInTable="columnEndAskPrice" msprop:Generator_ColumnPropNameInRow="EndAskPrice" msprop:Generator_ColumnPropNameInTable="EndAskPriceColumn" msprop:Generator_UserColumnName="EndAskPrice" type="xs:decimal" />
+              <xs:element name="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_UserColumnName="Type" type="xs:int" minOccurs="0" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:V_Orders" />
+      <xs:field xpath="mstns:OrderId" />
+    </xs:unique>
+    <xs:unique name="Analysis_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Analysis" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="Orders_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Orders" />
+      <xs:field xpath="mstns:OrderId" />
+    </xs:unique>
+    <xs:unique name="Trends_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Trends" />
+      <xs:field xpath="mstns:TrendId" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

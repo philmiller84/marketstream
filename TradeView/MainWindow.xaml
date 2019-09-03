@@ -1,0 +1,36 @@
+﻿<Window x:Class="TradeView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TradeView"
+		xmlns:coll="clr-namespace:System.Collections.ObjectModel;assembly=System"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+	<Window.Resources>
+		<local:_Models_MarketDataDataSet x:Key="_Models_MarketDataDataSet"/>
+		<CollectionViewSource x:Key="v_ExposureViewSource" Source="{Binding V_Exposure, Source={StaticResource _Models_MarketDataDataSet}}"/>
+		<CollectionViewSource x:Key="v_OrdersViewSource" Source="{Binding V_Orders, Source={StaticResource _Models_MarketDataDataSet}}"/>
+		<CollectionViewSource x:Key="ordersViewSource" Source="{Binding Orders, Source={StaticResource _Models_MarketDataDataSet}}"/>
+		<CollectionViewSource x:Key="analysisViewSource" Source="{Binding Analysis, Source={StaticResource _Models_MarketDataDataSet}}"/>
+	</Window.Resources>
+	<Grid DataContext="{StaticResource v_ExposureViewSource}">
+		<DataGrid x:Name="ordersDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource ordersViewSource},UpdateSourceTrigger=PropertyChanged}" Margin="10,10,382,209" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="OrdersDataGrid_SelectionChanged_1">
+			<DataGrid.Columns>
+				<DataGridTextColumn x:Name="orderIdColumn" Binding="{Binding OrderId}" Header="Order Id" IsReadOnly="True" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="externalIdColumn" Binding="{Binding ExternalId}" Header="External Id" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="priceColumn" Binding="{Binding Price}" Header="Price" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="sizeColumn" Binding="{Binding Size}" Header="Size" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="typeColumn" Binding="{Binding Type}" Header="Type" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="statusColumn" Binding="{Binding Status}" Header="Status" Width="SizeToCells"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<DataGrid x:Name="analysisDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource analysisViewSource}}" Margin="10,215,382,10" RowDetailsVisibilityMode="VisibleWhenSelected">
+			<DataGrid.Columns>
+				<DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" IsReadOnly="True" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="descriptionColumn" Binding="{Binding Description}" Header="Description" Width="SizeToCells"/>
+				<DataGridTextColumn x:Name="valueColumn" Binding="{Binding Value}" Header="Value" Width="SizeToCells"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</Window>
