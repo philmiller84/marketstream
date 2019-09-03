@@ -14,6 +14,7 @@ namespace Models.Migrations
             this.Sql(Properties.Resources.Create_tr_WatchTicker);
             this.Sql(Properties.Resources.Create_tr_WatchTrend);
             this.Sql(Properties.Resources.Create_tr_WatchStrategy);
+            this.Sql(Properties.Resources.Create_tr_AllocateOrder);
             this.Sql(Properties.Resources.Create_tr_WatchOrder);
             this.Sql(Properties.Resources.Create_tr_WatchDownUpStrategy);
             this.Sql(Properties.Resources.Create_tr_WatchFills);
@@ -27,6 +28,7 @@ namespace Models.Migrations
             this.Sql(Properties.Resources.Drop_tr_WatchPosition);
             this.Sql(Properties.Resources.Drop_tr_WatchFills);
             this.Sql(Properties.Resources.Drop_tr_WatchDownUpStrategy);
+            this.Sql(Properties.Resources.Drop_tr_AllocateOrder);
             this.Sql(Properties.Resources.Drop_tr_WatchOrder);
             this.Sql(Properties.Resources.Drop_tr_WatchStrategy);
             this.Sql(Properties.Resources.Drop_tr_WatchTrend);

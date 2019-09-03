@@ -16,13 +16,13 @@ s.listen()
 conn, addr = s.accept()
 print('Connected by', addr)
 
-key = 'dade335cbf980ac239880a70fd4b38a1'
-passphrase = 'sandboxtest'
-b64secret = 'pdw9Mkd2I51xqnSwSywJYZgPjUsxW54ZE6DkK69qW56KIy+DveIbsI/oyrpWUDWAIYkGv9+WrJN+Mjv87Kmw7w=='
-public_client = cbpro.AuthenticatedClient(key, b64secret, passphrase, api_url='https://api-public.sandbox.pro.coinbase.com')
+#key = 'dade335cbf980ac239880a70fd4b38a1'
+#passphrase = 'sandboxtest'
+#b64secret = 'pdw9Mkd2I51xqnSwSywJYZgPjUsxW54ZE6DkK69qW56KIy+DveIbsI/oyrpWUDWAIYkGv9+WrJN+Mjv87Kmw7w=='
+#public_client = cbpro.AuthenticatedClient(key, b64secret, passphrase, api_url='https://api-public.sandbox.pro.coinbase.com')
 
 #connect to API
-#public_client = cbpro.PublicClient()
+public_client = cbpro.PublicClient()
 
 #set parameters
 coin = 'BTC-USD'

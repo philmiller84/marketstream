@@ -1043,3 +1043,8 @@ Socket/obj/Release/Socket.csproj.FileListAbsolute.txt
 Executor/obj/Debug/Executor.csprojAssemblyReference.cache
 Models/obj/Release/Models.Migrations.createtriggersandsprocs.resources
 Executor/obj/Debug/Executor.csprojAssemblyReference.cache
+Models/obj/Debug/DesignTimeResolveAssemblyReferences.cache
+Models/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Models/obj/Debug/Models.csproj.FileListAbsolute.txt
+Models/obj/Debug/Models.Migrations.creatependingrequeststable.resources
+Models/obj/Debug/TempPE/Properties.Resources.Designer.cs.dll

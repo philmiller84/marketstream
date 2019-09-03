@@ -36,7 +36,6 @@ namespace Executor
 
         static void Main(string[] args)
         {
-
             IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 65433);
             client = new SynchronousSocket.Client(remoteEP);
 
@@ -48,15 +47,16 @@ namespace Executor
 
             var marketData = new Models.MarketData();
 
+			const int READY_ORDER = 0;
+			const int OPEN_ORDER = 1;
+
             //LOOP START - WHILE TRUE
             while (true)
             {
                 //----Print to console the intended actions----
 
                 //Check Orders table for ready orders
-                var query = from o in marketData.Orders
-                            where o.Type == 1 && o.Status < 1
-                            select o;
+                var query = from o in marketData.Orders where o.Status == READY_ORDER select o;
 
 				foreach (var o in query.ToList())
 				{
@@ -64,8 +64,32 @@ namespace Executor
 					var msg = GetOrderEntryMessage(o);
 					actionQueue.Enqueue(new Action { Type = "ORDER_ENTRY", Message = msg });
 
+					while (actionQueue.Count > 0)
+					{
+						//Execute actions in Queue as per API interval
+						//If action fails, then wait interval and retry
+						var a = actionQueue.Dequeue();
+						if(ProcessAction(a) != 0)
+							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
+
+						o.ExternalId = JsonConvert.DeserializeObject<CBPRO.OrderEntryResponse>(a.Response).id;
+						o.Status = OPEN_ORDER; 
+
+						marketData.SaveChanges();
+
+						Thread.Sleep(1000 / rps);
+					}
+				}
+
+
+				//Check for Pending Request
+				const int EXECUTION_REQUEST = 8;
+				var pendingRequestsQuery = from p in marketData.PendingRequests where p.Type == EXECUTION_REQUEST select p;
+
+				foreach (var p in pendingRequestsQuery.ToList())
+				{
 					//Generate Fill request message for order 
-					msg = GetFillRequestMessage(o);
+					var msg = GetFillRequestMessage(p);
 					actionQueue.Enqueue(new Action { Type = "FILL_REQUEST", Message = msg });
 
 					while (actionQueue.Count > 0)
@@ -73,23 +97,20 @@ namespace Executor
 						//Execute actions in Queue as per API interval
 						//If action fails, then wait interval and retry
 						var a = actionQueue.Dequeue();
-						var i = 0;
-						while ((ProcessAction(a) != 0) && (i++ < 3))
-						{
+						if(ProcessAction(a) != 0)
 							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
-							Thread.Sleep(1000 / rps);
-						}
 
-						o.ExternalId = JsonConvert.DeserializeObject<CBPRO.OrderEntryResponse>(a.Response).id;
+						p.Response = JsonConvert.DeserializeObject<CBPRO.FillsResponse>(a.Response).settled ? "Filled" : "Open";
 						marketData.SaveChanges();
+
+						Thread.Sleep(1000 / rps);
 					}
+
 				}
+					//Print to console the value of positions + funds
 
-                //Print to console the value of positions + funds
+					//TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.
 
-                //TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.
-
-                Thread.Sleep(1000 / rps);
             } //LOOP END
         }
 
@@ -105,15 +126,15 @@ namespace Executor
             return 0;
         }
 
-        private static string GetFillRequestMessage(Order o)
+        private static string GetFillRequestMessage(PendingRequest p)
         {
-            var fillsRequest = new CBPRO.FillsRequest { order_id = o.ExternalId };
+            var fillsRequest = new CBPRO.FillsRequest { order_id = p.EntityId };
             return JsonConvert.SerializeObject(fillsRequest).ToString();
         }
 
         private static String GetOrderEntryMessage(Order o)
         {
-            var orderEntryMsg = new CBPRO.OrderEntry { order_id =o.OrderId.ToString(), price = o.Price, side = (o.Type == 1 ? "buy" : "sell"), size = o.Size, product_id = "BTC-USD" };
+            var orderEntryMsg = new CBPRO.OrderEntry { local_order_id =o.OrderId.ToString(), price = o.Price, side = (o.Type == 1 ? "buy" : "sell"), size = o.Size, product_id = "BTC-USD" };
             return JsonConvert.SerializeObject(orderEntryMsg).ToString();
         }
     }

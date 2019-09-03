@@ -130,6 +130,9 @@
   <data name="Create_sp_log_event" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Procedures\Create_sp_log_event.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Create_tr_AllocateOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Triggers\Create_tr_AllocateOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Create_tr_WatchDownUpStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Create_tr_WatchDownUpStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -171,6 +174,9 @@
   </data>
   <data name="Drop_sp_log_event" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Procedures\Drop Procedures\Drop_sp_log_event.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Drop_tr_AllocateOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\Triggers\Drop Triggers\Drop_tr_AllocateOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Drop_tr_WatchDownUpStrategy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\Triggers\Drop Triggers\Drop_tr_WatchDownUpStrategy.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

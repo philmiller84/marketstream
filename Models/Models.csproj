@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201909012205036_create-analysis-table.Designer.cs">
       <DependentUpon>201909012205036_create-analysis-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909032048531_create-pending-requests-table.cs" />
+    <Compile Include="Migrations\201909032048531_create-pending-requests-table.Designer.cs">
+      <DependentUpon>201909032048531_create-pending-requests-table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Position.cs" />
@@ -114,6 +118,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Request.cs" />
     <Compile Include="Strategy.cs" />
     <Compile Include="Ticker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909012205036_create-analysis-table.resx">
       <DependentUpon>201909012205036_create-analysis-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909032048531_create-pending-requests-table.resx">
+      <DependentUpon>201909032048531_create-pending-requests-table.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -220,6 +228,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SQL\Procedures\Drop Procedures\Drop_sp_down_up_strategy.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Create_tr_AllocateOrder.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Drop Triggers\Drop_tr_AllocateOrder.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

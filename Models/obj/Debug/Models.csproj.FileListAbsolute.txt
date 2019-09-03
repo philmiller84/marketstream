@@ -24,3 +24,4 @@ C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.c
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createlogstable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createanalysistable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.csprojAssemblyReference.cache
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.creatependingrequeststable.resources

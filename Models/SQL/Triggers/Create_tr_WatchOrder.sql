@@ -13,39 +13,37 @@ SELECT @OrderID 	= OrderId,
        @Status 		= Status 	
 FROM INSERTED	  
 
+DECLARE @cancelledStatus AS INT = -2
+DECLARE @pendingStatus AS INT = -1 
+DECLARE @readyStatus AS INT = 0
+DECLARE @openStatus AS INT = 1
+DECLARE @filledStatus AS INT = 2
+
 DECLARE @PreviousStatus AS int
 SELECT @PreviousStatus = Status FROM DELETED
 
-IF @Type = 1  AND @PreviousStatus IS NULL AND @Status = -1 --limit buy order pending => Allocate funds immediately
-BEGIN 
-	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update funds for pending Buy order'
-	UPDATE dbo.Funds SET Value = Value - (@Size * @Price) 
-END
-IF @Type = 2 AND ((@PreviousStatus IS NULL OR @PreviousStatus < 2) AND @Status = 2)
-BEGIN
-	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update funds for completed Sell order'
-	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) 
-END
+DECLARE @limitBuy INT = 1
+DECLARE @limitSell INT = 2
 
-IF @PreviousStatus < 2 AND @Status = 2 --completed order
+IF @PreviousStatus <> @Status AND @Status = @filledStatus --completed order
 BEGIN
 	--Adjust position
 	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
 
 	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update Position'
-	UPDATE dbo.Positions SET Size = CASE WHEN @Type = 1 THEN Size + @Size WHEN @Type = 2 THEN Size - @Size ELSE Size END
+	UPDATE dbo.Positions SET Size = CASE WHEN @Type = @limitBuy THEN Size + @Size WHEN @Type = @limitSell THEN Size - @Size ELSE Size END
 
 	--For completed buy orders, update the related sell order for DownUpStrategy
-	IF @Type = 1
+	IF @Type = @limitBuy
 	BEGIN
 		UPDATE o2
-		SET Status = 1
+		SET Status = @readyStatus
 		FROM dbo.StrategyOrderJoins so
 		JOIN dbo.Strategies  s ON so.StrategyId = s.StrategyId
 		JOIN dbo.Orders o ON so.OrderId = o.OrderId
 		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
 		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
-		WHERE so.OrderId = @OrderID AND o2.Status < 1 AND o2.Type = 2
+		WHERE so.OrderId = @OrderID AND o2.Status < @readyStatus AND o2.Type = @limitSell
 		IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Updated order status to Open Order for Sell Order'
 	END
 
@@ -64,7 +62,7 @@ BEGIN
 	SET Status = 2
 	FROM dbo.Strategies  s
 	JOIN StrategyStatus ON s.StrategyId = StrategyStatus.StrategyId
-	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> 2)
+	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> @filledStatus)
 	---------------------
 	IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N' Marked strategy complete if all orders complete'
 END

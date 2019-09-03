@@ -25,6 +25,7 @@ namespace Models
         public DbSet<DownUpStrategy> DownUpStrategies { get; set; }
         public DbSet<StrategyProperty> StrategyProperties { get; set; }
         public DbSet<StrategyOrderJoin> StrategyOrderJoins { get; set; }
+        public DbSet<PendingRequest> PendingRequests { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderAudit> OrderAudits { get; set; }
         public DbSet<Position> Positions { get; set; }

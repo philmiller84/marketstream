@@ -86,7 +86,6 @@ BEGIN
 	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create Buy Order'
 	DECLARE @outputInto AS TABLE (StrategyID INT, OrderID INT)
 	INSERT dbo.Orders OUTPUT @StrategyId, INSERTED.OrderId INTO @outputInto
-	--VALUES(NULL, @AskPrice, @Size, @limitBuy, @readyStatus)			
 	VALUES(NULL, @AskPrice, @Size, @limitBuy, @pendingStatus)			
 
 	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTrend]', N'Create Sell Order'

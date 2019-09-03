@@ -95,14 +95,12 @@ namespace Models.Properties {
         ///    */
         ///    DECLARE @retcode int=0
         ///            
-        ///	-- CREATE TREND ENTRY -- 
+        ///	-------------------= CREATE TRENDS =-------------------- 
+        ///          
         ///	--check if current trend
         ///	DECLARE @t_id INTEGER=NULL
         ///	DECLARE @t_trendType INTEGER=NULL
-        ///
-        ///	-- Status values: NULL (undefined), 0 (started), 1 (finished)
-        ///
-        ///	SELECT @t_id = t.TrendId, @t_t [rest of string was truncated]&quot;;.
+        ///	SELECT @t_id = t.TrendId, @t_trendType = Type FROM [db [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_sp_add_trend {
             get {
@@ -111,10 +109,12 @@ namespace Models.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_down_up_strategy]  
+        ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_down_up_strategy]  (
+        ///	@BidPrice AS decimal(18,2),
+        ///	@AskPrice AS decimal(18,2)
+        ///)
         ///AS
         ///BEGIN
-        ///
         ///    SET NOCOUNT ON
         ///
         ///    /*
@@ -130,8 +130,7 @@ namespace Models.Properties {
         ///	SELECT @OpenStrategies = COUNT(*) FROM dbo.Strategies s
         ///	WHERE s.Status &lt;&gt; 2
         ///
-        ///	DECLARE @MaxOpenOrders AS int
-        ///	SELECT @MaxOpenOrders = sp.Value FROM dbo.St [rest of string was truncated]&quot;;.
+        ///	DECLARE @DownUp [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_sp_down_up_strategy {
             get {
@@ -162,6 +161,34 @@ namespace Models.Properties {
         internal static string Create_sp_log_event {
             get {
                 return ResourceManager.GetString("Create_sp_log_event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_AllocateOrder] ON dbo.Orders INSTEAD OF UPDATE
+        ///AS  
+        ///DECLARE @OrderID AS int 
+        ///DECLARE @Price		AS decimal(18,2)
+        ///DECLARE @Size 		AS decimal(18,10)
+        ///DECLARE @Type 		AS int
+        ///DECLARE @Status 	AS int 
+        ///
+        ///SELECT @OrderID 	= OrderId,
+        ///       @Price 		= Price,
+        ///       @Size 		= Size,
+        ///       @Type 		= Type,
+        ///       @Status 		= Status 	
+        ///FROM INSERTED
+        ///
+        ///DECLARE @pendingStatus AS INT = -1 
+        ///DECLARE @readyStatus AS INT = 0
+        ///DECLARE @filledStatus AS INT = 2
+        ///
+        ///DECLARE @PreviousStatus AS int        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Create_tr_AllocateOrder {
+            get {
+                return ResourceManager.GetString("Create_tr_AllocateOrder", resourceCulture);
             }
         }
         
@@ -254,7 +281,7 @@ namespace Models.Properties {
         ///DECLARE @PreviousStatus AS int
         ///SELECT @PreviousStatus = Status FROM DELETED
         ///
-        ///IF @Type = 1  AND ((@PreviousStatus IS NULL OR @Previo [rest of string was truncated]&quot;;.
+        ///IF @PreviousStatus &lt; 2 AND @Status = 2 --completed ord [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchOrder {
             get {
@@ -314,9 +341,8 @@ namespace Models.Properties {
         ///	   @Sequence = Sequence
         ///	   FROM inserted
         ///
-        ///--TODO: Make this controlled by exchange messages
-        ///INSERT INTO dbo.Fills
-        /// [rest of string was truncated]&quot;;.
+        ///--TODO: Make this controlled by exchange messages 
+        ///--TODO: Status 1 is OP [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchTicker {
             get {
@@ -414,6 +440,16 @@ namespace Models.Properties {
         internal static string Drop_sp_log_event {
             get {
                 return ResourceManager.GetString("Drop_sp_log_event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_AllocateOrder]
+        ///.
+        /// </summary>
+        internal static string Drop_tr_AllocateOrder {
+            get {
+                return ResourceManager.GetString("Drop_tr_AllocateOrder", resourceCulture);
             }
         }
         

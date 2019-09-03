@@ -7,10 +7,8 @@ import numpy as np
 import datetime as dt
 
 
-
 orderBook = {}
 exchangeOrderNumber = 1000
-
 
 
 def SimulatedOrderEntry(o):
@@ -18,8 +16,8 @@ def SimulatedOrderEntry(o):
 	global exchangeOrderNumber
 
 	#strip local order id
-	local_order_id = str(o['order_id'])
-	del o['order_id']
+	local_order_id = str(o['local_order_id'])
+	del o['local_order_id']
 
 	#set simulated exchange id
 	o['id'] = str(exchangeOrderNumber)
@@ -52,8 +50,10 @@ def SimilatedFillRequest(f):
 	global orderBook
 	global exchangeOrderNumber
 
+	#SIMILATED FILLS
+	f['settled'] = true
 
-	return;
+	return f;
 
 
 
