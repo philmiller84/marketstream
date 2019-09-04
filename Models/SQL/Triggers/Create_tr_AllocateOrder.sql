@@ -21,24 +21,23 @@ DECLARE @filledStatus AS INT = 2
 DECLARE @limitBuy INT = 1
 DECLARE @limitSell INT = 2
 
+DECLARE @generalUseFunds INT = 1
+
 DECLARE @PreviousStatus AS int
 SELECT @PreviousStatus = Status FROM DELETED
 
 --Try to move the order to the ready state
-IF @Type = 1 AND @PreviousStatus <> @Status AND @Status = @readyStatus
+IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @readyStatus
 BEGIN 
-	IF EXISTS (SELECT 1 FROM dbo.Funds WHERE AllocationType = 0 AND Value - (@Size * @Price) >= 0)
-	BEGIN
-		UPDATE dbo.Funds SET Value = Value - (@Size * @Price) WHERE AllocationType = 0 --allocate funds
-		SET @Status = @readyStatus --Update order to readyStatus
-	END
+	IF EXISTS (SELECT 1 FROM dbo.Funds WHERE AllocationType = @generalUseFunds AND Value - (@Size * @Price) >= 0)
+		UPDATE dbo.Funds SET Value = Value - (@Size * @Price) WHERE AllocationType = @generalUseFunds --allocate funds
 	ELSE 
 		SET @Status  = @pendingStatus --Not enough funds, send order back to pending status
 END
 ELSE IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @cancelledStatus
-	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = 0	
+	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = @generalUseFunds	
 ELSE IF @Type = @limitSell AND @PreviousStatus <> @Status AND @Status = @filledStatus
-	UPDATE dbo.Funds SET Value = Value + (@Size * @Price)
+	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = @generalUseFunds	
 
 UPDATE o
 SET o.ExternalId = ins.ExternalId,

@@ -42,16 +42,18 @@ def SimulatedOrderEntry(o):
     #"status": "pending",
     #"settled": false
 
+	exchangeOrderNumber += 1
+
 	return o;
 
 
 
-def SimilatedFillRequest(f):
+def SimulatedFillRequest(f):
 	global orderBook
 	global exchangeOrderNumber
 
 	#SIMILATED FILLS
-	f['settled'] = true
+	f['settled'] = True
 
 	return f;
 

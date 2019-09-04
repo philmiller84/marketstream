@@ -101,6 +101,12 @@ namespace Executor
 							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
 
 						p.Response = JsonConvert.DeserializeObject<CBPRO.FillsResponse>(a.Response).settled ? "Filled" : "Open";
+
+						var updQry = (from o in marketData.Orders
+									  where o.ExternalId == p.EntityId
+									  select o).FirstOrDefault().Status = ((p.Response == "Filled") ? 2 : 1);
+
+						marketData.PendingRequests.Remove(p);
 						marketData.SaveChanges();
 
 						Thread.Sleep(1000 / rps);
