@@ -22,10 +22,14 @@ def SimulatedOrderEntry(o):
 	#set simulated exchange id
 	o['id'] = str(exchangeOrderNumber)
 
-	if exchangeOrderNumber % 3 == 1:
+	if exchangeOrderNumber % 5 == 1:
 		o['status'] = "404"
-	else:
+	elif exchangeOrderNumber % 5 == 2:
 		o['status'] = "open"
+	elif exchangeOrderNumber % 5 == 3:
+		o['status'] = "done"
+	else:
+		o['status'] = "active"
 
 
 
@@ -49,6 +53,9 @@ def SimulatedOrderEntry(o):
     #"status": "pending",
     #"settled": false
 
+	if o['status'] == "done":
+		o['fill_fees'] = o['price'] * o['size'] * 0.003
+
 	exchangeOrderNumber += 1
 
 	return o;
@@ -61,6 +68,9 @@ def SimulatedFillRequest(f):
 
 	#SIMILATED FILLS
 	f['settled'] = True
+
+	if o['status'] == "done":
+		o['fee'] = o['price'] * o['size'] * 0.003
 
 	return f;
 

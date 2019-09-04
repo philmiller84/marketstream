@@ -86,6 +86,8 @@ namespace Executor
 								o.Status = OPEN_ORDER;
 								break;
 							case "done":
+								//TODO: Create fill fees
+								//marketData.Fills.Add(new Fill { Order=o, })
 								o.Status = FILLED_ORDER;
 								break;
 						}
