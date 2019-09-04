@@ -47,18 +47,20 @@ namespace Executor
 
             var marketData = new Models.MarketData();
 
+			const int CANCELLED_ORDER = -2;
 			const int READY_ORDER = 0;
 			const int OPEN_ORDER = 1;
+			const int FILLED_ORDER = 2;
 
             //LOOP START - WHILE TRUE
             while (true)
             {
-                //----Print to console the intended actions----
+				//----Print to console the intended actions----
 
-                //Check Orders table for ready orders
-                var query = from o in marketData.Orders where o.Status == READY_ORDER select o;
+				//Check Orders table for ready orders
+				var readyOrdersList = (from o in marketData.Orders where o.Status == READY_ORDER select o).ToList();
 
-				foreach (var o in query.ToList())
+				foreach (var o in readyOrdersList)
 				{
 					//Generate Order Entry message
 					var msg = GetOrderEntryMessage(o);
@@ -72,11 +74,23 @@ namespace Executor
 						if(ProcessAction(a) != 0)
 							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
 
-						o.ExternalId = JsonConvert.DeserializeObject<CBPRO.OrderEntryResponse>(a.Response).id;
-						o.Status = OPEN_ORDER; 
+						var response = JsonConvert.DeserializeObject<CBPRO.OrderEntryResponse>(a.Response);
+						o.ExternalId = response.id;
+						switch(response.status)
+						{
+							case "404":
+								o.Status = CANCELLED_ORDER;
+								break;
+							case "active":
+							case "open":
+								o.Status = OPEN_ORDER;
+								break;
+							case "done":
+								o.Status = FILLED_ORDER;
+								break;
+						}
 
 						marketData.SaveChanges();
-
 						Thread.Sleep(1000 / rps);
 					}
 				}
@@ -84,9 +98,9 @@ namespace Executor
 
 				//Check for Pending Request
 				const int EXECUTION_REQUEST = 8;
-				var pendingRequestsQuery = from p in marketData.PendingRequests where p.Type == EXECUTION_REQUEST select p;
+				var pendingRequestsList = (from p in marketData.PendingRequests where p.Type == EXECUTION_REQUEST select p).ToList();
 
-				foreach (var p in pendingRequestsQuery.ToList())
+				foreach (var p in pendingRequestsList)
 				{
 					//Generate Fill request message for order 
 					var msg = GetFillRequestMessage(p);
@@ -97,7 +111,7 @@ namespace Executor
 						//Execute actions in Queue as per API interval
 						//If action fails, then wait interval and retry
 						var a = actionQueue.Dequeue();
-						if(ProcessAction(a) != 0)
+						if (ProcessAction(a) != 0)
 							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
 
 						p.Response = JsonConvert.DeserializeObject<CBPRO.FillsResponse>(a.Response).settled ? "Filled" : "Open";
@@ -113,11 +127,11 @@ namespace Executor
 					}
 
 				}
-					//Print to console the value of positions + funds
+				//Print to console the value of positions + funds
 
-					//TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.
+				//TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.
 
-            } //LOOP END
+			} //LOOP END
         }
 
         private static int ProcessAction(Action a)

@@ -35,9 +35,22 @@ BEGIN
 		SET @Status  = @pendingStatus --Not enough funds, send order back to pending status
 END
 ELSE IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @cancelledStatus
+BEGIN
 	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = @generalUseFunds	
+END
 ELSE IF @Type = @limitSell AND @PreviousStatus <> @Status AND @Status = @filledStatus
+BEGIN
 	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = @generalUseFunds	
+END
+
+IF @PreviousStatus <> @Status AND @Status = @filledStatus --completed order
+BEGIN
+	--Adjust position
+	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
+
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update Position'
+	UPDATE dbo.Positions SET Size = CASE WHEN @Type = @limitBuy THEN Size + @Size WHEN @Type = @limitSell THEN Size - @Size ELSE Size END
+END
 
 UPDATE o
 SET o.ExternalId = ins.ExternalId,

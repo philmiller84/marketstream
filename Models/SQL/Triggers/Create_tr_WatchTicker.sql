@@ -41,12 +41,13 @@ IF EXISTS (SELECT 1 FROM @OrdersToFill)
 BEGIN
 	INSERT INTO dbo.PendingRequests 
 	SELECT @fillsRequest, o.ExternalId, NULL
-	FROM dbo.Orders o, @OrdersToFill f
-	WHERE o.OrderId = f.OrderId
+	FROM dbo.Orders o JOIN  @OrdersToFill f ON o.OrderId = f.OrderId
+	where not exists (select 1 from dbo.PendingRequests p where p.Type = @fillsRequest AND p.EntityId = o.ExternalId)
 
 	--INSERT INTO dbo.Fills SELECT OrderId, Price, Size  FROM @OrdersToFill
 	IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTicker]', N'Processed fills due to price movement'
 END
+
 --------------------------------------------------------------------------------------------------
 IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTicker]', N'Create trend entries'
 

@@ -25,14 +25,23 @@ SELECT @PreviousStatus = Status FROM DELETED
 DECLARE @limitBuy INT = 1
 DECLARE @limitSell INT = 2
 
-IF @PreviousStatus <> @Status AND @Status = @filledStatus --completed order
+IF @PreviousStatus <> @Status AND @Status = @cancelledStatus --completed order
 BEGIN
-	--Adjust position
-	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
-
-	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update Position'
-	UPDATE dbo.Positions SET Size = CASE WHEN @Type = @limitBuy THEN Size + @Size WHEN @Type = @limitSell THEN Size - @Size ELSE Size END
-
+	IF @Type = @limitBuy --TODO: Check for no Fills on the cancelled order!!!
+	BEGIN
+		UPDATE o2
+		SET Status = @cancelledStatus
+		FROM dbo.StrategyOrderJoins so
+		JOIN dbo.Strategies  s ON so.StrategyId = s.StrategyId
+		JOIN dbo.Orders o ON so.OrderId = o.OrderId
+		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
+		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
+		WHERE so.OrderId = @OrderID AND o2.Status < @readyStatus AND o2.Type = @limitSell
+		IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Updated order status to Cancelled Order for Sell Order'
+	END
+END
+ELSE IF @PreviousStatus <> @Status AND @Status = @filledStatus --completed order
+BEGIN
 	--For completed buy orders, update the related sell order for DownUpStrategy
 	IF @Type = @limitBuy
 	BEGIN

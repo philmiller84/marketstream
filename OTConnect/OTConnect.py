@@ -22,9 +22,16 @@ def SimulatedOrderEntry(o):
 	#set simulated exchange id
 	o['id'] = str(exchangeOrderNumber)
 
+	if exchangeOrderNumber % 3 == 1:
+		o['status'] = "404"
+	else:
+		o['status'] = "open"
+
+
+
 	orderBook[local_order_id] = o
 
-	print(o['id'], o['product_id'],o['price'],o['size'],orderBook[local_order_id], sep=' :: ')
+	#print(o['id'], o['product_id'],o['price'],o['size'],orderBook[local_order_id], sep=' :: ')
 	
     #"id": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2",
     #"price": "0.10000000",
@@ -89,27 +96,27 @@ while True:
 	data = conn.recv(1024)
 	if data:
 		body = str(data, "utf-8")
-		print('Received message', body)
+		#print('Received message', body)
 		if body == 'ORDER_ENTRY':
-			print('Processing ORDER_ENTRY. Sending acknowledge ----------------------------')
+			#print('Processing ORDER_ENTRY. Sending acknowledge ----------------------------')
 			conn.sendall(bytes("ACK", "UTF-8"))
-			print('Waiting for follow-up --------------------------------------------------')
+			#print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
 			body = str(data, "utf-8")
-			print('Received message', body)
+			#print('Received message', body)
 			o = json.loads(body)
-			print('Simulating Order Entry -------------------------------------------------')
+			#print('Simulating Order Entry -------------------------------------------------')
 			resp = SimulatedOrderEntry(o)
 			#resp = auth_client.place_limit_order( product_id=o['product_id'], side=o['side'], price=o['price'], size=o['size'])
 		elif body == 'FILL_REQUEST':
-			print('Processing FILL_REQUEST. Sending acknowledge --- -----------------------')
+			#print('Processing FILL_REQUEST. Sending acknowledge --- -----------------------')
 			conn.sendall(bytes("ACK", "UTF-8"))
-			print('Waiting for follow-up --------------------------------------------------')
+			#print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
 			body = str(data, "utf-8")
-			print('Received message', body)
+			#print('Received message', body)
 			f = json.loads(body)
-			print('Simulating Fill Request -------------------------------------------------')
+			#print('Simulating Fill Request -------------------------------------------------')
 			resp = SimulatedFillRequest(f)
 			#resp = auth_client.get_fills( order_id=f['order_id'], product_id=f['product_id'])
 
