@@ -9,10 +9,12 @@ import datetime as dt
 
 orderBook = {}
 exchangeOrderNumber = 1000
+public_client = cbpro.PublicClient()
 
 
 def SimulatedOrderEntry(o):
 	global orderBook
+	global public_client
 	global exchangeOrderNumber
 
 	#strip local order id
@@ -53,28 +55,59 @@ def SimulatedOrderEntry(o):
     #"status": "pending",
     #"settled": false
 
+
+	#set parameters
+	coin = 'BTC-USD'
+	marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
+
+    #get current L1 for stock
+	l1data = public_client.get_product_order_book(coin, level=marketLevel)
+	fees = 0.000
+
+	if o['side'] == "buy":
+		if o['price'] >= l1data['asks'][0]['price']:
+			fees = 0.0025
+	elif o['side'] == "sell":
+		if o['price'] <= l1data['bids'][0]['price']:
+			fees = 0.0025
+
 	if o['status'] == "done":
-		o['fill_fees'] = o['price'] * o['size'] * 0.003
+		o['fill_fees'] = o['price'] * o['size'] * fees
 
 	exchangeOrderNumber += 1
 
 	return o;
 
-
-
 def SimulatedFillRequest(f):
 	global orderBook
 	global exchangeOrderNumber
+	global public_client
 
 	#SIMILATED FILLS
 	f['settled'] = True
 
+	#set parameters
+	coin = 'BTC-USD'
+	marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
+
+    #get current L1 for stock
+	l1data = public_client.get_product_order_book(coin, level=marketLevel)
+	fees = 0.000
+
+	o = orderBook[f['order_id']]
+
+	if o['side'] == "buy":
+		if o['price'] >= l1data['asks'][0]['price']:
+			fees = 0.0025
+	elif o['side'] == "sell":
+		if o['price'] <= l1data['bids'][0]['price']:
+			fees = 0.0025
+
 	f['price'] = orderBook[f['order_id']]['price']
 	f['size'] = orderBook[f['order_id']]['size']
-	f['fee'] = f['price'] * f['size'] * 0.003
+	f['fee'] = f['price'] * f['size'] * fees
 
 	return f;
-
 
 
 #header

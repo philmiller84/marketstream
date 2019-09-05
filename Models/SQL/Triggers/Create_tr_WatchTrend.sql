@@ -34,15 +34,6 @@ BEGIN
 			END 
 		FROM dbo.Trends
 	END
-	----if new record has downward trend, enter sell order for down-up-strategy
-	--ELSE IF @Type = -1
-	--BEGIN
-	--	--TODO: Check for profit here
-	--	--TODO: Refactor this to centralized control of strategy. NOT SURE HOW YET!!!
-	--	UPDATE dbo.Orders 
-	--	SET Status = 0 WHERE Status = -1 AND Type = 2
-	--	AND Price <= @StartBidPrice
-	--END
 
 	IF @PreviousTrendType = -1 --previous was an downward trend, create pending strategy
 	BEGIN --type 0 is the down up, status -1 is pending	

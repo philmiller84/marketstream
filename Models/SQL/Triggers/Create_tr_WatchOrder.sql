@@ -27,7 +27,7 @@ DECLARE @limitSell INT = 2
 
 IF @PreviousStatus <> @Status AND @Status = @cancelledStatus --completed order
 BEGIN
-	IF @Type = @limitBuy --TODO: Check for no Fills on the cancelled order!!!
+	IF @Type = @limitBuy --TODO: Check for no Fills on the cancelled order!!! Maybe this should be done in dbo.Fills instead...produced by records from exchange
 	BEGIN
 		UPDATE o2
 		SET Status = @cancelledStatus
@@ -36,7 +36,7 @@ BEGIN
 		JOIN dbo.Orders o ON so.OrderId = o.OrderId
 		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
 		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
-		WHERE so.OrderId = @OrderID AND o2.Status < @readyStatus AND o2.Type = @limitSell
+		WHERE so.OrderId = @OrderID AND o2.Status <> @readyStatus AND o2.Type = @limitSell
 		IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Updated order status to Cancelled Order for Sell Order'
 	END
 END
@@ -52,7 +52,7 @@ BEGIN
 		JOIN dbo.Orders o ON so.OrderId = o.OrderId
 		JOIN dbo.StrategyOrderJoins so2 ON so2.StrategyId = s.StrategyId
 		JOIN dbo.Orders o2 ON so2.OrderId = o2.OrderId
-		WHERE so.OrderId = @OrderID AND o2.Status < @readyStatus AND o2.Type = @limitSell
+		WHERE so.OrderId = @OrderID AND o2.Status = @pendingStatus AND o2.Type = @limitSell
 		IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Updated order status to Open Order for Sell Order'
 	END
 
@@ -68,13 +68,13 @@ BEGIN
 		WHERE so.OrderId = @OrderID 
 	)
 	UPDATE dbo.Strategies  
-	SET Status = 2
+	SET Status = OrderStatus
 	FROM dbo.Strategies  s
 	JOIN StrategyStatus ON s.StrategyId = StrategyStatus.StrategyId
 	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> @filledStatus) 
 	OR NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> @cancelledStatus) 
 	---------------------
-	IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N' Marked strategy complete if all orders complete'
+	IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N' Marked strategy all orders finished (complete or cancelled)'
 END
 
 

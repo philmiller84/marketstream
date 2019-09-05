@@ -57,6 +57,8 @@ namespace Executor
             {
 				//----Print to console the intended actions----
 
+				Thread.Sleep(1000 / rps);
+
 				//Check Orders table for ready orders
 				var readyOrdersList = (from o in marketData.Orders where o.Status == READY_ORDER select o).ToList();
 
