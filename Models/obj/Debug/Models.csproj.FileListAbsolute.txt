@@ -20,8 +20,10 @@ C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.c
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createfeestable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createstrategypropertiestable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.minortablechanges.resources
-C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createtriggers.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createlogstable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createanalysistable.resources
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.csprojAssemblyReference.cache
 C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.creatependingrequeststable.resources
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.addfeetofills.resources
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.fillschanges.resources
+C:\Users\Phil\Documents\GitHub\marketstream\Models\obj\Debug\Models.Migrations.createtriggers.resources

@@ -13,7 +13,7 @@ namespace Models.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201908292125479_create-triggers"; }
+            get { return "201909042342564_create-triggers"; }
         }
         
         string IMigrationMetadata.Source

@@ -92,10 +92,6 @@
     <Compile Include="Migrations\201908292125257_minor-table-changes.Designer.cs">
       <DependentUpon>201908292125257_minor-table-changes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908292125479_create-triggers.cs" />
-    <Compile Include="Migrations\201908292125479_create-triggers.Designer.cs">
-      <DependentUpon>201908292125479_create-triggers.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201909010218475_create-logs-table.cs" />
     <Compile Include="Migrations\201909010218475_create-logs-table.Designer.cs">
       <DependentUpon>201909010218475_create-logs-table.cs</DependentUpon>
@@ -107,6 +103,18 @@
     <Compile Include="Migrations\201909032048531_create-pending-requests-table.cs" />
     <Compile Include="Migrations\201909032048531_create-pending-requests-table.Designer.cs">
       <DependentUpon>201909032048531_create-pending-requests-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909042320080_add-fee-to-fills.cs" />
+    <Compile Include="Migrations\201909042320080_add-fee-to-fills.Designer.cs">
+      <DependentUpon>201909042320080_add-fee-to-fills.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909042342400_fills-changes.cs" />
+    <Compile Include="Migrations\201909042342400_fills-changes.Designer.cs">
+      <DependentUpon>201909042342400_fills-changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909042342564_create-triggers.cs" />
+    <Compile Include="Migrations\201909042342564_create-triggers.Designer.cs">
+      <DependentUpon>201909042342564_create-triggers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
@@ -157,9 +165,6 @@
     <EmbeddedResource Include="Migrations\201908292125257_minor-table-changes.resx">
       <DependentUpon>201908292125257_minor-table-changes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908292125479_create-triggers.resx">
-      <DependentUpon>201908292125479_create-triggers.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909010218475_create-logs-table.resx">
       <DependentUpon>201909010218475_create-logs-table.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,6 +173,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909032048531_create-pending-requests-table.resx">
       <DependentUpon>201909032048531_create-pending-requests-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909042320080_add-fee-to-fills.resx">
+      <DependentUpon>201909042320080_add-fee-to-fills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909042342400_fills-changes.resx">
+      <DependentUpon>201909042342400_fills-changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909042342564_create-triggers.resx">
+      <DependentUpon>201909042342564_create-triggers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

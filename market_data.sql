@@ -20,14 +20,14 @@ delete from dbo.Analysis
 update StrategyProperties set value = .15 where propertyid = 1 --sell increment
 update StrategyProperties set value = .01 where propertyid = 2 --downturn threshold
 update StrategyProperties set value = 0 where propertyid = 3
-update StrategyProperties set value = .50 where propertyid = 4 -- trading halt percentage
+update StrategyProperties set value = .30 where propertyid = 4 -- trading halt percentage
 update StrategyProperties set value = 10 where propertyid = 5 -- max open orders
 
 
 
 
 
-INSERT INTO Tickers VALUES(10717221829,10193.01,0.54,10195.89,0.73       )
+ INSERT INTO Tickers VALUES(10717221829,10193.01,0.54,10195.89,0.73       )
 WAITFOR DELAY '00:00:00.025'
 INSERT INTO Tickers VALUES(10717222028,10193.01,0.54,10193.02,32.54      )
 WAITFOR DELAY '00:00:00.025'
@@ -537,7 +537,7 @@ DECLARE @FundsValue DECIMAL(18,10)= 0
 DECLARE @PositionValue DECIMAL(18,10)= 0
 DECLARE @AllocatedOrdersValue DECIMAL(18,10)= 0
 select top 1 @FundsValue = ISNULL(value, 0), @PositionValue = ISNULL(p.size,0) * t.bidPrice from Positions p, tickers t, funds order by sequence desc
-select top 1 @AllocatedOrdersValue = ISNULL(SUM(o.price * o.size),0) from orders o where o.status = -1 and o.type = 1 
+select top 1 @AllocatedOrdersValue = ISNULL(SUM(o.price * o.size),0) from orders o where o.status in (0,1) and o.type = 1 
 
 
 SELECT @FundsValue AS FundsValue, @PositionValue as PositionValue, @AllocatedOrdersValue AS AllocatedOrdersValue, @FundsValue + @PositionValue + @AllocatedOrdersValue AS Total

@@ -1,0 +1,18 @@
+namespace Models.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class addfeetofills : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Fills", "Fee", c => c.Decimal(nullable: false, precision: 18, scale: 10));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Fills", "Fee");
+        }
+    }
+}

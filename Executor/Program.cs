@@ -86,11 +86,12 @@ namespace Executor
 								o.Status = OPEN_ORDER;
 								break;
 							case "done":
-								//TODO: Create fill fees
-								//marketData.Fills.Add(new Fill { Order=o, })
 								o.Status = FILLED_ORDER;
 								break;
 						}
+
+						if (o.Status == FILLED_ORDER)
+							marketData.Fills.Add(new Fill { ExternalOrderId = response.id, Fee = response.fill_fees, Size = response.size, Price = response.price });
 
 						marketData.SaveChanges();
 						Thread.Sleep(1000 / rps);
@@ -102,10 +103,10 @@ namespace Executor
 				const int EXECUTION_REQUEST = 8;
 				var pendingRequestsList = (from p in marketData.PendingRequests where p.Type == EXECUTION_REQUEST select p).ToList();
 
-				foreach (var p in pendingRequestsList)
+				foreach (var req in pendingRequestsList)
 				{
 					//Generate Fill request message for order 
-					var msg = GetFillRequestMessage(p);
+					var msg = GetFillRequestMessage(req);
 					actionQueue.Enqueue(new Action { Type = "FILL_REQUEST", Message = msg });
 
 					while (actionQueue.Count > 0)
@@ -116,19 +117,24 @@ namespace Executor
 						if (ProcessAction(a) != 0)
 							Console.WriteLine("Failed to process action of type {0} and message {1}", a.Type, a.Message);
 
-						p.Response = JsonConvert.DeserializeObject<CBPRO.FillsResponse>(a.Response).settled ? "Filled" : "Open";
+						var resp = JsonConvert.DeserializeObject<CBPRO.FillsResponse>(a.Response);
+						req.Response = resp.settled ? "Filled" : "Open";
 
 						var updQry = (from o in marketData.Orders
-									  where o.ExternalId == p.EntityId
-									  select o).FirstOrDefault().Status = ((p.Response == "Filled") ? 2 : 1);
+									  where o.ExternalId == req.EntityId
+									  select o).FirstOrDefault().Status = ((req.Response == "Filled") ? 2 : 1);
 
-						marketData.PendingRequests.Remove(p);
+						marketData.PendingRequests.Remove(req);
+
+						if (req.Response == "Filled")
+							marketData.Fills.Add(new Fill { ExternalOrderId = resp.order_id, Fee = resp.fee, Size = resp.size, Price = resp.price });
+
 						marketData.SaveChanges();
 
 						Thread.Sleep(1000 / rps);
 					}
-
 				}
+
 				//Print to console the value of positions + funds
 
 				//TODO: NEED TO DEDUCT THE TRANSACTION FEES!!! THIS SHOULD BE DONE ON DATABASE SIDE. FOR NOW, JUST LEAVE AS IS, and ADJUST Funds between runs.

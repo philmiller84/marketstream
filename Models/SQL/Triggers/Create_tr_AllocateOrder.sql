@@ -30,25 +30,37 @@ SELECT @PreviousStatus = Status FROM DELETED
 IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @readyStatus
 BEGIN 
 	IF EXISTS (SELECT 1 FROM dbo.Funds WHERE AllocationType = @generalUseFunds AND Value - (@Size * @Price) >= 0)
-		UPDATE dbo.Funds SET Value = Value - (@Size * @Price) WHERE AllocationType = @generalUseFunds --allocate funds
+		UPDATE dbo.Funds 
+		SET Value -= (@Size * @Price) 
+		WHERE AllocationType = @generalUseFunds --allocate funds
 	ELSE 
 		SET @Status  = @pendingStatus --Not enough funds, send order back to pending status
 END
 ELSE IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @cancelledStatus
 BEGIN
-	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = @generalUseFunds	
+	UPDATE dbo.Funds 
+	SET Value += (@Size * @Price) 
+	WHERE AllocationType = @generalUseFunds	
 END
 ELSE IF @Type = @limitSell AND @PreviousStatus <> @Status AND @Status = @filledStatus
 BEGIN
-	UPDATE dbo.Funds SET Value = Value + (@Size * @Price) WHERE AllocationType = @generalUseFunds	
+	UPDATE dbo.Funds 
+	SET Value += (@Size * @Price) 
+	WHERE AllocationType = @generalUseFunds	
 END
 
 IF @PreviousStatus <> @Status AND @Status = @filledStatus --completed order
 BEGIN
-	--Adjust position
-	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
+	--Adjust funds to remove fees
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_AllocateOrder]', N'Adjust funds to remove fees'
+	UPDATE dbo.Funds
+	SET Value -= Fee
+	FROM dbo.Fills f JOIN dbo.Orders o ON f.ExternalOrderId = o.ExternalId
+	WHERE o.OrderId = @OrderID
 
-	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Update Position'
+	--Adjust position
+	IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_AllocateOrder]', N'Update Position'
+	IF NOT EXISTS (SELECT 1 FROM dbo.Positions) INSERT dbo.Positions VALUES(0)
 	UPDATE dbo.Positions SET Size = CASE WHEN @Type = @limitBuy THEN Size + @Size WHEN @Type = @limitSell THEN Size - @Size ELSE Size END
 END
 

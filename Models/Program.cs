@@ -39,6 +39,7 @@ namespace Models
             modelBuilder.Entity<Ticker>().Property(p => p.AskSize).HasPrecision(18, 10);
 
             modelBuilder.Entity<Fill>().Property(p => p.Size).HasPrecision(18, 10);
+            modelBuilder.Entity<Fill>().Property(p => p.Fee).HasPrecision(18, 10);
 
             modelBuilder.Entity<Order>().Property(p => p.Size).HasPrecision(18, 10);
             modelBuilder.Entity<Position>().Property(p => p.Size).HasPrecision(18, 10);

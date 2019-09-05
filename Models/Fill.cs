@@ -44,12 +44,11 @@ namespace Models
     {
         [Key]
         public int FillId { get; set; }
-        public int OrderId { get; set; }
+        public string ExternalOrderId { get; set; }
 
         public decimal Price { get; set; }
         public decimal Size { get; set; }
 
-        [ForeignKey("OrderId")]
-        public Order Order { get; set; }
+		public decimal Fee { get; set; }
     }
  }

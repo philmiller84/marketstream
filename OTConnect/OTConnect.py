@@ -22,18 +22,18 @@ def SimulatedOrderEntry(o):
 	#set simulated exchange id
 	o['id'] = str(exchangeOrderNumber)
 
-	if exchangeOrderNumber % 5 == 1:
+	if exchangeOrderNumber % 10 == 1:
 		o['status'] = "404"
-	elif exchangeOrderNumber % 5 == 2:
+	elif exchangeOrderNumber % 10 == 2:
 		o['status'] = "open"
-	elif exchangeOrderNumber % 5 == 3:
+	elif exchangeOrderNumber % 10 == 3:
 		o['status'] = "done"
 	else:
 		o['status'] = "active"
 
 
 
-	orderBook[local_order_id] = o
+	orderBook[str(exchangeOrderNumber)] = o
 
 	#print(o['id'], o['product_id'],o['price'],o['size'],orderBook[local_order_id], sep=' :: ')
 	
@@ -69,8 +69,9 @@ def SimulatedFillRequest(f):
 	#SIMILATED FILLS
 	f['settled'] = True
 
-	if o['status'] == "done":
-		o['fee'] = o['price'] * o['size'] * 0.003
+	f['price'] = orderBook[f['order_id']]['price']
+	f['size'] = orderBook[f['order_id']]['size']
+	f['fee'] = f['price'] * f['size'] * 0.003
 
 	return f;
 
@@ -119,7 +120,7 @@ while True:
 			resp = SimulatedOrderEntry(o)
 			#resp = auth_client.place_limit_order( product_id=o['product_id'], side=o['side'], price=o['price'], size=o['size'])
 		elif body == 'FILL_REQUEST':
-			#print('Processing FILL_REQUEST. Sending acknowledge --- -----------------------')
+			#print('Processing FILL_REQUEST. Sending acknowledge ---------------------------')
 			conn.sendall(bytes("ACK", "UTF-8"))
 			#print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
