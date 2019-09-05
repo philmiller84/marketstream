@@ -11,15 +11,18 @@ namespace Distributor
 {
     class Program
     {
+
+		public static MarketData db = new MarketData();
+
         static void Main(string[] args)
         {
             IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 65432);
 
             SynchronousSocket.Client c = new SynchronousSocket.Client(remoteEP);
 
-            var rec = new RecordKeeper();
+            var rec = new RecordKeeper(db);
 
-            int rps = 1;
+			int rps = 1;
 
             while(true)
             {

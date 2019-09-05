@@ -9,12 +9,12 @@ import datetime as dt
 
 orderBook = {}
 exchangeOrderNumber = 1000
-public_client = cbpro.PublicClient()
+#public_client = cbpro.PublicClient()
 
 
 def SimulatedOrderEntry(o):
 	global orderBook
-	global public_client
+	#global public_client
 	global exchangeOrderNumber
 
 	#strip local order id
@@ -24,16 +24,16 @@ def SimulatedOrderEntry(o):
 	#set simulated exchange id
 	o['id'] = str(exchangeOrderNumber)
 
-	if exchangeOrderNumber % 10 == 1:
-		o['status'] = "404"
-	elif exchangeOrderNumber % 10 == 2:
-		o['status'] = "open"
-	elif exchangeOrderNumber % 10 == 3:
-		o['status'] = "done"
-	else:
-		o['status'] = "active"
+	#if exchangeOrderNumber % 10 == 1:
+		#o['status'] = "404"
+	#elif exchangeOrderNumber % 10 == 2:
+		#o['status'] = "open"
+	#elif exchangeOrderNumber % 10 == 3:
+		#o['status'] = "done"
+	#else:
+		#o['status'] = "active"
 
-
+	o['status'] = "open"
 
 	orderBook[str(exchangeOrderNumber)] = o
 
@@ -55,20 +55,25 @@ def SimulatedOrderEntry(o):
     #"status": "pending",
     #"settled": false
 
+	wifi = False
 
-	#set parameters
-	coin = 'BTC-USD'
-	marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
+	if wifi:
+		#set parameters
+		coin = 'BTC-USD'
+		marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
 
-    #get current L1 for stock
-	l1data = public_client.get_product_order_book(coin, level=marketLevel)
-	fees = 0.000
+		#get current L1 for stock
+		l1data = public_client.get_product_order_book(coin, level=marketLevel)
+		fees = 0.000
 
-	if o['side'] == "buy":
-		if o['price'] >= l1data['asks'][0]['price']:
-			fees = 0.0025
-	elif o['side'] == "sell":
-		if o['price'] <= l1data['bids'][0]['price']:
+		if o['side'] == "buy":
+			if o['price'] >= l1data['asks'][0]['price']:
+				fees = 0.0025
+		elif o['side'] == "sell":
+			if o['price'] <= l1data['bids'][0]['price']:
+				fees = 0.0025
+	else:
+		if o['side'] == "sell":
 			fees = 0.0025
 
 	if o['status'] == "done":
@@ -81,26 +86,32 @@ def SimulatedOrderEntry(o):
 def SimulatedFillRequest(f):
 	global orderBook
 	global exchangeOrderNumber
-	global public_client
+	#global public_client
 
 	#SIMILATED FILLS
 	f['settled'] = True
 
-	#set parameters
-	coin = 'BTC-USD'
-	marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
-
-    #get current L1 for stock
-	l1data = public_client.get_product_order_book(coin, level=marketLevel)
 	fees = 0.000
 
 	o = orderBook[f['order_id']]
 
-	if o['side'] == "buy":
-		if o['price'] >= l1data['asks'][0]['price']:
-			fees = 0.0025
-	elif o['side'] == "sell":
-		if o['price'] <= l1data['bids'][0]['price']:
+	wifi = False
+
+	if wifi:
+		#set parameters
+		coin = 'BTC-USD'
+		marketLevel=1 # 1 = best bid and ask, 2 = list of 50 orders
+
+		#get current L1 for stock
+		l1data = public_client.get_product_order_book(coin, level=marketLevel)
+		if o['side'] == "buy":
+			if o['price'] >= l1data['asks'][0]['price']:
+				fees = 0.0025
+		elif o['side'] == "sell":
+			if o['price'] <= l1data['bids'][0]['price']:
+				fees = 0.0025
+	else:
+		if o['side'] == "sell":
 			fees = 0.0025
 
 	f['price'] = orderBook[f['order_id']]['price']
@@ -142,25 +153,25 @@ while True:
 		body = str(data, "utf-8")
 		#print('Received message', body)
 		if body == 'ORDER_ENTRY':
-			#print('Processing ORDER_ENTRY. Sending acknowledge ----------------------------')
+			print('Processing ORDER_ENTRY. Sending acknowledge ----------------------------')
 			conn.sendall(bytes("ACK", "UTF-8"))
-			#print('Waiting for follow-up --------------------------------------------------')
+			print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
 			body = str(data, "utf-8")
-			#print('Received message', body)
+			print('Received message', body)
 			o = json.loads(body)
-			#print('Simulating Order Entry -------------------------------------------------')
+			print('Simulating Order Entry -------------------------------------------------')
 			resp = SimulatedOrderEntry(o)
 			#resp = auth_client.place_limit_order( product_id=o['product_id'], side=o['side'], price=o['price'], size=o['size'])
 		elif body == 'FILL_REQUEST':
-			#print('Processing FILL_REQUEST. Sending acknowledge ---------------------------')
+			print('Processing FILL_REQUEST. Sending acknowledge ---------------------------')
 			conn.sendall(bytes("ACK", "UTF-8"))
-			#print('Waiting for follow-up --------------------------------------------------')
+			print('Waiting for follow-up --------------------------------------------------')
 			data = conn.recv(1024)
 			body = str(data, "utf-8")
-			#print('Received message', body)
+			print('Received message', body)
 			f = json.loads(body)
-			#print('Simulating Fill Request -------------------------------------------------')
+			print('Simulating Fill Request -------------------------------------------------')
 			resp = SimulatedFillRequest(f)
 			#resp = auth_client.get_fills( order_id=f['order_id'], product_id=f['product_id'])
 
