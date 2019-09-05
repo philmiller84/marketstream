@@ -7,8 +7,6 @@ delete from pendingrequests
 delete from fills
 delete from strategies
 
-
-
 --select * from funds
 update funds set value = 200
 --select * from Positions
@@ -20,12 +18,8 @@ delete from dbo.Analysis
 update StrategyProperties set value = .15 where propertyid = 1 --sell increment
 update StrategyProperties set value = .01 where propertyid = 2 --downturn threshold
 update StrategyProperties set value = 0 where propertyid = 3
-update StrategyProperties set value = .30 where propertyid = 4 -- trading halt percentage
+update StrategyProperties set value = .40 where propertyid = 4 -- trading halt percentage
 update StrategyProperties set value = 10 where propertyid = 5 -- max open orders
-
-
-
-
 
  INSERT INTO Tickers VALUES(10717221829,10193.01,0.54,10195.89,0.73       )
 WAITFOR DELAY '00:00:00.025'

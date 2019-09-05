@@ -29,15 +29,16 @@ SELECT @PreviousStatus = Status FROM DELETED
 --Try to move the order to the ready state
 IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @readyStatus
 BEGIN 
-	IF EXISTS (SELECT 1 FROM dbo.Funds WHERE AllocationType = @generalUseFunds AND Value - (@Size * @Price) >= 0)
+	IF NOT EXISTS (SELECT 1 FROM dbo.Funds WHERE AllocationType = @generalUseFunds AND Value - (@Size * @Price) >= 0)
+		SET @Status  = @pendingStatus --Not enough funds, send order back to pending status
+	ELSE
 		UPDATE dbo.Funds 
 		SET Value -= (@Size * @Price) 
 		WHERE AllocationType = @generalUseFunds --allocate funds
-	ELSE 
-		SET @Status  = @pendingStatus --Not enough funds, send order back to pending status
 END
 ELSE IF @Type = @limitBuy AND @PreviousStatus <> @Status AND @Status = @cancelledStatus
 BEGIN
+	--TODO: Check for partial fills
 	UPDATE dbo.Funds 
 	SET Value += (@Size * @Price) 
 	WHERE AllocationType = @generalUseFunds	

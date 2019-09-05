@@ -16,4 +16,13 @@ IF @Value < 0
 				1, 
 				@seqstr
 				);
+
+
+IF @Value > 210
+	RAISERROR(N'Funds dropped below 0 at sequence %s',
+				18, --Severity
+				1, 
+				@seqstr
+				);
+
 GO

@@ -40,7 +40,7 @@ BEGIN
 		IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N'Updated order status to Cancelled Order for Sell Order'
 	END
 END
-ELSE IF @PreviousStatus <> @Status AND @Status = @filledStatus --completed order
+ELSE IF @PreviousStatus <> @Status AND (@Status = @filledStatus) OR  (@Status = @cancelledStatus) --completed or cancelled
 BEGIN
 	--For completed buy orders, update the related sell order for DownUpStrategy
 	IF @Type = @limitBuy
@@ -71,7 +71,8 @@ BEGIN
 	SET Status = 2
 	FROM dbo.Strategies  s
 	JOIN StrategyStatus ON s.StrategyId = StrategyStatus.StrategyId
-	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> @filledStatus)
+	WHERE NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> @filledStatus) 
+	OR NOT EXISTS (SELECT 1 FROM StrategyStatus WHERE OrderStatus <> @cancelledStatus) 
 	---------------------
 	IF @@ROWCOUNT > 0 AND dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchOrder]', N' Marked strategy complete if all orders complete'
 END
