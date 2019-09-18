@@ -112,9 +112,13 @@
     <Compile Include="Migrations\201909042342400_fills-changes.Designer.cs">
       <DependentUpon>201909042342400_fills-changes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201909042342564_create-triggers.cs" />
-    <Compile Include="Migrations\201909042342564_create-triggers.Designer.cs">
-      <DependentUpon>201909042342564_create-triggers.cs</DependentUpon>
+    <Compile Include="Migrations\201909181954472_create-spread-table.cs" />
+    <Compile Include="Migrations\201909181954472_create-spread-table.Designer.cs">
+      <DependentUpon>201909181954472_create-spread-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181955296_create-triggers.cs" />
+    <Compile Include="Migrations\201909181955296_create-triggers.Designer.cs">
+      <DependentUpon>201909181955296_create-triggers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
@@ -127,6 +131,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Request.cs" />
+    <Compile Include="Spread.cs" />
     <Compile Include="Strategy.cs" />
     <Compile Include="Ticker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,8 +185,11 @@
     <EmbeddedResource Include="Migrations\201909042342400_fills-changes.resx">
       <DependentUpon>201909042342400_fills-changes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909042342564_create-triggers.resx">
-      <DependentUpon>201909042342564_create-triggers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201909181954472_create-spread-table.resx">
+      <DependentUpon>201909181954472_create-spread-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181955296_create-triggers.resx">
+      <DependentUpon>201909181955296_create-triggers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -248,6 +256,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SQL\Triggers\Drop Triggers\Drop_tr_AllocateOrder.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Drop Procedures\Drop_sp_add_spread.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Procedures\Create_sp_add_spread.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Drop Triggers\Drop_tr_WatchSpread.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\Triggers\Create_tr_WatchSpread.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

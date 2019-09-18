@@ -78,6 +78,36 @@ namespace Models.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_add_spread] (
+        ///	@bidPrice decimal(18, 2),
+        ///	@askPrice decimal (18, 2),
+        ///	@Sequence bigint 
+        ///) 
+        ///AS
+        ///BEGIN
+        ///
+        ///    SET NOCOUNT ON
+        ///
+        ///    /*
+        ///    ** Declarations.
+        ///    */
+        ///    DECLARE @retcode int=0
+        ///            
+        ///	-------------------= CREATE SPREADS =-------------------- 
+        ///          
+        ///	--check if current spread
+        ///	DECLARE @s_id INTEGER=NULL
+        ///	SELECT @s_id = s.spreadId FROM [dbo].[Spreads] s WHERE s.Status = 0 --Status values:= NULL (undefined), 0 (started), 1 (finished)
+        ///
+        ///	--if no c [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Create_sp_add_spread {
+            get {
+                return ResourceManager.GetString("Create_sp_add_spread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE procedure [dbo].[sp_add_trend] (
         ///	@bidPrice decimal(18, 2),
         ///	@bidSize decimal (18, 2),
@@ -125,12 +155,11 @@ namespace Models.Properties {
         ///	DECLARE @Funds AS decimal(18,10)=0
         ///	SELECT @Funds = Value FROM dbo.Funds WHERE AllocationType = 1 --allocation type is funds for use
         ///
-        ///	--Get open strategies
-        ///	DECLARE @OpenStrategies AS int = 0
-        ///	SELECT @OpenStrategies = COUNT(*) FROM dbo.Strategies s
-        ///	WHERE s.Status &lt;&gt; 2
-        ///
-        ///	DECLARE @DownUp [rest of string was truncated]&quot;;.
+        ///	DECLARE @cancelledStatus AS INT = -2
+        ///	DECLARE @pendingStatus AS INT = -1 
+        ///	DECLARE @readyStatus AS INT = 0
+        ///	DECLARE @openStatus AS INT = 1
+        ///	DECLARE @fille [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_sp_down_up_strategy {
             get {
@@ -180,11 +209,10 @@ namespace Models.Properties {
         ///       @Status 		= Status 	
         ///FROM INSERTED
         ///
+        ///DECLARE @cancelledStatus AS INT = -2
         ///DECLARE @pendingStatus AS INT = -1 
         ///DECLARE @readyStatus AS INT = 0
-        ///DECLARE @filledStatus AS INT = 2
-        ///
-        ///DECLARE @PreviousStatus AS int        /// [rest of string was truncated]&quot;;.
+        ///DECLARE @filledStatus AS INT  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_AllocateOrder {
             get {
@@ -218,16 +246,23 @@ namespace Models.Properties {
         ///DECLARE @FillId AS int 
         ///DECLARE @Price AS decimal(18,2)
         ///DECLARE @Size AS decimal(18,10)
-        ///DECLARE @OrderId AS int 
+        ///DECLARE @ExternalOrderId AS varchar(255) 
+        ///
+        ///
+        ///
+        ///DECLARE @cancelledStatus AS INT = -2
+        ///DECLARE @pendingStatus AS INT = -1 
+        ///DECLARE @readyStatus AS INT = 0
+        ///DECLARE @filledStatus AS INT = 2
+        ///
         ///
         ///SELECT @FillId 	= FillId,		
         ///	   @Price	= Price,
         ///       @Size 	= Size,
-        ///       @OrderId = OrderId
+        ///       @ExternalOrderId = ExternalOrderId
         ///FROM INSERTED	   
         ///
-        ///UPDATE dbo.Orders SET Status = 2 WHERE @orderId = OrderId
-        ///IF @@ROWCOUNT &gt; 0 AND dbo.GetLogLevel() &gt;= 1 EXEC dbo.sp_log_event 1, N&apos;[tr_WatchFills]&apos;, N&apos;Set order filled. TODO: Will have to change for pa [rest of string was truncated]&quot;;.
+        ///UPDATE dbo.Orders  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchFills {
             get {
@@ -254,7 +289,11 @@ namespace Models.Properties {
         ///				1, 
         ///				@seqstr
         ///				);
-        ///GO.
+        ///
+        ///
+        ///IF @Value &gt; 210
+        ///	RAISERROR(N&apos;Funds dropped below 0 at sequence %s&apos;,
+        ///		 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchFund {
             get {
@@ -278,10 +317,10 @@ namespace Models.Properties {
         ///       @Status 		= Status 	
         ///FROM INSERTED	  
         ///
-        ///DECLARE @PreviousStatus AS int
-        ///SELECT @PreviousStatus = Status FROM DELETED
-        ///
-        ///IF @PreviousStatus &lt; 2 AND @Status = 2 --completed ord [rest of string was truncated]&quot;;.
+        ///DECLARE @cancelledStatus AS INT = -2
+        ///DECLARE @pendingStatus AS INT = -1 
+        ///DECLARE @readyStatus AS INT = 0
+        ///DECLARE @openStatus AS INT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchOrder {
             get {
@@ -299,6 +338,31 @@ namespace Models.Properties {
         internal static string Create_tr_WatchPosition {
             get {
                 return ResourceManager.GetString("Create_tr_WatchPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TRIGGER [dbo].[tr_WatchSpread]  ON dbo.Spreads AFTER INSERT, UPDATE
+        ///AS  
+        ///DECLARE @SpreadId 		AS int 
+        ///DECLARE @StartSequence 	AS bigint 
+        ///DECLARE @EndSequence 	AS bigint 
+        ///DECLARE @BidPrice 	AS real 
+        ///DECLARE @AskPrice 	AS real 
+        ///DECLARE @Status 		AS int 
+        ///
+        ///SELECT @SpreadId 		= SpreadId,		
+        ///       @StartSequence 	= StartSequence 	,
+        ///       @EndSequence 	= EndSequence 	,
+        ///       @BidPrice 	= StartBidPrice 	,
+        ///       @AskPrice 	= StartAskPrice 	,
+        ///       @Status 		    = Status 	
+        ///FROM INSERTED	   
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Create_tr_WatchSpread {
+            get {
+                return ResourceManager.GetString("Create_tr_WatchSpread", resourceCulture);
             }
         }
         
@@ -341,8 +405,9 @@ namespace Models.Properties {
         ///	   @Sequence = Sequence
         ///	   FROM inserted
         ///
-        ///--TODO: Make this controlled by exchange messages 
-        ///--TODO: Status 1 is OP [rest of string was truncated]&quot;;.
+        ///--Order statuses
+        ///DECLARE @cancelledStatus AS INT = -2
+        ///DECLARE @pendingSt [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Create_tr_WatchTicker {
             get {
@@ -413,6 +478,15 @@ namespace Models.Properties {
         internal static string Drop_GetLogLevel {
             get {
                 return ResourceManager.GetString("Drop_GetLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP PROCEDURE [dbo].[sp_add_spread].
+        /// </summary>
+        internal static string Drop_sp_add_spread {
+            get {
+                return ResourceManager.GetString("Drop_sp_add_spread", resourceCulture);
             }
         }
         
@@ -495,6 +569,15 @@ namespace Models.Properties {
         internal static string Drop_tr_WatchPosition {
             get {
                 return ResourceManager.GetString("Drop_tr_WatchPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DROP TRIGGER [dbo].[tr_WatchSpread].
+        /// </summary>
+        internal static string Drop_tr_WatchSpread {
+            get {
+                return ResourceManager.GetString("Drop_tr_WatchSpread", resourceCulture);
             }
         }
         

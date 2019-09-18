@@ -53,6 +53,11 @@ IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTicker]', N'Create
 
 EXEC [dbo].[sp_add_trend] @bidPrice, @bidSize,	@askPrice,	@askSize, @Sequence 
 --------------------------------------------------------------------------------------------------
+IF dbo.GetLogLevel() >= 1 EXEC dbo.sp_log_event 1, N'[tr_WatchTicker]', N'Create spread entries'
+
+EXEC [dbo].[sp_add_spread] @bidPrice, @askPrice,	@Sequence 
+--------------------------------------------------------------------------------------------------
+
 DECLARE @OrdersToUpdate TABLE (OrderId INT)
 INSERT @OrdersToUpdate SELECT o.OrderId FROM dbo.Orders o WHERE o.Type = @limitBuy AND o.Status = @pendingStatus AND o.Price >= @askPrice 
 

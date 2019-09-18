@@ -24,13 +24,14 @@ namespace Models.Migrations
             context.Fees.AddOrUpdate(f => new { f.Type, f.Value , f.Description}, new Fee { Type = 0, Value = .28M, Description = "Capital Gains (Short Term) - Percentage" });
             context.Fees.AddOrUpdate(f => new { f.Type, f.Value , f.Description}, new Fee { Type = 1, Value = .0025M, Description = "Taker Fee - Percentage" });
 
-
-            context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Sell Increment", Value = .10M });
+			context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Sell Increment", Value = .10M });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Downturn Threshold", Value = .01M });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Trade Halt Enabled", Value = 0 });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Trade Halt Percentage", Value = .25M });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Max Open Orders", Value = 5 });
             context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 0, Description = "Moving Average Trend Records Max", Value = 5 });
+
+            //context.StrategyProperties.AddOrUpdate(s => new { s.StrategyType, s.Description, s.Value}, new StrategyProperty { StrategyType = 1, Description = "Sell Increment", Value = .1M });
 
             context.Funds.AddOrUpdate(f => new { f.Value, f.Currency, f.AllocationType }, new Fund { Value = 100, Currency = 0, AllocationType = 1 });
 

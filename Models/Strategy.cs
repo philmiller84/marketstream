@@ -35,7 +35,8 @@ namespace Models
          *       2 Completed
          *       
          *  Type:=
-         *       1 Down Up
+         *       0 Down Up
+         *       1 Spread
         */
 
     }
